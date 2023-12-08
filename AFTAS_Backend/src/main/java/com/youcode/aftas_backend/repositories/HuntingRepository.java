@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface HuntingRepository extends JpaRepository<Hunting, Integer> {
+    boolean existsHuntingByFishNameAndMemberNumAndCompetitionCode(String name, int number, String code);
+    Hunting findHuntingByFishNameAndMemberNumAndCompetitionCode(String name, int number, String code);
 }
