@@ -2,6 +2,7 @@ package com.youcode.aftas_backend.services.Impl;
 
 import com.youcode.aftas_backend.exceptions.ResourceNotFoundException;
 import com.youcode.aftas_backend.models.dto.fish.FishDto;
+import com.youcode.aftas_backend.models.dto.fish.FishDtoResponse;
 import com.youcode.aftas_backend.models.entities.Fish;
 import com.youcode.aftas_backend.models.entities.Level;
 import com.youcode.aftas_backend.repositories.FishRepository;
@@ -27,23 +28,28 @@ public class FishServiceImpl implements FishService {
 
     @Override
     public FishDto save(FishDto fishDto) {
-        Fish fishRequest = modelMapper.map(fishDto, Fish.class);
-        Fish fish = fishRepository.save(fishRequest);
+        Fish fish = modelMapper.map(fishDto, Fish.class);
+        if (fishDto.getLevel_id() != null) {
+            Level level = levelRepository.findById(fishDto.getLevel_id())
+                    .orElseThrow(() -> new ResourceNotFoundException("The level with id " + fishDto.getLevel_id() + " is not found"));
+            fish.setLevel(level);
+        }
+        fish = fishRepository.save(fish);
         return modelMapper.map(fish, FishDto.class);
     }
 
     @Override
-    public List<FishDto> getAll() {
+    public List<FishDtoResponse> getAll() {
         List<Fish> fishes = fishRepository.findAll();
         return fishes.stream()
-                .map(fish -> modelMapper.map(fish, FishDto.class))
+                .map(fish -> modelMapper.map(fish, FishDtoResponse.class))
                 .toList();
     }
 
     @Override
     public FishDto update(String s, FishDto fishDto) {
         Fish existingFish = fishRepository.findById(s)
-                .orElseThrow(() -> new ResourceNotFoundException("The fish with ID " + s + " does not exist"));
+                .orElseThrow(() -> new ResourceNotFoundException("The fish with name " + s + " does not exist"));
 
         existingFish.setName(fishDto.getName());
         existingFish.setAverageWeight(fishDto.getAverageWeight());
@@ -62,16 +68,16 @@ public class FishServiceImpl implements FishService {
     @Override
     public void delete(String s) {
         Fish fish = fishRepository.findById(s).orElseThrow(()
-                -> new ResourceNotFoundException("The fish with id " + s + " does not exist"));
+                -> new ResourceNotFoundException("The fish with name " + s + " does not exist"));
         fishRepository.delete(fish);
     }
 
     @Override
-    public FishDto findByID(String s) {
+    public FishDtoResponse findByID(String s) {
         Fish fish = fishRepository.findById(s)
-                .orElseThrow(() -> new ResourceNotFoundException("The fish with ID " + s + " does not exist"));
+                .orElseThrow(() -> new ResourceNotFoundException("The fish with name " + s + " does not exist"));
 
-        return modelMapper.map(fish, FishDto.class);
+        return modelMapper.map(fish, FishDtoResponse.class);
     }
 
 }

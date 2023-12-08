@@ -1,6 +1,6 @@
 package com.youcode.aftas_backend.models.dto.fish;
 
-import com.youcode.aftas_backend.models.entities.Level;
+import com.youcode.aftas_backend.models.dto.LevelDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,5 +13,5 @@ public class FishDtoResponse {
 
     private String name;
     private Double averageWeight;
-    private Level level;
+    private LevelDto level;
 }
