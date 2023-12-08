@@ -7,6 +7,7 @@ import java.util.List;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -23,8 +24,9 @@ import lombok.Setter;
 @Table(name = "competitions")
 public class Competition {
     
+    @NotEmpty(message = "Competition code is required.")
+    @Size(min = 12, max = 12, message = "Competition code must be the first 3 char from the location follow by (-) and the date as dd-mm-yy")
     @Id
-    @GeneratedValue()
     private String code;
 
     @NotNull(message = "Competition date must not be null")

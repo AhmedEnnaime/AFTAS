@@ -13,4 +13,5 @@ import org.springframework.stereotype.Repository;
 public interface RankingRepository extends JpaRepository<Ranking, CompetitionMember> {
 
     List<Ranking> findByCompetition(Competition competition);
+    List<Ranking> findByCompetitionOrderByScoreDesc(String competitionCode);
 }

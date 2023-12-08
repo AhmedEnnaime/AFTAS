@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.youcode.aftas_backend.models.dto.RankingDto;
 import com.youcode.aftas_backend.models.dto.hunting.HuntingDto;
 
@@ -28,6 +29,10 @@ public class CompetitionDto {
     private Integer numberOfParticipants;
     private String location;
     private Double amount;
+    
+    @JsonManagedReference
     private List<RankingDto> rankings;
+
+    @JsonManagedReference
     private List<HuntingDto> huntings;
 }

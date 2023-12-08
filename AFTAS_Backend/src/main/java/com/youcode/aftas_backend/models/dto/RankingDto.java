@@ -1,5 +1,6 @@
 package com.youcode.aftas_backend.models.dto;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.youcode.aftas_backend.models.dto.Member.MemberDto;
 import com.youcode.aftas_backend.models.dto.competetion.CompetitionDto;
 import com.youcode.aftas_backend.models.embeddables.CompetitionMember;
@@ -21,6 +22,8 @@ public class RankingDto {
     private CompetitionMember id;
     private Integer rank;
     private Integer score;
+    @JsonBackReference
     private CompetitionDto competition;
+    @JsonBackReference
     private MemberDto member;
 }

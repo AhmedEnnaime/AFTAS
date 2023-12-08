@@ -10,6 +10,7 @@ import com.youcode.aftas_backend.models.dto.RankingDto;
 import com.youcode.aftas_backend.models.embeddables.CompetitionMember;
 import com.youcode.aftas_backend.models.entities.Ranking;
 import com.youcode.aftas_backend.repositories.RankingRepository;
+import com.youcode.aftas_backend.services.HuntingService;
 import com.youcode.aftas_backend.services.RankingService;
 
 import lombok.AllArgsConstructor;
@@ -20,6 +21,7 @@ import lombok.AllArgsConstructor;
 public class RankingServiceImpl implements RankingService {
 
     private final RankingRepository rankingRepository;
+    private final HuntingService huntingService;
     private final ModelMapper modelMapper;
 
     @Override
@@ -51,8 +53,16 @@ public class RankingServiceImpl implements RankingService {
     @Override
     public RankingDto findByID(CompetitionMember identifier) {
         Ranking foundedRanking = rankingRepository.findById(identifier)
-                    .orElseThrow(() -> new ResourceNotFoundException("The ranking with credentials: \n " + identifier + "\n does not exist."));
+                    .orElseThrow(() -> new ResourceNotFoundException("The ranking with credentials: " + identifier + " does not exist."));
         return modelMapper.map(foundedRanking, RankingDto.class);
+    }
+
+    @Override
+    public List<RankingDto> getCompetitionRankings(String competitionCode) {
+        List<Ranking> rankings = rankingRepository.findByCompetitionOrderByScoreDesc(competitionCode);
+        return  rankings.stream()
+                       .map(ranking -> modelMapper.map(ranking, RankingDto.class))
+                       .toList();
     }
     
 }

@@ -25,4 +25,10 @@ public class CompetitionMember implements Serializable {
     @Column(name = "competition_code", nullable = false)
     private String competitionCode;
 
+    @Override 
+    public String toString() {
+        return "\nmember num: " + this.memberNum + '\n' +
+               "competition code: " + this.competitionCode + '\n';
+    }
+
 }
