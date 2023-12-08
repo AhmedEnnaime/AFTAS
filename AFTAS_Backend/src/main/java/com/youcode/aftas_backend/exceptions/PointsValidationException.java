@@ -4,8 +4,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.BAD_REQUEST)
-public class InvalidPointsException extends RuntimeException {
-    public InvalidPointsException(String message) {
+public class PointsValidationException extends RuntimeException {
+    public PointsValidationException(String message) {
         super(message);
     }
 }

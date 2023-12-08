@@ -56,3 +56,15 @@ Nsrc/main/java/com/youcode/aftas_backend/exceptions/InvalidPointsException.java
 :
 
 .gitignore,a/5/a5cc2925ca8258af241be7e5b0381edf30266302
+Å
+Qsrc/main/java/com/youcode/aftas_backend/exceptions/PointsValidationException.java,1/8/188173f68286609d60cc79eeab52e41b1d751f93
+Å
+Qsrc/main/java/com/youcode/aftas_backend/models/embeddables/CompetitionMember.java,a/3/a35c048fcfb2856d50fd49e904683a0e7adbfe22
+t
+Dsrc/main/java/com/youcode/aftas_backend/models/entities/Ranking.java,2/3/2343f34f5f3829ca235441357a3b1f244739ab12
+x
+Hsrc/main/java/com/youcode/aftas_backend/models/entities/Competition.java,f/6/f677c929cc6be0d8d17e0efe5da675fb08312973
+s
+Csrc/main/java/com/youcode/aftas_backend/models/entities/Member.java,7/0/70ac4675ca397d3c3c3aed7bc4098ff7248d9035
+x
+Hsrc/main/java/com/youcode/aftas_backend/controllers/LevelController.java,e/e/ee3898efe6bfe11a227d961dae47c89db69df733

@@ -1,6 +1,7 @@
 package com.youcode.aftas_backend.services.Impl;
 
 import com.youcode.aftas_backend.configuration.MapperConfig;
+import com.youcode.aftas_backend.exceptions.PointsValidationException;
 import com.youcode.aftas_backend.exceptions.ResourceNotFoundException;
 import com.youcode.aftas_backend.models.dto.LevelDto;
 import com.youcode.aftas_backend.models.entities.Level;
@@ -22,7 +23,15 @@ public class LevelServiceImpl implements LevelService {
 
     @Override
     public LevelDto save(LevelDto levelDto) {
-        return null;
+        List<Level> existingLevels = levelRepository.findByPointsGreaterThanEqual(levelDto.getPoints());
+        if (!existingLevels.isEmpty()) {
+            throw new PointsValidationException("A level with equal or higher points already exists.");
+        }
+
+        Level newLevel = mapperConfig.modelMapper().map(levelDto, Level.class);
+        Level savedLevel = levelRepository.save(newLevel);
+
+        return mapperConfig.modelMapper().map(savedLevel, LevelDto.class);
     }
 
     @Override

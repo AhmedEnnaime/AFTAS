@@ -1,0 +1,39 @@
+version: "3.9"
+services:
+  spring-app:
+    container_name: aftas-app
+    build:
+      context: ./AFTAS_Backend
+      dockerfile: Dockerfile
+    ports:
+      - "8082:8082"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://psql-db:5432/aftas
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=admin
+    networks:
+      - aftas
+    depends_on:
+      - postgres-db
+  postgres-db:
+    container_name: postgres-db
+    image: "postgres:15"
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: "aftas"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "admin"
+    volumes:
+      - postgres-db:/var/lib/postgresql/data
+    networks:
+      - aftas
+
+networks:
+  aftas:
+    driver: bridge
+
+volumes:
+  postgres-db:
+    driver: local
