@@ -1,5 +1,7 @@
 package com.youcode.aftas_backend.services.Impl;
 
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
@@ -33,10 +35,7 @@ public class RankingServiceImpl implements RankingService {
 
     @Override
     public List<RankingDto> getAll() {
-        List<Ranking> rankings = rankingRepository.findAll();
-        return rankings.stream()
-                       .map(ranking -> modelMapper.map(ranking, RankingDto.class))
-                       .toList();
+        return Arrays.asList(modelMapper.map(rankingRepository.findAll(), RankingDto[].class));
     }
 
     @Override
@@ -59,10 +58,31 @@ public class RankingServiceImpl implements RankingService {
 
     @Override
     public List<RankingDto> getCompetitionRankings(String competitionCode) {
-        List<Ranking> rankings = rankingRepository.findByCompetitionOrderByScoreDesc(competitionCode);
-        return  rankings.stream()
-                       .map(ranking -> modelMapper.map(ranking, RankingDto.class))
-                       .toList();
+        return Arrays.asList(modelMapper.map(rankingRepository.findByCompetitionOrderByScoreDesc(competitionCode),
+                            RankingDto[].class));
     }
+
+    @Override
+    public void SetUpCompetitionRankings(String competitionCode) {
+        List<Ranking> rankings = rankingRepository.findByCompetitionCode(competitionCode);
+        if(rankings.isEmpty())
+            throw new RuntimeException("There are no rankings in the given competition.");
+        rankings.forEach(
+                    ranking -> {
+                        ranking.setScore(
+                            huntingService.findHuntByCompetitionAndMember(competitionCode, ranking.getMember().getNum())
+                            .stream()
+                            .mapToInt(hunt -> hunt.getNumberOfFish() * hunt.getFish().getLevel().getPoints() )
+                            .sum()
+                        );
+                    } 
+                );
+        rankings.sort(Comparator.comparingInt(Ranking::getScore).reversed());
+        int rank = 1;
+        for(Ranking ranking :  rankings)
+            ranking.setRank(rank++);
+        rankingRepository.saveAll(rankings);
+    }
+
     
 }

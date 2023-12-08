@@ -9,4 +9,5 @@ import com.youcode.aftas_backend.superClasses.ServiceInterface;
 public interface RankingService extends ServiceInterface<RankingDto, CompetitionMember> {
 
     List<RankingDto> getCompetitionRankings(String competitionCode);
+    void SetUpCompetitionRankings(String competitionCode);
 }

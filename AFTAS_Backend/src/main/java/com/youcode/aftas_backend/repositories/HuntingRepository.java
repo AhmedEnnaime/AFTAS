@@ -1,6 +1,5 @@
 package com.youcode.aftas_backend.repositories;
 
-import com.youcode.aftas_backend.models.entities.Fish;
 import com.youcode.aftas_backend.models.entities.Hunting;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

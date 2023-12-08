@@ -1,6 +1,7 @@
 package com.youcode.aftas_backend.services.Impl;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
@@ -11,6 +12,7 @@ import com.youcode.aftas_backend.models.dto.competetion.CompetitionDto;
 import com.youcode.aftas_backend.models.entities.Competition;
 import com.youcode.aftas_backend.repositories.CompetitionRepository;
 import com.youcode.aftas_backend.services.CompetitionService;
+import com.youcode.aftas_backend.services.RankingService;
 
 import lombok.AllArgsConstructor;
 
@@ -20,6 +22,7 @@ import lombok.AllArgsConstructor;
 public class CompetitionServiceImpl implements CompetitionService {
 
     private final CompetitionRepository competitionRepository;
+    private final RankingService rankingService;
     private final ModelMapper modelMapper;
 
     @Override
@@ -32,10 +35,8 @@ public class CompetitionServiceImpl implements CompetitionService {
 
     @Override
     public List<CompetitionDto> getAll() {
-        List<Competition> competetions = competitionRepository.findAll();
-        return competetions.stream()
-                           .map(competition -> modelMapper.map(competition, CompetitionDto.class))
-                           .toList();
+        return Arrays.asList(modelMapper.map(competitionRepository.findAll(),
+                            CompetitionDto[].class));
     }
 
     @Override
@@ -64,25 +65,28 @@ public class CompetitionServiceImpl implements CompetitionService {
 
     @Override
     public CompetitionDto getOnGoingCompetition(LocalDate currentDate) {
-        return 
-            modelMapper.map(competitionRepository.findByDate(currentDate), 
-            CompetitionDto.class);
+        return modelMapper.map(competitionRepository.findByDate(currentDate), 
+               CompetitionDto.class);
     }
 
     @Override
     public List<CompetitionDto> getClosedCompetitions(LocalDate currentDate) {
-        List<Competition> foundedCompetitions = competitionRepository.findByDateBefore(currentDate);
-        return foundedCompetitions.stream()
-                                  .map(competition -> modelMapper.map(competition, CompetitionDto.class))
-                                  .toList();
+        return Arrays.asList(modelMapper.map(competitionRepository.findByDateBefore(currentDate),
+                            CompetitionDto[].class));
     }
 
     @Override
     public List<CompetitionDto> getFutureCompetitions(LocalDate currentDate) {
-        List<Competition> foundedCompetitions = competitionRepository.findByDateAfter(currentDate);
-        return foundedCompetitions.stream()
-                                  .map(competition -> modelMapper.map(competition, CompetitionDto.class))
-                                  .toList();
+        return Arrays.asList(modelMapper.map(competitionRepository.findByDateAfter(currentDate),
+                            CompetitionDto[].class));
+    }
+
+    @Override
+    public CompetitionDto getResult(String identifier) {
+        if(!competitionRepository.existsById(identifier)) 
+            throw new ResourceNotFoundException("The competition with id " + identifier + " does not exist.");
+        rankingService.SetUpCompetitionRankings(identifier);
+        return findByID(identifier);
     }
     
 }

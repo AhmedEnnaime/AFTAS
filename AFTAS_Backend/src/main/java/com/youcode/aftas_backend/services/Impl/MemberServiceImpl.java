@@ -1,5 +1,6 @@
 package com.youcode.aftas_backend.services.Impl;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
@@ -30,10 +31,8 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public List<MemberDto> getAll() {
-        List<Member> members = memberRepository.findAll();
-        return members.stream()
-                           .map(member -> modelMapper.map(member, MemberDto.class))
-                           .toList();
+        return Arrays.asList(modelMapper.map(memberRepository.findAll(),
+                            MemberDto[].class));
     }
 
     @Override
