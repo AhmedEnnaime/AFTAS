@@ -8,6 +8,6 @@ public interface ServiceInterface<Dto, Identifier> {
     List<Dto> getAll();
     Dto update(final Identifier identifier, final Dto dto);
     void delete(final Identifier identifier);
-    Dto find(final Identifier identifier);
+    Dto findByID(final Identifier identifier);
 
 }

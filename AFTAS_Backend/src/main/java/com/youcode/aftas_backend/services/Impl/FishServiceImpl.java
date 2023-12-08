@@ -29,22 +29,8 @@ public class FishServiceImpl implements FishService {
     }
 
     @Override
-    public FishDto find(String s) {
+    public FishDto findByID(String s) {
         return null;
     }
 
-    @Override
-    public FishDto partialUpdate(String s, FishDto fishDto) {
-        return null;
-    }
-
-    @Override
-    public boolean isExist(String s) {
-        return false;
-    }
-
-    @Override
-    public void deleteAll() {
-
-    }
 }

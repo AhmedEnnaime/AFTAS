@@ -37,3 +37,13 @@ z
 Jsrc/main/java/com/youcode/aftas_backend/superClasses/ServiceInterface.java,e/9/e906ede2736f3c0f0b14b8fca1a97a812af1ceb0
 z
 Jsrc/main/java/com/youcode/aftas_backend/services/Impl/FishServiceImpl.java,6/e/6ee4f3b4879034f436309505b12924a0e3bc0be8
+r
+Bsrc/main/java/com/youcode/aftas_backend/models/entities/Level.java,a/5/a53862d875d81ba584a3fcdcaa774579a7f4f87f
+p
+@src/main/java/com/youcode/aftas_backend/models/dto/LevelDto.java,4/5/45e5bcb478cd8194b96acf22891f6934c79b7a18
+y
+Isrc/main/java/com/youcode/aftas_backend/repositories/LevelRepository.java,d/e/de9db712e9dd894f0fedbcb0bbc5f8eedc190f52
+r
+Bsrc/main/java/com/youcode/aftas_backend/services/LevelService.java,5/b/5b8ae4240f7f7c4a9612e75559e5a4f4324dd846
+{
+Ksrc/main/java/com/youcode/aftas_backend/services/Impl/LevelServiceImpl.java,0/d/0d58566159629839bfd3a6074894e76d5925e6f9
