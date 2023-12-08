@@ -1,5 +1,6 @@
 package com.youcode.aftas_backend.configuration;
 
+import com.youcode.aftas_backend.exceptions.PointsValidationException;
 import com.youcode.aftas_backend.exceptions.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
@@ -38,6 +39,14 @@ public class ValidationException {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(Exception.class)
     public Map<String, String> handleExceptions(Exception ex) {
+        Map<String, String> errors = new HashMap<>();
+        errors.put("error", ex.getMessage());
+        return errors;
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(PointsValidationException.class)
+    public Map<String, String> handlePointsValidationException(PointsValidationException ex) {
         Map<String, String> errors = new HashMap<>();
         errors.put("error", ex.getMessage());
         return errors;

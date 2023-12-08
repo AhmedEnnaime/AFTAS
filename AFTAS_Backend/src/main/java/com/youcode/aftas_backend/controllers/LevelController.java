@@ -5,5 +5,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path = "api/members", produces = MediaType.APPLICATION_JSON_VALUE)
-public class MemberController {}
+@RequestMapping(path = "api/levels", produces = MediaType.APPLICATION_JSON_VALUE)
+public class LevelController {
+}

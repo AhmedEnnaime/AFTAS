@@ -2,9 +2,13 @@ package com.youcode.aftas_backend.services.Impl;
 
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import com.youcode.aftas_backend.models.dto.MemberDto;
+import com.youcode.aftas_backend.exceptions.ResourceNotFoundException;
+import com.youcode.aftas_backend.models.dto.Member.MemberDto;
+import com.youcode.aftas_backend.models.entities.Member;
+import com.youcode.aftas_backend.repositories.MemberRepository;
 import com.youcode.aftas_backend.services.MemberService;
 
 import lombok.AllArgsConstructor;
@@ -14,36 +18,40 @@ import lombok.AllArgsConstructor;
 @Service
 public class MemberServiceImpl implements MemberService {
 
-    private final MemberService memberService;
+    private final MemberRepository memberRepository;
+    private final ModelMapper modelMapper;
 
     @Override
-    public MemberDto save(MemberDto dto) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'save'");
+    public MemberDto save(MemberDto memberDto) {
+        Member memberEntity = modelMapper.map(memberDto, Member.class);
+        Member savedMember = memberRepository.save(memberEntity);
+        return modelMapper.map(savedMember, MemberDto.class);
     }
 
     @Override
     public List<MemberDto> getAll() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getAll'");
+        List<Member> members = memberRepository.findAll();
+        return members.stream()
+                           .map(member -> modelMapper.map(member, MemberDto.class))
+                           .toList();
     }
 
     @Override
-    public MemberDto update(Integer identifier, MemberDto dto) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+    public MemberDto update(Integer identifier, MemberDto memberDto) {
+        memberDto.setNum(identifier);
+        return this.save(memberDto);
     }
 
     @Override
     public void delete(Integer identifier) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+        memberRepository.deleteById(identifier);
     }
 
     @Override
     public MemberDto findByID(Integer identifier) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findByID'");
+        Member foundedMember = memberRepository.findById(identifier)
+                        .orElseThrow(() -> new ResourceNotFoundException("The member with the num " + identifier + " does not exist."));
+        return modelMapper.map(foundedMember, MemberDto.class);
     }
     
 }

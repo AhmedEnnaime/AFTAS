@@ -17,7 +17,7 @@ import jakarta.validation.Valid;
 
 @Component
 public abstract class Controller<Dto, Identifier> {
-
+    
     private ServiceInterface<Dto, Identifier> service;
 
     @Autowired
@@ -29,30 +29,29 @@ public abstract class Controller<Dto, Identifier> {
     public ResponseEntity<Dto> save(@Valid @RequestBody final Dto dto) {
         var savedDto = service.save(dto);
         return new ResponseEntity<>(savedDto, HttpStatus.CREATED);
-    }
-
+    } 
+    
     @GetMapping
     public List<Dto> getAll() {
         return service.getAll();
-    }
+    } 
 
     @GetMapping("/{id}")
     public ResponseEntity<Dto> find(@PathVariable("id") final Identifier id) {
-        var foundedDto = service.find(id);
+        var foundedDto = service.findByID(id);
         return new ResponseEntity<>(foundedDto, HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Dto> update(@PathVariable("id") final Identifier id, @Valid @RequestBody final Dto dto) {
         var updatedDto = service.update(id, dto);
-        return new ResponseEntity<>(updatedDto, HttpStatus.OK);
+        return new ResponseEntity<>(updatedDto, HttpStatus.OK);  
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable("id") final Identifier id) {
         service.delete(id);
         return new ResponseEntity<>("Resource deleted successfully.",HttpStatus.NO_CONTENT);
-    }
-
-
+    } 
+    
 }

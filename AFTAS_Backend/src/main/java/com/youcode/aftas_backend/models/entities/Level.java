@@ -21,7 +21,7 @@ public class Level {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long code;
+    private Integer code;
 
     @Column
     @NotBlank(message = "description can't be null")

@@ -1,8 +1,10 @@
-package com.youcode.aftas_backend.models.dto;
+package com.youcode.aftas_backend.models.dto.competetion;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+
+import com.youcode.aftas_backend.models.dto.RankingDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

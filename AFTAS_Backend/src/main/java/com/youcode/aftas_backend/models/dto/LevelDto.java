@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class LevelDto {
-    private Long code;
+    private Integer code;
     private String description;
     private Integer points;
 }

@@ -1,8 +1,9 @@
-package com.youcode.aftas_backend.models.dto;
+package com.youcode.aftas_backend.models.dto.Member;
 
 import java.time.LocalDate;
 import java.util.List;
 
+import com.youcode.aftas_backend.models.dto.RankingDto;
 import com.youcode.aftas_backend.models.enums.IdentityDocumentType;
 
 import lombok.AllArgsConstructor;

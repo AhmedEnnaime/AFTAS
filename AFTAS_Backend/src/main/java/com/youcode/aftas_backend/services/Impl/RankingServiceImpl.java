@@ -2,9 +2,14 @@ package com.youcode.aftas_backend.services.Impl;
 
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import com.youcode.aftas_backend.exceptions.ResourceNotFoundException;
 import com.youcode.aftas_backend.models.dto.RankingDto;
+import com.youcode.aftas_backend.models.embeddables.CompetitionMember;
+import com.youcode.aftas_backend.models.entities.Ranking;
+import com.youcode.aftas_backend.repositories.RankingRepository;
 import com.youcode.aftas_backend.services.RankingService;
 
 import lombok.AllArgsConstructor;
@@ -14,36 +19,40 @@ import lombok.AllArgsConstructor;
 @Service
 public class RankingServiceImpl implements RankingService {
 
-    private final RankingService rankingService;
+    private final RankingRepository rankingRepository;
+    private final ModelMapper modelMapper;
 
     @Override
-    public RankingDto save(RankingDto dto) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'save'");
+    public RankingDto save(RankingDto rankingDto) {
+        Ranking rankingEntity = modelMapper.map(rankingDto, Ranking.class);
+        Ranking savedRanking = rankingRepository.save(rankingEntity);
+        return modelMapper.map(savedRanking, RankingDto.class);
     }
 
     @Override
     public List<RankingDto> getAll() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getAll'");
+        List<Ranking> rankings = rankingRepository.findAll();
+        return rankings.stream()
+                       .map(ranking -> modelMapper.map(ranking, RankingDto.class))
+                       .toList();
     }
 
     @Override
-    public RankingDto update(Integer identifier, RankingDto dto) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+    public RankingDto update(CompetitionMember identifier, RankingDto rankingDto) {
+        rankingDto.setId(identifier);
+        return this.save(rankingDto);
     }
 
     @Override
-    public void delete(Integer identifier) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+    public void delete(CompetitionMember identifier) {
+        rankingRepository.deleteById(identifier);
     }
 
     @Override
-    public RankingDto findByID(Integer identifier) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findByID'");
+    public RankingDto findByID(CompetitionMember identifier) {
+        Ranking foundedRanking = rankingRepository.findById(identifier)
+                    .orElseThrow(() -> new ResourceNotFoundException("The ranking with credentials: \n " + identifier + "\n does not exist."));
+        return modelMapper.map(foundedRanking, RankingDto.class);
     }
     
 }

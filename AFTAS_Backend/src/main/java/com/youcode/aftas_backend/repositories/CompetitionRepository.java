@@ -10,6 +10,6 @@ import java.util.List;
 public interface CompetitionRepository extends JpaRepository<Competition, String> {
 
     public Competition findByDate(LocalDate date);
-    public List<Competition> findByDateFieldBefore(LocalDate date);
-    public List<Competition> findByDateFieldAfter(LocalDate date);
+    public List<Competition> findByDateBefore(LocalDate date);
+    public List<Competition> findByDateAfter(LocalDate date);
 }
