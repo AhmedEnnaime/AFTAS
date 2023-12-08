@@ -33,18 +33,4 @@ public class FishServiceImpl implements FishService {
         return null;
     }
 
-    @Override
-    public FishDto partialUpdate(String s, FishDto fishDto) {
-        return null;
-    }
-
-    @Override
-    public boolean isExist(String s) {
-        return false;
-    }
-
-    @Override
-    public void deleteAll() {
-
-    }
 }
