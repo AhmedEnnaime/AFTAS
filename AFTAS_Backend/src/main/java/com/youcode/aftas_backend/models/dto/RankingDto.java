@@ -1,5 +1,7 @@
 package com.youcode.aftas_backend.models.dto;
 
+import com.youcode.aftas_backend.models.dto.Member.MemberDto;
+import com.youcode.aftas_backend.models.dto.competetion.CompetitionDto;
 import com.youcode.aftas_backend.models.embeddables.CompetitionMember;
 
 import lombok.AllArgsConstructor;
@@ -17,7 +19,6 @@ import lombok.Setter;
 public class RankingDto {
     
     private CompetitionMember id;
-
     private Integer rank;
     private Integer score;
     private CompetitionDto competition;
