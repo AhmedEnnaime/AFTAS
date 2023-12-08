@@ -32,11 +32,11 @@ public class Ranking {
 
     @NotNull(message = "ranking competition is required.")
     @ManyToOne
-    @MapsId("competition_code")
+    @MapsId("competitionCode")
     private Competition competition;
 
     @NotNull(message = "ranking member is required.")
     @ManyToOne()
-    @MapsId("member_num")
+    @MapsId("memberNum")
     private Member member;
 }

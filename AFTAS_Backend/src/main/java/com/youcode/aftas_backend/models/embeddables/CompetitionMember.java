@@ -10,6 +10,6 @@ public class CompetitionMember {
     private Integer memberNum;
 
     @Column(name = "competition_code", nullable = false)
-    private String cometitionCode;
+    private String competitionCode;
 
 }
