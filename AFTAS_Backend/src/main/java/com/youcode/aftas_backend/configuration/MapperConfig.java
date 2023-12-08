@@ -9,9 +9,6 @@ import org.springframework.context.annotation.Configuration;
 public class MapperConfig {
     @Bean
     public ModelMapper modelMapper() {
-        ModelMapper modelMapper = new ModelMapper();
-        modelMapper.getConfiguration()
-                .setMatchingStrategy(MatchingStrategies.LOOSE);
-        return modelMapper;
+        return new ModelMapper();
     }
 }

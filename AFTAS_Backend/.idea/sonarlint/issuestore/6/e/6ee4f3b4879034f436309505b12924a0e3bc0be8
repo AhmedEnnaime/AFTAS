@@ -1,10 +1,12 @@
 
 r
-java:S1192."PDefine a constant instead of duplicating this literal " does not exist" 3 times.(Êƒ³¼ùÿÿÿÿ8÷íšÎÄ1
-v	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ÊùŸÚ8ôˆ¾ÍÄ1
+java:S11924"PDefine a constant instead of duplicating this literal " does not exist" 3 times.(èâŸœıÿÿÿÿ8›‰ÖÄ1
+v
+java:S11924"TDefine a constant instead of duplicating this literal "The fish with name " 3 times.(èâŸœıÿÿÿÿ8›‰ÖÄ1
+v	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ÊùŸÚ8‘›‰ÖÄ1
 _
-java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8‰¾ÍÄ1
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8—›‰ÖÄ1
 _
-java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8‰¾ÍÄ1
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8—›‰ÖÄ1
 _
-java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8µ„ÏÎÄ1
+java:S6813"BRemove this field injection and use constructor injection instead.(êæÄŞ8—›‰ÖÄ1

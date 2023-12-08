@@ -2,6 +2,7 @@ package com.youcode.aftas_backend.controllers;
 
 import com.youcode.aftas_backend.models.dto.LevelDto;
 import com.youcode.aftas_backend.models.dto.fish.FishDto;
+import com.youcode.aftas_backend.models.dto.fish.FishDtoResponse;
 import com.youcode.aftas_backend.services.FishService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,14 +29,14 @@ public class FishController {
     }
 
     @GetMapping
-    public ResponseEntity<List<FishDto>> getFishes() {
-        List<FishDto> fishes = fishService.getAll();
+    public ResponseEntity<List<FishDtoResponse>> getFishes() {
+        List<FishDtoResponse> fishes = fishService.getAll();
         return ResponseEntity.ok(fishes);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<FishDto> findFishByID(@PathVariable String id) {
-        FishDto fish = fishService.findByID(id);
+    public ResponseEntity<FishDtoResponse> findFishByID(@PathVariable String id) {
+        FishDtoResponse fish = fishService.findByID(id);
         return ResponseEntity.ok(fish);
     }
 

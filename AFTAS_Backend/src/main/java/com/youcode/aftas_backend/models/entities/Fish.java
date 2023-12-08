@@ -28,6 +28,7 @@ public class Fish {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "level_id")
+    @NotNull(message = "level id should not be null")
     private Level level;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "fish")
