@@ -95,3 +95,7 @@ Ksrc/main/java/com/youcode/aftas_backend/repositories/RankingRepository.java,1/
 :
 
 Dockerfile,6/6/6651ddff6eb82c840ced7c1dddee15c6e1913dd4
+z
+Jsrc/main/java/com/youcode/aftas_backend/models/dto/hunting/HuntingDto.java,2/1/21d2a0123585a6b0adea1fa492b6bd3b05cf0f08
+}
+Msrc/main/java/com/youcode/aftas_backend/models/dto/hunting/SingleHuntDto.java,9/f/9f67fbd4c24f1e677f6b79d415692f3979d2e604
