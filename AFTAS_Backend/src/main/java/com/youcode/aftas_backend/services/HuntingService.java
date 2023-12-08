@@ -17,4 +17,6 @@ public interface HuntingService {
     void deleteById(int id);
 
     SingleHuntDto updateNumberOfFish(int id, int valueToAdd);
+
+    List<SingleHuntDto> findHuntByCompetitionAndMember(String code, int num);
 }

@@ -94,4 +94,9 @@ public class HuntingServiceImpl implements HuntingService {
         );
         return modelMapper.map(huntingRepository.save(huntingInstance), SingleHuntDto.class);
     }
+
+    @Override
+    public List<SingleHuntDto> findHuntByCompetitionAndMember(String code, int num){
+        return Arrays.asList(modelMapper.map(huntingRepository.findHuntingByCompetitionCodeAndMemberNum(code, num), SingleHuntDto[].class));
+    }
 }
