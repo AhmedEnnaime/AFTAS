@@ -1,7 +1,7 @@
 
 c
-java:S1192""FDefine a constant instead of duplicating this literal "error" 3 times.(ÚÏó“8ù¬†ÈÄ1
+java:S1192#"FDefine a constant instead of duplicating this literal "error" 3 times.(ÚÏó“8ù¬†ÈÄ1
 e
 java:S2166"CRename this class to remove "Exception" or correct its inheritance.(ÁÇÙçüÿÿÿÿ8ßíÈÄÄ1
 U
-java:S1611"3Remove the parentheses around the "error" parameter(ı£—Ôúÿÿÿÿ8óíÈÄÄ1
+java:S1611"3Remove the parentheses around the "error" parameter(ı£—Ôúÿÿÿÿ8óíÈÄÄ1

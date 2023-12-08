@@ -68,3 +68,11 @@ s
 Csrc/main/java/com/youcode/aftas_backend/models/entities/Member.java,7/0/70ac4675ca397d3c3c3aed7bc4098ff7248d9035
 x
 Hsrc/main/java/com/youcode/aftas_backend/controllers/LevelController.java,e/e/ee3898efe6bfe11a227d961dae47c89db69df733
+|
+Lsrc/main/java/com/youcode/aftas_backend/services/Impl/MemberServiceImpl.java,1/1/11e926446dd57a286925472acbc48ed21f6b3a0e
+}
+Msrc/main/java/com/youcode/aftas_backend/services/Impl/RankingServiceImpl.java,5/f/5f99ff99ed60aaab0cf280fc2214cab2e295394f
+}
+Msrc/main/java/com/youcode/aftas_backend/services/Impl/HuntingServiceImpl.java,6/a/6ad4a7936122a9f500a9ef9d582d6c7bd62ec7f8
+Å
+Qsrc/main/java/com/youcode/aftas_backend/services/Impl/CompetitionServiceImpl.java,7/b/7b0d15b5dfbbb3b0faf7e2a76c4c10af55d3cb63
