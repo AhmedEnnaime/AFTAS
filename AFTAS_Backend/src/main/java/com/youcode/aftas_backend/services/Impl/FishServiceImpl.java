@@ -1,6 +1,6 @@
 package com.youcode.aftas_backend.services.Impl;
 
-import com.youcode.aftas_backend.models.dto.FishDto;
+import com.youcode.aftas_backend.models.dto.fish.FishDto;
 import com.youcode.aftas_backend.services.FishService;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +29,7 @@ public class FishServiceImpl implements FishService {
     }
 
     @Override
-    public FishDto find(String s) {
+    public FishDto findByID(String s) {
         return null;
     }
 
