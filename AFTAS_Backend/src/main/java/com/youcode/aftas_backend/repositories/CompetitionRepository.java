@@ -11,6 +11,7 @@ import java.util.List;
 @Repository
 public interface CompetitionRepository extends JpaRepository<Competition, String> {
 
+    public boolean existsByDate(LocalDate date);
     public Competition findByDate(LocalDate date);
     public List<Competition> findByDateBefore(LocalDate date);
     public List<Competition> findByDateAfter(LocalDate date);

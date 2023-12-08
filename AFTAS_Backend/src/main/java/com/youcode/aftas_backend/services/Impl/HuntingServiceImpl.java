@@ -2,36 +2,36 @@ package com.youcode.aftas_backend.services.Impl;
 
 import com.youcode.aftas_backend.exceptions.ResourceNotFoundException;
 import com.youcode.aftas_backend.models.dto.hunting.SingleHuntDto;
-import com.youcode.aftas_backend.models.dto.hunting.huntingDto;
+import com.youcode.aftas_backend.models.dto.hunting.HuntingDto;
 import com.youcode.aftas_backend.models.entities.Hunting;
 import com.youcode.aftas_backend.repositories.CompetitionRepository;
 import com.youcode.aftas_backend.repositories.FishRepository;
 import com.youcode.aftas_backend.repositories.HuntingRepository;
 import com.youcode.aftas_backend.repositories.MemberRepository;
 import com.youcode.aftas_backend.services.HuntingService;
+
+import lombok.AllArgsConstructor;
+
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+@AllArgsConstructor
+
 @Service
 public class HuntingServiceImpl implements HuntingService {
-    @Autowired
+
     private HuntingRepository huntingRepository;
-    @Autowired
     private FishRepository fishRepository;
-    @Autowired
     private CompetitionRepository competitionRepository;
-    @Autowired
     private MemberRepository memberRepository;
-    @Autowired
     private ModelMapper modelMapper;
 
     @Override
-    public SingleHuntDto createHunt(huntingDto hunting){
+    public SingleHuntDto createHunt(HuntingDto hunting){
         Hunting huntingInstance;
         if(!huntingRepository.existsHuntingByFishNameAndMemberNumAndCompetitionCode(
                 hunting.getFish_name(),
@@ -56,11 +56,11 @@ public class HuntingServiceImpl implements HuntingService {
     }
 
     @Override
-    public List<SingleHuntDto> createHuntBatch(List<huntingDto> hunts){
+    public List<SingleHuntDto> createHuntBatch(List<HuntingDto> hunts){
         List<SingleHuntDto> lists = new ArrayList<>();
         if(hunts.isEmpty())
             throw new ResourceNotFoundException("can't proccess batch on empty array");
-        for(huntingDto hunt:hunts)
+        for(HuntingDto hunt:hunts)
             lists.add(createHunt(hunt));
         return lists;
     }

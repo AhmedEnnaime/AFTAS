@@ -23,10 +23,11 @@ public class CompetitionServiceImpl implements CompetitionService {
     private final ModelMapper modelMapper;
 
     @Override
-    public CompetitionDto save(final CompetitionDto competitionDto) {
+    public CompetitionDto save(final CompetitionDto competitionDto) {            
         Competition competitionEntity = modelMapper.map(competitionDto, Competition.class);
-        Competition savedCompetition = competitionRepository.save(competitionEntity);
-        return modelMapper.map(savedCompetition, CompetitionDto.class);
+        return 
+            modelMapper.map(competitionRepository.save(competitionEntity),
+             CompetitionDto.class);
     }
 
     @Override
@@ -39,6 +40,8 @@ public class CompetitionServiceImpl implements CompetitionService {
 
     @Override
     public CompetitionDto update(String identifier, CompetitionDto competitionDto) {
+        if(!competitionRepository.existsById(identifier)) 
+            throw new ResourceNotFoundException("The competition with id " + identifier + " does not exist.");
         competitionDto.setCode(identifier);
         Competition competitionEntity = modelMapper.map(competitionDto, Competition.class);
         competitionRepository.save(competitionEntity);
@@ -47,6 +50,8 @@ public class CompetitionServiceImpl implements CompetitionService {
 
     @Override
     public void delete(String identifier) {
+        if(!competitionRepository.existsById(identifier)) 
+            throw new ResourceNotFoundException("The competition with id " + identifier + " does not exist.");
         competitionRepository.deleteById(identifier);
     }
 
@@ -59,8 +64,9 @@ public class CompetitionServiceImpl implements CompetitionService {
 
     @Override
     public CompetitionDto getOnGoingCompetition(LocalDate currentDate) {
-        Competition foundedCompetition = competitionRepository.findByDate(currentDate);
-        return modelMapper.map(foundedCompetition, CompetitionDto.class);
+        return 
+            modelMapper.map(competitionRepository.findByDate(currentDate), 
+            CompetitionDto.class);
     }
 
     @Override

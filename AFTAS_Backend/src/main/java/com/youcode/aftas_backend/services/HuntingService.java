@@ -1,14 +1,14 @@
 package com.youcode.aftas_backend.services;
 
 import com.youcode.aftas_backend.models.dto.hunting.SingleHuntDto;
-import com.youcode.aftas_backend.models.dto.hunting.huntingDto;
+import com.youcode.aftas_backend.models.dto.hunting.HuntingDto;
 
 import java.util.List;
 
 public interface HuntingService {
-    SingleHuntDto createHunt(huntingDto hunting);
+    SingleHuntDto createHunt(HuntingDto hunting);
 
-    List<SingleHuntDto> createHuntBatch(List<huntingDto> hunts);
+    List<SingleHuntDto> createHuntBatch(List<HuntingDto> hunts);
 
     SingleHuntDto getHuntById(int id);
 

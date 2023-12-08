@@ -12,7 +12,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class huntingDto {
+
+public class HuntingDto {
     @Min(value = 1, message="the number of fish can't be less than 1")
     @NotNull(message = "the number of fish is required")
     private int numberOfFish;

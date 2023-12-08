@@ -2,6 +2,7 @@ package com.youcode.aftas_backend.models.entities;
 
 import com.youcode.aftas_backend.models.embeddables.CompetitionMember;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
@@ -28,6 +29,8 @@ public class Ranking {
     private CompetitionMember id;
 
     private Integer rank;
+
+    @Column(columnDefinition = "INT DEFAULT 0")
     private Integer score;
 
     @NotNull(message = "ranking competition is required.")
