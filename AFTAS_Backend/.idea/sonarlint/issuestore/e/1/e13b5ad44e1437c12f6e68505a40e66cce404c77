@@ -1,4 +1,32 @@
 
-t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(­İ²ûüÿÿÿÿ
-j	java:S119"IRename this generic name to match the regular expression '^[A-Z][0-9]?$'.(³¶šºùÿÿÿÿ8ûöËÅÄ1
-j	java:S119"IRename this generic name to match the regular expression '^[A-Z][0-9]?$'.(³¶šºùÿÿÿÿ8üöËÅÄ1
+{	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(­İ²ûüÿÿÿÿ8İÚ«ÎÄ1
+?
+java:S2326"Dto is not used in the class.(³¶šºùÿÿÿÿ8ùå½ÎÄ1
+F
+java:S2326"$Identifier is not used in the class.(³¶šºùÿÿÿÿ8ùå½ÎÄ1
+j	java:S119"IRename this generic name to match the regular expression '^[A-Z][0-9]?$'.(³¶šºùÿÿÿÿ8˜©ÎÄ1
+j	java:S119"IRename this generic name to match the regular expression '^[A-Z][0-9]?$'.(³¶šºùÿÿÿÿ8˜©ÎÄ1
+]	java:S125"<This block of commented-out lines of code should be removed.(‡Æ‰³ıÿÿÿÿ8úå½ÎÄ1
+M
+java:S1128"+Remove this unused import 'java.util.List'.(Õë±Äøÿÿÿÿ8ûå½ÎÄ1
+u
+java:S1128"SRemove this unused import 'org.springframework.beans.factory.annotation.Autowired'.(¡¸Îùÿÿÿÿ8ûå½ÎÄ1
+b
+java:S1128"@Remove this unused import 'org.springframework.http.HttpStatus'.(íŸ¤Šúÿÿÿÿ8ûå½ÎÄ1
+f
+java:S1128"DRemove this unused import 'org.springframework.http.ResponseEntity'.(¶¯ø¦úÿÿÿÿ8ûå½ÎÄ1
+t
+java:S1128	"RRemove this unused import 'org.springframework.web.bind.annotation.DeleteMapping'.(­ìÎªşÿÿÿÿ8ûå½ÎÄ1
+l
+java:S1128
+"ORemove this unused import 'org.springframework.web.bind.annotation.GetMapping'.(‡¡‰Ø8ûå½ÎÄ1
+s
+java:S1128"QRemove this unused import 'org.springframework.web.bind.annotation.PathVariable'.(¹ûñÅşÿÿÿÿ8ûå½ÎÄ1
+r
+java:S1128"PRemove this unused import 'org.springframework.web.bind.annotation.PostMapping'.(äƒà°ùÿÿÿÿ8ûå½ÎÄ1
+q
+java:S1128"ORemove this unused import 'org.springframework.web.bind.annotation.PutMapping'.(›¥÷ˆûÿÿÿÿ8ûå½ÎÄ1
+r
+java:S1128"PRemove this unused import 'org.springframework.web.bind.annotation.RequestBody'.(â­½Àıÿÿÿÿ8üå½ÎÄ1
+W
+java:S1128"5Remove this unused import 'jakarta.validation.Valid'.(ÀãÅ”ûÿÿÿÿ8üå½ÎÄ1

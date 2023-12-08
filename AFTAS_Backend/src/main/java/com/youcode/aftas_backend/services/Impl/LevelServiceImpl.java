@@ -1,12 +1,12 @@
 package com.youcode.aftas_backend.services.Impl;
 
-import com.youcode.aftas_backend.configuration.MapperConfig;
 import com.youcode.aftas_backend.exceptions.PointsValidationException;
 import com.youcode.aftas_backend.exceptions.ResourceNotFoundException;
 import com.youcode.aftas_backend.models.dto.LevelDto;
 import com.youcode.aftas_backend.models.entities.Level;
 import com.youcode.aftas_backend.repositories.LevelRepository;
 import com.youcode.aftas_backend.services.LevelService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +16,7 @@ import java.util.List;
 public class LevelServiceImpl implements LevelService {
 
     @Autowired
-    private MapperConfig mapperConfig;
+    private ModelMapper modelMapper;
 
     @Autowired
     private LevelRepository levelRepository;
@@ -28,17 +28,17 @@ public class LevelServiceImpl implements LevelService {
             throw new PointsValidationException("A level with equal or higher points already exists.");
         }
 
-        Level newLevel = mapperConfig.modelMapper().map(levelDto, Level.class);
+        Level newLevel = modelMapper.map(levelDto, Level.class);
         Level savedLevel = levelRepository.save(newLevel);
 
-        return mapperConfig.modelMapper().map(savedLevel, LevelDto.class);
+        return modelMapper.map(savedLevel, LevelDto.class);
     }
 
     @Override
     public List<LevelDto> getAll() {
         List<Level> levels = levelRepository.findAll();
         return levels.stream()
-                .map(level -> mapperConfig.modelMapper().map(level, LevelDto.class))
+                .map(level -> modelMapper.map(level, LevelDto.class))
                 .toList();
     }
 
@@ -52,7 +52,7 @@ public class LevelServiceImpl implements LevelService {
 
         Level updatedLevel = levelRepository.save(existingLevel);
 
-        return mapperConfig.modelMapper().map(updatedLevel, LevelDto.class);
+        return modelMapper.map(updatedLevel, LevelDto.class);
     }
 
     @Override
@@ -67,6 +67,6 @@ public class LevelServiceImpl implements LevelService {
         Level level = levelRepository.findById(integer)
                 .orElseThrow(() -> new ResourceNotFoundException("The level with ID " + integer + " does not exist"));
 
-        return mapperConfig.modelMapper().map(level, LevelDto.class);
+        return modelMapper.map(level, LevelDto.class);
     }
 }
