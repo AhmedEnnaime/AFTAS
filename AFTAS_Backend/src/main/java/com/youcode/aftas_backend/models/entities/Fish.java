@@ -8,6 +8,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -27,4 +29,7 @@ public class Fish {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "level_id")
     private Level level;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<Hunting> huntings;
 }
