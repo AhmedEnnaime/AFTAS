@@ -27,3 +27,13 @@ w
 Gsrc/main/java/com/youcode/aftas_backend/configuration/MapperConfig.java,e/0/e085f56ede832e967b5dc80cb4bfbc3369f7d829
 t
 Dsrc/main/java/com/youcode/aftas_backend/AftasBackendApplication.java,a/8/a8378a74c11f98bb2420124bc4ff8bd77b0f28c7
+s
+Csrc/main/java/com/youcode/aftas_backend/controllers/Controller.java,0/f/0f33156f95b80237946262c3f9e56a827d52493f
+~
+Nsrc/main/java/com/youcode/aftas_backend/controllers/superClass/Controller.java,9/9/998163823259363ee49626810990e75e7e93989c
+t
+Dsrc/main/java/com/youcode/aftas_backend/superClasses/Controller.java,e/1/e13b5ad44e1437c12f6e68505a40e66cce404c77
+z
+Jsrc/main/java/com/youcode/aftas_backend/superClasses/ServiceInterface.java,e/9/e906ede2736f3c0f0b14b8fca1a97a812af1ceb0
+z
+Jsrc/main/java/com/youcode/aftas_backend/services/Impl/FishServiceImpl.java,6/e/6ee4f3b4879034f436309505b12924a0e3bc0be8

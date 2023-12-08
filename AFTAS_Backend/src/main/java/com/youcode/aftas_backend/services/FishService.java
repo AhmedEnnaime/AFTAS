@@ -1,4 +1,7 @@
 package com.youcode.aftas_backend.services;
 
-public interface FishService {
+import com.youcode.aftas_backend.models.dto.FishDto;
+import com.youcode.aftas_backend.superClasses.ServiceInterface;
+
+public interface FishService extends ServiceInterface<FishDto, String> {
 }
