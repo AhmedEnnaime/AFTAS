@@ -1,6 +1,6 @@
 package com.youcode.aftas_backend.services.Impl;
 
-import com.youcode.aftas_backend.models.dto.FishDto;
+import com.youcode.aftas_backend.models.dto.fish.FishDto;
 import com.youcode.aftas_backend.services.FishService;
 import org.springframework.stereotype.Service;
 

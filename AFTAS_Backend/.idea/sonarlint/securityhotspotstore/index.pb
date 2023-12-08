@@ -47,3 +47,7 @@ r
 Bsrc/main/java/com/youcode/aftas_backend/services/LevelService.java,5/b/5b8ae4240f7f7c4a9612e75559e5a4f4324dd846
 {
 Ksrc/main/java/com/youcode/aftas_backend/services/Impl/LevelServiceImpl.java,0/d/0d58566159629839bfd3a6074894e76d5925e6f9
+t
+Dsrc/main/java/com/youcode/aftas_backend/models/dto/fish/FishDto.java,0/7/079f5630f13a1f24091783527919792588087af2
+|
+Lsrc/main/java/com/youcode/aftas_backend/models/dto/fish/FishDtoResponse.java,4/f/4f1a0a6bdca877030ba2af5675779834cff88327
