@@ -92,3 +92,6 @@ z
 Jsrc/main/java/com/youcode/aftas_backend/repositories/MemberRepository.java,1/0/103884a50167d630d546bab0b0fa439c7b30ad33
 {
 Ksrc/main/java/com/youcode/aftas_backend/repositories/RankingRepository.java,1/d/1d3522a19fc3dfc77e764d13c63b464e7b92cc1c
+:
+
+Dockerfile,6/6/6651ddff6eb82c840ced7c1dddee15c6e1913dd4

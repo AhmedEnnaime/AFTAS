@@ -32,4 +32,21 @@ public class LevelController {
         return ResponseEntity.ok(levels);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<LevelDto> findLevelByID(@PathVariable Integer id) {
+        LevelDto level = levelService.findByID(id);
+        return ResponseEntity.ok(level);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<LevelDto> updateLevel(@PathVariable Integer id, @Valid @RequestBody LevelDto levelDto) {
+        LevelDto updatedLevel = levelService.update(id, levelDto);
+        return ResponseEntity.ok(updatedLevel);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteLevel(@PathVariable Integer id) {
+        levelService.delete(id);
+        return new ResponseEntity<>("Level deleted successfully", HttpStatus.OK);
+    }
 }
