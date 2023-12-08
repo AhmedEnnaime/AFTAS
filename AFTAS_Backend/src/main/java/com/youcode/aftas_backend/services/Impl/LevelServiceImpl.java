@@ -47,11 +47,17 @@ public class LevelServiceImpl implements LevelService {
 
     @Override
     public LevelDto update(Integer integer, LevelDto levelDto) {
-        levelRepository.findById(integer)
+        Level existingLevel = levelRepository.findById(integer)
                 .orElseThrow(() -> new ResourceNotFoundException("The level with ID " + integer + " does not exist"));
-
-        return save(levelDto);
+        if (levelDto.getPoints() < existingLevel.getPoints()) {
+            throw new PointsValidationException("A level cannot have fewer points than its current value.");
+        }
+        existingLevel.setDescription(levelDto.getDescription());
+        existingLevel.setPoints(levelDto.getPoints());
+        Level updatedLevel = levelRepository.save(existingLevel);
+        return modelMapper.map(updatedLevel, LevelDto.class);
     }
+
 
     @Override
     public void delete(Integer integer) {
