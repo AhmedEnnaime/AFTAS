@@ -2,11 +2,11 @@ package com.youcode.aftas_backend.services.Impl;
 
 import com.youcode.aftas_backend.configuration.MapperConfig;
 import com.youcode.aftas_backend.exceptions.ResourceNotFoundException;
-import com.youcode.aftas_backend.models.dto.LevelDto;
 import com.youcode.aftas_backend.models.dto.fish.FishDto;
 import com.youcode.aftas_backend.models.entities.Fish;
 import com.youcode.aftas_backend.models.entities.Level;
 import com.youcode.aftas_backend.repositories.FishRepository;
+import com.youcode.aftas_backend.repositories.LevelRepository;
 import com.youcode.aftas_backend.services.FishService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,9 +22,14 @@ public class FishServiceImpl implements FishService {
     @Autowired
     private FishRepository fishRepository;
 
+    @Autowired
+    private LevelRepository levelRepository;
+
     @Override
     public FishDto save(FishDto fishDto) {
-        return null;
+        Fish fishRequest = mapperConfig.modelMapper().map(fishDto, Fish.class);
+        Fish fish = fishRepository.save(fishRequest);
+        return mapperConfig.modelMapper().map(fish, FishDto.class);
     }
 
     @Override
@@ -37,7 +42,21 @@ public class FishServiceImpl implements FishService {
 
     @Override
     public FishDto update(String s, FishDto fishDto) {
-        return null;
+        Fish existingFish = fishRepository.findById(s)
+                .orElseThrow(() -> new ResourceNotFoundException("The fish with ID " + s + " does not exist"));
+
+        existingFish.setName(fishDto.getName());
+        existingFish.setAverageWeight(fishDto.getAverageWeight());
+        if (fishDto.getLevel_id() != null) {
+            Level level = levelRepository.findById(fishDto.getLevel_id())
+                    .orElseThrow(() -> new ResourceNotFoundException("The level with id " + fishDto.getLevel_id() + " is not found"));
+            existingFish.setLevel(level);
+        }else {
+            existingFish.setLevel(null);
+        }
+        Fish updatedFish = fishRepository.save(existingFish);
+
+        return mapperConfig.modelMapper().map(updatedFish, FishDto.class);
     }
 
     @Override
