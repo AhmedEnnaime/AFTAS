@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class LevelServiceImpl implements LevelService {
@@ -23,11 +24,13 @@ public class LevelServiceImpl implements LevelService {
 
     @Override
     public LevelDto save(LevelDto levelDto) {
-        List<Level> existingLevels = levelRepository.findByPointsGreaterThanEqual(levelDto.getPoints());
-        if (!existingLevels.isEmpty()) {
-            throw new PointsValidationException("A level with equal or higher points already exists.");
+        Optional<Level> maxCodeLevelOpt = levelRepository.findFirstByOrderByCodeDesc();
+        if (maxCodeLevelOpt.isPresent()) {
+            Level maxCodeLevel = maxCodeLevelOpt.get();
+            if (maxCodeLevel.getPoints() > levelDto.getPoints()) {
+                throw new PointsValidationException("A level with a lower code cannot have more points.");
+            }
         }
-
         Level newLevel = modelMapper.map(levelDto, Level.class);
         Level savedLevel = levelRepository.save(newLevel);
 
@@ -44,15 +47,10 @@ public class LevelServiceImpl implements LevelService {
 
     @Override
     public LevelDto update(Integer integer, LevelDto levelDto) {
-        Level existingLevel = levelRepository.findById(integer)
+        levelRepository.findById(integer)
                 .orElseThrow(() -> new ResourceNotFoundException("The level with ID " + integer + " does not exist"));
 
-        existingLevel.setDescription(levelDto.getDescription());
-        existingLevel.setPoints(levelDto.getPoints());
-
-        Level updatedLevel = levelRepository.save(existingLevel);
-
-        return modelMapper.map(updatedLevel, LevelDto.class);
+        return save(levelDto);
     }
 
     @Override
