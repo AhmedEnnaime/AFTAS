@@ -5,14 +5,7 @@ import java.util.List;
 
 import com.youcode.aftas_backend.models.enums.IdentityDocumentType;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -61,4 +54,7 @@ public class Member {
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Ranking> rankings;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "member")
+    private List<Hunting> huntings;
 }

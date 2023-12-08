@@ -30,6 +30,6 @@ public class Fish {
     @JoinColumn(name = "level_id")
     private Level level;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "fish")
     private List<Hunting> huntings;
 }

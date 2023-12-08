@@ -19,10 +19,17 @@ public class Hunting {
 
     @Column(name = "numberOfFish", nullable = false)
     private int numberOfFish;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fish_id", nullable = false)
     private Fish fish;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id", nullable = false)
+    private Member member;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "competition_id", nullable = false)
+    private Competition competition;
 
 }
