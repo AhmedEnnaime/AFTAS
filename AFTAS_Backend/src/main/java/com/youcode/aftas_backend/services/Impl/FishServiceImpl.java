@@ -1,6 +1,5 @@
 package com.youcode.aftas_backend.services.Impl;
 
-import com.youcode.aftas_backend.configuration.MapperConfig;
 import com.youcode.aftas_backend.exceptions.ResourceNotFoundException;
 import com.youcode.aftas_backend.models.dto.fish.FishDto;
 import com.youcode.aftas_backend.models.entities.Fish;
@@ -8,6 +7,7 @@ import com.youcode.aftas_backend.models.entities.Level;
 import com.youcode.aftas_backend.repositories.FishRepository;
 import com.youcode.aftas_backend.repositories.LevelRepository;
 import com.youcode.aftas_backend.services.FishService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +17,7 @@ import java.util.List;
 public class FishServiceImpl implements FishService {
 
     @Autowired
-    private MapperConfig mapperConfig;
+    private ModelMapper modelMapper;
 
     @Autowired
     private FishRepository fishRepository;
@@ -27,16 +27,16 @@ public class FishServiceImpl implements FishService {
 
     @Override
     public FishDto save(FishDto fishDto) {
-        Fish fishRequest = mapperConfig.modelMapper().map(fishDto, Fish.class);
+        Fish fishRequest = modelMapper.map(fishDto, Fish.class);
         Fish fish = fishRepository.save(fishRequest);
-        return mapperConfig.modelMapper().map(fish, FishDto.class);
+        return modelMapper.map(fish, FishDto.class);
     }
 
     @Override
     public List<FishDto> getAll() {
         List<Fish> fishes = fishRepository.findAll();
         return fishes.stream()
-                .map(fish -> mapperConfig.modelMapper().map(fish, FishDto.class))
+                .map(fish -> modelMapper.map(fish, FishDto.class))
                 .toList();
     }
 
@@ -56,7 +56,7 @@ public class FishServiceImpl implements FishService {
         }
         Fish updatedFish = fishRepository.save(existingFish);
 
-        return mapperConfig.modelMapper().map(updatedFish, FishDto.class);
+        return modelMapper.map(updatedFish, FishDto.class);
     }
 
     @Override
@@ -71,7 +71,7 @@ public class FishServiceImpl implements FishService {
         Fish fish = fishRepository.findById(s)
                 .orElseThrow(() -> new ResourceNotFoundException("The fish with ID " + s + " does not exist"));
 
-        return mapperConfig.modelMapper().map(fish, FishDto.class);
+        return modelMapper.map(fish, FishDto.class);
     }
 
 }
