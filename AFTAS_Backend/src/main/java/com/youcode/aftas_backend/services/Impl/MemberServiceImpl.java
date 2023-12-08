@@ -2,10 +2,19 @@ package com.youcode.aftas_backend.services.Impl;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.youcode.aftas_backend.models.dto.MemberDto;
 import com.youcode.aftas_backend.services.MemberService;
 
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
+
+@Service
 public class MemberServiceImpl implements MemberService {
+
+    private final MemberService memberService;
 
     @Override
     public MemberDto save(MemberDto dto) {
@@ -32,9 +41,9 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public MemberDto find(Integer identifier) {
+    public MemberDto findByID(Integer identifier) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'find'");
+        throw new UnsupportedOperationException("Unimplemented method 'findByID'");
     }
     
 }

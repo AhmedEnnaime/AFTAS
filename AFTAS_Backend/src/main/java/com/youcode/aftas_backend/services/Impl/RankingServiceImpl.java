@@ -2,10 +2,19 @@ package com.youcode.aftas_backend.services.Impl;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.youcode.aftas_backend.models.dto.RankingDto;
 import com.youcode.aftas_backend.services.RankingService;
 
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
+
+@Service
 public class RankingServiceImpl implements RankingService {
+
+    private final RankingService rankingService;
 
     @Override
     public RankingDto save(RankingDto dto) {
@@ -32,9 +41,9 @@ public class RankingServiceImpl implements RankingService {
     }
 
     @Override
-    public RankingDto find(Integer identifier) {
+    public RankingDto findByID(Integer identifier) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'find'");
+        throw new UnsupportedOperationException("Unimplemented method 'findByID'");
     }
     
 }

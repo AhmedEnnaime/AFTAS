@@ -3,10 +3,19 @@ package com.youcode.aftas_backend.services.Impl;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.youcode.aftas_backend.models.dto.CompetitionDto;
 import com.youcode.aftas_backend.services.CompetitionService;
 
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
+
+@Service
 public class CompetitionServiceImpl implements CompetitionService {
+
+    private final CompetitionService competitionService;
 
     @Override
     public CompetitionDto save(CompetitionDto dto) {
@@ -33,12 +42,6 @@ public class CompetitionServiceImpl implements CompetitionService {
     }
 
     @Override
-    public CompetitionDto find(String identifier) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'find'");
-    }
-
-    @Override
     public CompetitionDto getOnGoingCompetition(LocalDate currentDate) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getOnGoingCompetition'");
@@ -54,6 +57,12 @@ public class CompetitionServiceImpl implements CompetitionService {
     public List<CompetitionDto> getFutureCompetitions(LocalDate currentDate) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getFutureCompetitions'");
+    }
+
+    @Override
+    public CompetitionDto findByID(String identifier) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'findByID'");
     }
     
 }
