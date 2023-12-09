@@ -1,4 +1,5 @@
 .idea
 ./target
 ./docker-composae.yaml
+./Dockerfile
 .yaml
