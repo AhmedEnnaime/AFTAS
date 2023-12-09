@@ -6,7 +6,6 @@ import com.youcode.aftas_backend.models.dto.hunting.SpecificHuntDto;
 import com.youcode.aftas_backend.models.dto.hunting.HuntingDto;
 import com.youcode.aftas_backend.services.HuntingService;
 import jakarta.validation.Valid;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
