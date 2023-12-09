@@ -4,5 +4,6 @@ import { Injectable } from "@angular/core";
     providedIn: 'root'
 })
 export class MemberService {
-    private END_POINT = "localhost:8080/api/members/";
+    private baseUrl: string = "http://localhost:9090/api/members/";
+
 } 
