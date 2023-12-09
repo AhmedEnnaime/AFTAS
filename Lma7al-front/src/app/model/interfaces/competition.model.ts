@@ -6,4 +6,5 @@ export interface Competition {
     numberOfParticipants?: Number;
     location?: String;
     amount?: Number;
+    
 }
