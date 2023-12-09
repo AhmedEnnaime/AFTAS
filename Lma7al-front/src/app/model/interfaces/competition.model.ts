@@ -1,3 +1,5 @@
+import { Ranking } from "./ranking.model";
+
 export interface Competition {
     code: String;
     date?: Date;
@@ -6,5 +8,5 @@ export interface Competition {
     numberOfParticipants?: Number;
     location?: String;
     amount?: Number;
-    
+    rankings?: Ranking[];
 }

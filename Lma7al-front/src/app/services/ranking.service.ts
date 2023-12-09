@@ -2,13 +2,13 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { ConfigService } from "../config/config.service";
 import { Observable, catchError } from "rxjs";
-import { Member } from "../model/interfaces/member.model";
+import { CompetitionMember, Ranking } from "../model/interfaces/ranking.model";
 
 @Injectable({
     providedIn: 'root'
 })
-export class MemberService {
-    private baseUrl: string = "http://localhost:9090/api/members/";
+export class RankingService {
+    private baseUrl: string = "http://localhost:9090/api/rankings/";
 
     httpOptions = {
         headers: new HttpHeaders({
@@ -19,39 +19,35 @@ export class MemberService {
     
       constructor(private http: HttpClient, private configService: ConfigService) {}
     
-      getMembers(): Observable<Member[]> {
+      getRankings(): Observable<Ranking[]> {
         return this.http
-          .get<Member[]>(this.baseUrl, this.httpOptions)
+          .get<Ranking[]>(this.baseUrl, this.httpOptions)
           .pipe(catchError((error) => this.configService.handleError(error)));
       }
 
-      getMembersByName(name: String): Observable<Member[]> {
+      getCompetitionRankings(competitionCode: String): Observable<Ranking[]> {
         return this.http
-          .get<Member[]>(this.baseUrl + "name/" + name, this.httpOptions)
+          .get<Ranking[]>(this.baseUrl + "competition/" + competitionCode, this.httpOptions)
+          .pipe(catchError((error) => this.configService.handleError(error)));
+      }
+    
+      deleteRanking(identifier: CompetitionMember): Observable<string> {
+        return this.http
+          .delete<string>(this.baseUrl + "competition/" + identifier.competitionCode + "/member/" + identifier.memberNum , this.httpOptions)
+          .pipe(catchError((error) => this.configService.handleError(error)));
+      }
+    
+      addRanking(ranking: Ranking): Observable<Ranking> {
+        return this.http
+          .post<Ranking>(this.baseUrl, ranking, this.httpOptions)
+          .pipe(catchError((error) => this.configService.handleError(error)));
+      }
+    
+      updateRanking(identifier: CompetitionMember, ranking: Ranking): Observable<Ranking> {
+        return this.http
+          .put<Ranking>(this.baseUrl + "competition/" + identifier.competitionCode + "/member/" + identifier.memberNum, ranking, this.httpOptions)
           .pipe(catchError((error) => this.configService.handleError(error)));
       }
 
-      getMembersByFamilyName(familyName: String): Observable<Member[]> {
-        return this.http
-          .get<Member[]>(this.baseUrl + "family-name/" + familyName, this.httpOptions)
-          .pipe(catchError((error) => this.configService.handleError(error)));
-      }
-    
-      deleteMember(num: number): Observable<string> {
-        return this.http
-          .delete<string>(this.baseUrl + num, this.httpOptions)
-          .pipe(catchError((error) => this.configService.handleError(error)));
-      }
-    
-      addMember(member: Member): Observable<Member> {
-        return this.http
-          .post<Member>(this.baseUrl, member, this.httpOptions)
-          .pipe(catchError((error) => this.configService.handleError(error)));
-      }
-    
-      updateMember(num: number, member: Member): Observable<Member> {
-        return this.http
-          .put<Member>(this.baseUrl + num, member, this.httpOptions)
-          .pipe(catchError((error) => this.configService.handleError(error)));
-      }
+      
 } 
