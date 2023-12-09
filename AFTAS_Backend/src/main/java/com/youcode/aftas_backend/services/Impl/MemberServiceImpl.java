@@ -36,6 +36,18 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
+    public List<MemberDto> getByName(String name) {
+        return Arrays.asList(modelMapper.map(memberRepository.findByName(name),
+                            MemberDto[].class));
+    }
+
+    @Override
+    public List<MemberDto> getByFamilyName(String familyName) {
+        return Arrays.asList(modelMapper.map(memberRepository.findByFamilyName(familyName),
+                            MemberDto[].class));
+    }
+
+    @Override
     public MemberDto update(Integer identifier, MemberDto memberDto) {
         memberDto.setNum(identifier);
         return this.save(memberDto);
