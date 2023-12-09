@@ -1,5 +1,7 @@
 package com.youcode.aftas_backend.services.Impl;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
@@ -12,6 +14,7 @@ import com.youcode.aftas_backend.models.dto.RankingDto;
 import com.youcode.aftas_backend.models.embeddables.CompetitionMember;
 import com.youcode.aftas_backend.models.entities.Ranking;
 import com.youcode.aftas_backend.repositories.RankingRepository;
+import com.youcode.aftas_backend.services.CompetitionService;
 import com.youcode.aftas_backend.services.HuntingService;
 import com.youcode.aftas_backend.services.RankingService;
 
@@ -24,10 +27,16 @@ public class RankingServiceImpl implements RankingService {
 
     private final RankingRepository rankingRepository;
     private final HuntingService huntingService;
+    private final CompetitionService competitionService;
     private final ModelMapper modelMapper;
 
     @Override
     public RankingDto save(RankingDto rankingDto) {
+        var competition = competitionService.findByID(rankingDto.getCompetition().getCode());
+        if(competition.getDate().isEqual((LocalDate.now(ZoneId.of("Africa/Casablanca")))) || 
+            competition.getDate().isAfter(LocalDate.now(ZoneId.of("Africa/Casablanca")))
+        ) 
+            throw new RuntimeException("The competition is already closed.");
         Ranking rankingEntity = modelMapper.map(rankingDto, Ranking.class);
         Ranking savedRanking = rankingRepository.save(rankingEntity);
         return modelMapper.map(savedRanking, RankingDto.class);
@@ -41,6 +50,8 @@ public class RankingServiceImpl implements RankingService {
     @Override
     public RankingDto update(CompetitionMember identifier, RankingDto rankingDto) {
         rankingDto.setId(identifier);
+        rankingDto.setCompetition(null);
+        rankingDto.setMember(null);
         return this.save(rankingDto);
     }
 
