@@ -48,3 +48,4 @@
 /home/mizo/Desktop/web_projects/Lma7al/AFTAS_Backend/src/main/java/com/youcode/aftas_backend/controllers/RankingController.java
 /home/mizo/Desktop/web_projects/Lma7al/AFTAS_Backend/src/main/java/com/youcode/aftas_backend/services/Impl/CompetitionServiceImpl.java
 /home/mizo/Desktop/web_projects/Lma7al/AFTAS_Backend/src/main/java/com/youcode/aftas_backend/controllers/CompetitionController.java
+/home/mizo/Desktop/web_projects/Lma7al/AFTAS_Backend/src/main/java/com/youcode/aftas_backend/models/dto/competetion/CompetitionHuntDto.java

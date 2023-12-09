@@ -4,9 +4,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.youcode.aftas_backend.models.dto.RankingDto;
-import com.youcode.aftas_backend.models.dto.hunting.HuntingDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -30,9 +29,9 @@ public class CompetitionDto {
     private String location;
     private Double amount;
     
-    @JsonManagedReference
+    @JsonIgnoreProperties("competition")
     private List<RankingDto> rankings;
 
-    @JsonManagedReference
-    private List<HuntingDto> huntings;
+    @JsonIgnoreProperties("competition")
+    private List<CompetitionHuntDto> huntings;
 }

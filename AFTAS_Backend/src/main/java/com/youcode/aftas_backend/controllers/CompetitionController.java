@@ -14,6 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @AllArgsConstructor
 
 @RestController
-@RequestMapping(path = "api/competitions", produces = MediaType.APPLICATION_JSON_VALUE)
 @Validated
+@RequestMapping(path = "api/competitions", produces = MediaType.APPLICATION_JSON_VALUE)
 public class CompetitionController extends Controller<CompetitionDto, String> {}

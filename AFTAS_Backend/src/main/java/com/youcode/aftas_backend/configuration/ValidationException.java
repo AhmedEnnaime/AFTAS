@@ -41,6 +41,7 @@ public class ValidationException {
     public Map<String, String> handleExceptions(Exception ex) {
         Map<String, String> errors = new HashMap<>();
         errors.put("error", ex.getMessage());
+        errors.put("stack trace", ex.getStackTrace());
         return errors;
     }
 
