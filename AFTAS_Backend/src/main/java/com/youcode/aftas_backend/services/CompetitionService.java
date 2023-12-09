@@ -11,5 +11,4 @@ public interface CompetitionService extends ServiceInterface<CompetitionDto, Str
     CompetitionDto getOnGoingCompetition(LocalDate currentDate);
     List<CompetitionDto> getClosedCompetitions(LocalDate currentDate);
     List<CompetitionDto> getFutureCompetitions(LocalDate currentDate);
-    CompetitionDto getResult(String identifier);
 }

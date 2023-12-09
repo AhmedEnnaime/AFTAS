@@ -12,7 +12,6 @@ import com.youcode.aftas_backend.models.dto.competetion.CompetitionDto;
 import com.youcode.aftas_backend.models.entities.Competition;
 import com.youcode.aftas_backend.repositories.CompetitionRepository;
 import com.youcode.aftas_backend.services.CompetitionService;
-import com.youcode.aftas_backend.services.RankingService;
 
 import lombok.AllArgsConstructor;
 
@@ -22,7 +21,6 @@ import lombok.AllArgsConstructor;
 public class CompetitionServiceImpl implements CompetitionService {
 
     private final CompetitionRepository competitionRepository;
-    private final RankingService rankingService;
     private final ModelMapper modelMapper;
 
     @Override
@@ -79,14 +77,5 @@ public class CompetitionServiceImpl implements CompetitionService {
     public List<CompetitionDto> getFutureCompetitions(LocalDate currentDate) {
         return Arrays.asList(modelMapper.map(competitionRepository.findByDateAfter(currentDate),
                             CompetitionDto[].class));
-    }
-
-    @Override
-    public CompetitionDto getResult(String identifier) {
-        if(!competitionRepository.existsById(identifier)) 
-            throw new ResourceNotFoundException("The competition with id " + identifier + " does not exist.");
-        rankingService.SetUpCompetitionRankings(identifier);
-        return findByID(identifier);
-    }
-    
+    }    
 }

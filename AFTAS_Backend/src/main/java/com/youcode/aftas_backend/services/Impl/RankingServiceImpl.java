@@ -68,13 +68,7 @@ public class RankingServiceImpl implements RankingService {
     }
 
     @Override
-    public List<RankingDto> getCompetitionRankings(String competitionCode) {
-        return Arrays.asList(modelMapper.map(rankingRepository.findByCompetitionOrderByScoreDesc(competitionCode),
-                            RankingDto[].class));
-    }
-
-    @Override
-    public void SetUpCompetitionRankings(String competitionCode) {
+    public List<RankingDto> SetUpCompetitionRankings(String competitionCode) {
         List<Ranking> rankings = rankingRepository.findByCompetitionCode(competitionCode);
         if(rankings.isEmpty())
             throw new RuntimeException("There are no rankings in the given competition.");
@@ -92,7 +86,13 @@ public class RankingServiceImpl implements RankingService {
         int rank = 1;
         for(Ranking ranking :  rankings)
             ranking.setRank(rank++);
-        rankingRepository.saveAll(rankings);
+        
+        return Arrays.asList(
+            modelMapper.map(
+                rankingRepository.saveAll(rankings),
+                RankingDto[].class
+            )
+        );
     }
 
     

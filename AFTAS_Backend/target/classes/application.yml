@@ -1,12 +1,12 @@
 server:
-  port: 8082
+  port: 9090
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/hibernate
-    username: aymane
-    password: aymane@123
+    url: jdbc:postgresql://localhost:5432/aftas
+    username: mizo
+    password: changemeinprod!
     driver-class-name: org.postgresql.Driver
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
