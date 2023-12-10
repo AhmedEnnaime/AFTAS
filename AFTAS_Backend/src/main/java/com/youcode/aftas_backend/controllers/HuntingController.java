@@ -53,7 +53,7 @@ public class HuntingController {
         );
     }
 
-    @GetMapping("/specific")
+    @PostMapping("/specific")
     public ResponseEntity<List<SingleHuntDto>> huntDetails(@Valid @RequestBody  SpecificHuntDto specificHuntDto){
         return ResponseEntity.status(HttpStatus.FOUND).body(
                 huntingService.findHuntByCompetitionAndMember(
