@@ -3,7 +3,9 @@ package com.youcode.aftas_backend.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,12 +29,12 @@ public class MemberController extends Controller<MemberDto, Integer> {
     }
 
     @GetMapping("/name/{name}")
-    public List<MemberDto> getMembersByName(@PathVariable("name") String name) {
-        return memberService.getByName(name);
+    public ResponseEntity<List<MemberDto>> getMembersByName(@PathVariable("name") String name) {
+        return new ResponseEntity<>(memberService.getByName(name), HttpStatus.OK);
     }
 
     @GetMapping("/family-name/{family-name}")
-    public List<MemberDto> getMembersByFamilyName(@PathVariable("family-name") String familyName) {
-        return memberService.getByFamilyName(familyName);
+    public ResponseEntity<List<MemberDto>> getMembersByFamilyName(@PathVariable("family-name") String familyName) {
+        return new ResponseEntity<>(memberService.getByFamilyName(familyName), HttpStatus.OK);
     }
 }

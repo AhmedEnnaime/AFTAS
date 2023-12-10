@@ -1,6 +1,8 @@
 package com.youcode.aftas_backend.superClasses;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,8 +34,8 @@ public abstract class Controller<Dto, Identifier> {
     } 
     
     @GetMapping
-    public List<Dto> getAll() {
-        return service.getAll();
+    public ResponseEntity<List<Dto>> getAll() {
+        return new ResponseEntity<>(service.getAll(), HttpStatus.OK);
     } 
 
     @GetMapping("/{id}")
@@ -45,13 +47,16 @@ public abstract class Controller<Dto, Identifier> {
     @PutMapping("/{id}")
     public ResponseEntity<Dto> update(@PathVariable("id") final Identifier id, @Valid @RequestBody final Dto dto) {
         var updatedDto = service.update(id, dto);
-        return new ResponseEntity<>(updatedDto, HttpStatus.OK);  
+        return new ResponseEntity<>(updatedDto, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> delete(@PathVariable("id") final Identifier id) {
+    public ResponseEntity<Map<String, String>> delete(@PathVariable("id") final Identifier id) {
         service.delete(id);
-        return new ResponseEntity<>("Resource deleted successfully.",HttpStatus.NO_CONTENT);
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Resource deleted successfully.");
+        response.put("deletedElementIdentifier", id.toString());
+        return new ResponseEntity<>(response ,HttpStatus.OK);
     } 
     
 }

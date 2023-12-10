@@ -37,7 +37,6 @@ public class Member {
     @Size(min = 3, max = 255, message = "member family name should be between 3 and 255 character.")
     private String familyName;
 
-    @NotNull(message = "Member accession date is required.")
     @Column(columnDefinition = "DATE DEFAULT CURRENT_DATE")
     private LocalDate accessionDate;
 
@@ -45,6 +44,7 @@ public class Member {
     private String nationality;
 
     @NotNull(message = "Member identity document type must not be null.")
+    @Enumerated(EnumType.STRING)
     private IdentityDocumentType identityDocument;
 
     @NotEmpty(message = "Member identity number is required.")
