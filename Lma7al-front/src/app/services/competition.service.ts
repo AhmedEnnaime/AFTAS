@@ -8,7 +8,7 @@ import { Competition } from "../model/interfaces/competition.model";
     providedIn: 'root'
 })
 export class CompetitionService {
-    private baseUrl: string = "http://localhost:9090/api/competitions/";
+    private baseUrl: string = "http://localhost:9090/api/competitions";
 
     httpOptions = {
         headers: new HttpHeaders({
@@ -24,10 +24,28 @@ export class CompetitionService {
           .get<Competition[]>(this.baseUrl, this.httpOptions)
           .pipe(catchError((error) => this.configService.handleError(error)));
       }
-    
-      deleteCompetition(code: String): Observable<string> {
+
+      getClosedCompetitions(): Observable<Competition[]> {
         return this.http
-          .delete<string>(this.baseUrl + code, this.httpOptions)
+          .get<Competition[]>(this.baseUrl + "/closed", this.httpOptions)
+          .pipe(catchError((error) => this.configService.handleError(error)));
+      }
+
+      getFutureCompetitions(): Observable<Competition[]> {
+        return this.http
+          .get<Competition[]>(this.baseUrl + "/future", this.httpOptions)
+          .pipe(catchError((error) => this.configService.handleError(error)));
+      }
+
+      getCurrentCompetitions(): Observable<Competition[]> {
+        return this.http
+          .get<Competition[]>(this.baseUrl + "/current", this.httpOptions)
+          .pipe(catchError((error) => this.configService.handleError(error)));
+      }
+    
+      deleteCompetition(code: String | undefined): Observable<{message: String, deletedElementIdentifier: String}> {
+        return this.http
+          .delete<{message: String, deletedElementIdentifier: String}>(this.baseUrl + "/" + code, this.httpOptions)
           .pipe(catchError((error) => this.configService.handleError(error)));
       }
     
@@ -39,7 +57,7 @@ export class CompetitionService {
     
       updateCompetition(code: String, competition: Competition): Observable<Competition> {
         return this.http
-          .put<Competition>(this.baseUrl + code, competition, this.httpOptions)
+          .put<Competition>(this.baseUrl + "/" + competition.code, competition, this.httpOptions)
           .pipe(catchError((error) => this.configService.handleError(error)));
       }
 } 

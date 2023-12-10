@@ -7,9 +7,10 @@ import { MemberReducer } from "./member.reducer";
 export const MEMBER_FEATURE_KEY = 'MEMBER'
 
 @NgModule({
-    imports: [StoreModule.forFeature(MEMBER_FEATURE_KEY, MemberReducer),
-              EffectsModule.forFeature([MemberEffect])
-             ]
+    imports: [
+        StoreModule.forFeature(MEMBER_FEATURE_KEY, MemberReducer),
+        EffectsModule.forFeature([MemberEffect])
+    ]
 })
 export class MemberStateModule {}
 

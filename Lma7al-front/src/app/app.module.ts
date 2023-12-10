@@ -11,6 +11,8 @@ import { MemberEffect } from './store/member/member.effect';
 import { HttpClientModule } from '@angular/common/http';
 import {LevelEffect} from "./store/level/level.effect";
 import {LevelStateModule} from "./store/level/level.state.module";
+import { CompetitionEffect } from './store/competition/comeptition.effect';
+import { CompetitionModule } from './store/competition/competitoin.state.module';
 
 @NgModule({
   declarations: [
@@ -21,9 +23,10 @@ import {LevelStateModule} from "./store/level/level.state.module";
     AppRoutingModule,
     StoreModule.forRoot({}, {}),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
-    EffectsModule.forRoot([MemberEffect, LevelEffect]),
+    EffectsModule.forRoot([MemberEffect, LevelEffect, CompetitionEffect]),
     MemberStateModule,
     LevelStateModule,
+    CompetitionModule,
     HttpClientModule
   ],
   providers: [],

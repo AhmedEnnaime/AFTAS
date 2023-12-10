@@ -11,7 +11,7 @@ export interface MemberState {
     errors: {}
 }
 
-export const initialMemberState: MemberState = {
+const initialMemberState: MemberState = {
     collection: [],
     selectedMemberNum: null,
     loading: false,
@@ -45,6 +45,14 @@ export const MemberReducer = createReducer(
         ...state,
         collection: action.members 
     })),
+    on(memberPageActions.addMember,
+       memberPageActions.updateMember,
+       memberPageActions.deleteMember,
+        (state, action) => ({
+            ...state,
+            loading: true
+        })
+    ),
     on(memberApiActions.memberAddedSuccessfully, (state, action) => ({
         collection: createMember(state.collection, action.addedMember),
         selectedMemberNum: null,
@@ -89,8 +97,8 @@ const updateMember = (members: Member[], updatedMember: Member) => (
     members.map(
         member => 
                 member.num === updatedMember.num 
-                ? Object.assign({}, member, updateMember)
-                : member     
+                ? Object.assign({}, member, updatedMember)
+                : member
     )
 )
 const deleteMember = (members: Member[], memberNum: Number) => members.filter(member => member.num != memberNum);
