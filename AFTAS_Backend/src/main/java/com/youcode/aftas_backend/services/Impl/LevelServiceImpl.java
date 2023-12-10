@@ -27,7 +27,7 @@ public class LevelServiceImpl implements LevelService {
         Optional<Level> maxCodeLevelOpt = levelRepository.findFirstByOrderByCodeDesc();
         if (maxCodeLevelOpt.isPresent()) {
             Level maxCodeLevel = maxCodeLevelOpt.get();
-            if (maxCodeLevel.getPoints() > levelDto.getPoints()) {
+            if (maxCodeLevel.getPoints() >= levelDto.getPoints()) {
                 throw new PointsValidationException("A level with a lower code cannot have more points.");
             }
         }
