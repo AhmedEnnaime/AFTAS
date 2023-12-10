@@ -3,7 +3,7 @@ import { Member } from "src/app/model/interfaces/member.model";
 
 export const enter = createAction('[Member page] enter');
 
-export const selectMembers = createAction(
+export const selectMember = createAction(
     '[Member page] select member',
     props<{memberNum: Number}>()
 );

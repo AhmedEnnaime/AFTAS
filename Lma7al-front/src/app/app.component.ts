@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Member } from './model/interfaces/member.model';
-import { selectMembers, selectSelectedMember } from './store/member/member.state';
+import { selectMembers, selectSelectedMember } from './store/member/member.state.module';
 
 import * as memberPageActions from "./store/member/actions/member-page.actions"
 

@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
-import { MemberStateModule } from './store/member/member.state';
+import { MemberStateModule } from './store/member/member.state.module';
 import { MemberEffect } from './store/member/member.effect';
 import { HttpClientModule } from '@angular/common/http';
 

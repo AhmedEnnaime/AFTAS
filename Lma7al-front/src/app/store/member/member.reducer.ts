@@ -2,63 +2,81 @@ import { createReducer, createSelector, on } from "@ngrx/store";
 import { Member } from "src/app/model/interfaces/member.model";
 
 import * as memberPageActions from "./actions/member-page.actions"
-import * as memberAapiActions from "./actions/member-api.actions"
+import * as memberApiActions from "./actions/member-api.actions"
 
 export interface MemberState {
     collection: Member[],
     selectedMemberNum: Number | null;
+    loading: boolean;
+    errors: {}
 }
 
 export const initialMemberState: MemberState = {
     collection: [],
-    selectedMemberNum: null
+    selectedMemberNum: null,
+    loading: false,
+    errors: {}
 }
 
 export const MemberReducer = createReducer(
     initialMemberState,
     on(
         memberPageActions.enter,
-        memberPageActions.unselectMembers,
+        memberPageActions.filterMembersByName,
+        memberPageActions.filterMembersByFamilyName,
         (state, action) => ({
         ...state,
-        selectedMemberNum: null
+        selectedMemberNum: null,
+        loading: true,
     })),
-    on(memberPageActions.selectMembers, (state, action) => ({
+    on(memberPageActions.unselectMembers,
+       (state, action) => ({
+        ...state,
+        selectedMemberNum: null,
+    })),
+    on(memberPageActions.selectMember, (state, action) => ({
         ...state,
         selectedMemberNum: action.memberNum
     })),
-    on(memberAapiActions.membersLoadedSuccessfully, (state, action) => ({
+    on(memberApiActions.membersLoadedSuccessfully,
+       memberApiActions.membersByFamilyNameLoadedSuccessfully,
+       memberApiActions.membersByNameLoadedSuccessfully,
+       (state, action) => ({
         ...state,
         collection: action.members 
     })),
-    on(memberAapiActions.memberAddedSuccessfully, (state, action) => ({
+    on(memberApiActions.memberAddedSuccessfully, (state, action) => ({
         collection: createMember(state.collection, action.addedMember),
-        selectedMemberNum: null
+        selectedMemberNum: null,
+        errors: {},
+        loading: false
     })),
-    on(memberAapiActions.memberUpdatedSuccessfully, (state, action) => ({
+    on(memberApiActions.memberUpdatedSuccessfully, (state, action) => ({
         collection: updateMember(state.collection, action.updatedMember),
-        selectedMemberNum: null
+        selectedMemberNum: null,
+        errors: {},
+        loading: false
     })),
-    on(memberAapiActions.memberDeletedSuccessfully, (state, action) => ({
+    on(memberApiActions.memberDeletedSuccessfully, (state, action) => ({
         collection: deleteMember(state.collection, action.memberNum),
-        selectedMemberNum: null
+        selectedMemberNum: null,
+        errors: {},
+        loading: false
     })),
+    on(memberApiActions.membersAddedFailure,
+       memberApiActions.membersUpdatedFailure,
+       memberApiActions.membersByFamilyNameLoadedFailure,
+       memberApiActions.membersByNameLoadedFailure,
+       memberApiActions.membersDeletedFailure,
+       memberApiActions.membersLoadedFailure,
+       (state, action) => ({
+        ...state,
+        loading: false,
+        errors: action.errors
+       })
+    )
 
 );
-
-/**
- * selectors
- */
-
-export const selectAll = (state: MemberState) => state.collection;
-export const selectSelectedMemberNum = (state: MemberState) => state.selectedMemberNum;
-
-export const selectSelectedMember = createSelector(
-    selectAll,
-    selectSelectedMemberNum,
-    (members, selectedMemberNum) => members.find(member => member.num === selectedMemberNum) || null
-)
-
 
 
 /**

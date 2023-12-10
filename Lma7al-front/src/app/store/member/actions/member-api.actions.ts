@@ -8,7 +8,7 @@ export const membersLoadedSuccessfully = createAction(
 
 export const membersLoadedFailure = createAction(
     '[Member api] member loaded failure',
-    props<{message: String}>()
+    props<{errors: {}}>()
 );
 
 export const memberAddedSuccessfully = createAction(
@@ -18,7 +18,7 @@ export const memberAddedSuccessfully = createAction(
 
 export const membersAddedFailure = createAction(
     '[Member api] member added failure',
-    props<{message: String}>()
+    props<{errors: {}}>()
 );
 
 export const memberUpdatedSuccessfully = createAction(
@@ -28,7 +28,7 @@ export const memberUpdatedSuccessfully = createAction(
 
 export const membersUpdatedFailure = createAction(
     '[Member api] member updated failure',
-    props<{message: String}>()
+    props<{errors: {}}>()
 );
 
 export const memberDeletedSuccessfully = createAction(
@@ -38,5 +38,25 @@ export const memberDeletedSuccessfully = createAction(
 
 export const membersDeletedFailure = createAction(
     '[Member api] member deleted failure',
-    props<{message: String}>()
+    props<{errors: {}}>()
+);
+
+export const membersByNameLoadedSuccessfully = createAction(
+    '[Member api] member by name loaded successfully',
+    props<{members: Member[]}>()
+);
+
+export const membersByNameLoadedFailure = createAction(
+    '[Member api] member by name loaded failure',
+    props<{errors: {}}>()
+);
+
+export const membersByFamilyNameLoadedSuccessfully = createAction(
+    '[Member api] member by family name loaded successfully',
+    props<{members: Member[]}>()
+);
+
+export const membersByFamilyNameLoadedFailure = createAction(
+    '[Member api] member by family name loaded failure',
+    props<{errors: {}}>()
 );

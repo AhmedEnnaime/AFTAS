@@ -4,7 +4,7 @@ import { MemberService } from "src/app/services/member.service";
 
 import * as memberPageActions from "./actions/member-page.actions";
 import * as memberApiActions from "./actions/member-api.actions";
-import { concatMap, exhaustMap, map, mergeMap } from "rxjs";
+import { concatMap, exhaustMap, map, mergeMap, switchMap } from "rxjs";
 
 @Injectable()
 export class MemberEffect {
@@ -59,6 +59,32 @@ export class MemberEffect {
                     .deleteMember(action.memberNum)
                     .pipe(
                         map(response => memberApiActions.memberDeletedSuccessfully({message: response.message, memberNum: response.deletedElementIdentifier}))
+                    )
+            )
+        )
+    );
+
+    loadMembersByName$ = createEffect(() =>
+        this.action$.pipe(
+            ofType(memberPageActions.filterMembersByName),
+            switchMap((action) => 
+                this.memberService
+                    .getMembersByName(action.memberName)
+                    .pipe(
+                        map(members => memberApiActions.membersByNameLoadedSuccessfully({members}))
+                    )
+            )
+        )
+    );
+
+    loadMembersByFamilyName$ = createEffect(() =>
+        this.action$.pipe(
+            ofType(memberPageActions.filterMembersByFamilyName),
+            switchMap((action) => 
+                this.memberService
+                    .getMembersByFamilyName(action.memberFamilyName)
+                    .pipe(
+                        map(members => memberApiActions.membersByNameLoadedSuccessfully({members}))
                     )
             )
         )
