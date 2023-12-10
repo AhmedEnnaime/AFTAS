@@ -2,15 +2,22 @@
 
 
 
-<div *ngFor="let member of members$ | async" >
-    <p class="mt-10 cursor-pointer bg-slate-700 text-white rounded-lg" (click)="deleteMember(member.num)">{{ member.name }}</p>
+<div *ngFor="let member of members$ | async">
+  <p class="mt-10 cursor-pointer bg-slate-700 text-white rounded-lg" (click)="deleteMember(member.num)">{{ member.name
+    }}</p>
 </div>
 
-<div *ngFor="let level of levels$ | async" >
-  <p class="mt-10 cursor-pointer bg-slate-700 text-white rounded-lg" (click)="deleteLevel(level.code)">{{ level.description }}</p>
+<div *ngFor="let level of levels$ | async">
+  <p class="mt-10 cursor-pointer bg-slate-700 text-white rounded-lg" (click)="deleteLevel(level.code)">{{
+    level.description }}</p>
+</div>
+
+<div *ngFor="let fish of fishes$ | async">
+  <p class="mt-10 cursor-pointer bg-slate-700 text-white rounded-lg" (click)="deleteFish(fish.name)">{{ fish.name }}</p>
 </div>
 
 
-<div *ngFor="let competition of competitions$ | async" >
-  <p class="mt-10 cursor-pointer bg-slate-700 text-white rounded-lg" (click)="deleteCompetition(competition.code)">{{ competition.amount }}</p>
+<div *ngFor="let competition of competitions$ | async">
+  <p class="mt-10 cursor-pointer bg-slate-700 text-white rounded-lg" (click)="deleteCompetition(competition.code)">{{
+    competition.amount }}</p>
 </div>

@@ -9,27 +9,29 @@ import { EffectsModule } from '@ngrx/effects';
 import { MemberStateModule } from './store/member/member.state.module';
 import { MemberEffect } from './store/member/member.effect';
 import { HttpClientModule } from '@angular/common/http';
-import {LevelEffect} from "./store/level/level.effect";
-import {LevelStateModule} from "./store/level/level.state.module";
+import { LevelEffect } from './store/level/level.effect';
+import { LevelStateModule } from './store/level/level.state.module';
+import { FishEffect } from './store/fish/fish.effect';
+import { FishStateModule } from './store/fish/fish.state.module';
 import { CompetitionEffect } from './store/competition/comeptition.effect';
 import { CompetitionModule } from './store/competition/competitoin.state.module';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     StoreModule.forRoot({}, {}),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
+    EffectsModule.forRoot([MemberEffect, LevelEffect, FishEffect]),
     EffectsModule.forRoot([MemberEffect, LevelEffect, CompetitionEffect]),
     MemberStateModule,
     LevelStateModule,
+    FishStateModule,
     CompetitionModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}
