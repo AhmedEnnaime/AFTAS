@@ -8,7 +8,7 @@ import { Member } from "../model/interfaces/member.model";
     providedIn: 'root'
 })
 export class MemberService {
-    private baseUrl: string = "http://localhost:9090/api/members/";
+    private baseUrl: string = "http://localhost:9090/api/members";
 
     httpOptions = {
         headers: new HttpHeaders({
@@ -27,19 +27,19 @@ export class MemberService {
 
       getMembersByName(name: String): Observable<Member[]> {
         return this.http
-          .get<Member[]>(this.baseUrl + "name/" + name, this.httpOptions)
+          .get<Member[]>(this.baseUrl + "/name/" + name, this.httpOptions)
           .pipe(catchError((error) => this.configService.handleError(error)));
       }
 
       getMembersByFamilyName(familyName: String): Observable<Member[]> {
         return this.http
-          .get<Member[]>(this.baseUrl + "family-name/" + familyName, this.httpOptions)
+          .get<Member[]>(this.baseUrl + "/family-name/" + familyName, this.httpOptions)
           .pipe(catchError((error) => this.configService.handleError(error)));
       }
     
-      deleteMember(num: number): Observable<string> {
+      deleteMember(num: Number | undefined): Observable<{message: String, deletedElementIdentifier: Number}> {
         return this.http
-          .delete<string>(this.baseUrl + num, this.httpOptions)
+          .delete<{message: string, deletedElementIdentifier: Number}>(this.baseUrl + '/' + num, this.httpOptions)
           .pipe(catchError((error) => this.configService.handleError(error)));
       }
     
@@ -49,9 +49,9 @@ export class MemberService {
           .pipe(catchError((error) => this.configService.handleError(error)));
       }
     
-      updateMember(num: number, member: Member): Observable<Member> {
+      updateMember(num: Number, member: Member): Observable<Member> {
         return this.http
-          .put<Member>(this.baseUrl + num, member, this.httpOptions)
+          .put<Member>(this.baseUrl + '/' + num, member, this.httpOptions)
           .pipe(catchError((error) => this.configService.handleError(error)));
       }
 } 

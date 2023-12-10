@@ -1,1 +1,7 @@
 <h1>Chaaaabka 3and {{title}}</h1>
+
+
+
+<div *ngFor="let member of members$ | async" >
+    <p class="mt-10 cursor-pointer bg-slate-700 text-white rounded-lg" (click)="deleteMember(member.num)">{{ member.name }}</p>
+</div>
