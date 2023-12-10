@@ -1,6 +1,6 @@
 package com.youcode.aftas_backend.models.dto.competetion;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.youcode.aftas_backend.models.dto.Member.MemberDto;
 import com.youcode.aftas_backend.models.dto.fish.FishDto;
 
@@ -20,6 +20,6 @@ public class CompetitionHuntDto {
     private FishDto fish;
     private MemberDto member;
 
-    @JsonIgnoreProperties("huntings")
+    @JsonIgnore
     private CompetitionDto competition;
 }

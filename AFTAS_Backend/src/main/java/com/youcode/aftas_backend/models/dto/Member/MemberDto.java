@@ -3,7 +3,7 @@ package com.youcode.aftas_backend.models.dto.Member;
 import java.time.LocalDate;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.youcode.aftas_backend.models.dto.RankingDto;
 import com.youcode.aftas_backend.models.enums.IdentityDocumentType;
 
@@ -29,6 +29,6 @@ public class MemberDto {
     private IdentityDocumentType identityDocument;
     private String identityNumber;
 
-    @JsonIgnoreProperties("member")
+    @JsonIgnore
     private List<RankingDto> rankings;
 }

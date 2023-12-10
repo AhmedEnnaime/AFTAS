@@ -1,5 +1,6 @@
 package com.youcode.aftas_backend.models.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.youcode.aftas_backend.models.dto.Member.MemberDto;
 import com.youcode.aftas_backend.models.dto.competetion.CompetitionDto;
@@ -23,7 +24,7 @@ public class RankingDto {
     private Integer rank;
     private Integer score;
     
-    @JsonIgnoreProperties("rankings")
+    @JsonIgnore
     private CompetitionDto competition;
     
     @JsonIgnoreProperties("rankings")
