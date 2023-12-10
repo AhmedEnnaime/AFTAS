@@ -18,7 +18,4 @@ import java.util.List;
 @Validated
 public class LevelController extends Controller<LevelDto, Integer> {
 
-    @Autowired
-    private LevelService levelService;
-
 }
