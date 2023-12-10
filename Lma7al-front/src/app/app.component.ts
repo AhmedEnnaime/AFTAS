@@ -34,11 +34,12 @@ export class AppComponent implements OnInit {
   members$: Observable<Member[]>;
   levels$: Observable<Level[]>;
   fishes$: Observable<Fish[]>;
-  // competitions$: Observable<Competition[]>;
+  competitions$: Observable<Competition[]>;
 
   selectedMember$: Observable<Member | null>;
   selectedLevel$: Observable<Level | null>;
   selectedFish$: Observable<Fish | null>;
+  selectedCompetition$: Observable<Competition | null>;
 
   constructor(private store: Store) {
     this.members$ = store.select(selectMembers);
@@ -47,6 +48,8 @@ export class AppComponent implements OnInit {
     this.levels$ = store.select(selectLevels);
     this.fishes$ = store.select(selectFishes);
     this.selectedFish$ = store.select(selectSelectedFish);
+    this.selectedCompetition$ = store.select(selectSelectedCompetitoin);
+    this.competitions$ = store.select(selectCompetitions);
   }
 
   ngOnInit(): void {
