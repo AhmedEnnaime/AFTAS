@@ -52,7 +52,7 @@ public class HuntingServiceImpl implements HuntingService {
                     hunting.getNumberOfFish() + hunting.getNumberOfFish()
             );
         }
-        return modelMapper.map(huntingInstance, SingleHuntDto.class);
+        return modelMapper.map(huntingRepository.save(huntingInstance), SingleHuntDto.class);
     }
 
     @Override
