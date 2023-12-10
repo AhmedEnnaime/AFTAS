@@ -1,15 +1,14 @@
-import { createReducer, createSelector, on } from "@ngrx/store";
-import { Member } from "src/app/model/interfaces/member.model";
+import { createReducer, on } from "@ngrx/store";
 
 import * as levelPageActions from "./actions/level-page.actions"
 import * as levelApiActions from "./actions/level.api.actions"
 import {Level} from "../../model/interfaces/level";
 
 export interface LevelState {
-  collection: Level[],
+  collection: Level[];
   selectedLevelCode: number | null;
   loading: boolean;
-  errors: {}
+  errors: {};
 }
 
 export const initialLevelState: LevelState = {

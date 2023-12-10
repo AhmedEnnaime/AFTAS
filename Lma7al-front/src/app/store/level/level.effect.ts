@@ -58,7 +58,7 @@ export class LevelEffect {
         this.levelService
           .deleteLevel(action.levelCode)
           .pipe(
-            map(response => levelApiActions.levelDeletedSuccessfully({message: response.toString(), levelCode: 0}))
+            map(response => levelApiActions.levelDeletedSuccessfully({message: response, levelCode: 0}))
           )
       )
     )
