@@ -34,7 +34,7 @@ export class AppComponent implements OnInit {
   members$: Observable<Member[]>;
   levels$: Observable<Level[]>;
   fishes$: Observable<Fish[]>;
-  competitions$: Observable<Competition[]>;
+  // competitions$: Observable<Competition[]>;
 
   selectedMember$: Observable<Member | null>;
   selectedLevel$: Observable<Level | null>;
