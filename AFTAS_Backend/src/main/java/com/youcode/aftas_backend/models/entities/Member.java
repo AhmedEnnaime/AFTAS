@@ -43,7 +43,7 @@ public class Member {
     @NotEmpty(message = "Member nationality is required")
     private String nationality;
 
-    @NotNull(message = "Member identity document type must not be null.")
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private IdentityDocumentType identityDocument;
 

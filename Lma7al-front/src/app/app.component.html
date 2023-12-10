@@ -5,3 +5,7 @@
 <div *ngFor="let member of members$ | async" >
     <p class="mt-10 cursor-pointer bg-slate-700 text-white rounded-lg" (click)="deleteMember(member.num)">{{ member.name }}</p>
 </div>
+
+<div *ngFor="let level of levels$ | async" >
+  <p class="mt-10 cursor-pointer bg-slate-700 text-white rounded-lg" (click)="deleteLevel(level.code)">{{ level.description }}</p>
+</div>

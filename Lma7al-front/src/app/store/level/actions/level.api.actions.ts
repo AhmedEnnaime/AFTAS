@@ -8,7 +8,7 @@ export const levelsLoadedSuccessfully = createAction(
 
 export const levelsLoadedFailure = createAction(
   '[Level api] level loaded failure',
-  props<{message: String}>()
+  props<{errors: {}}>()
 );
 
 export const levelAddedSuccessfully = createAction(
@@ -18,7 +18,7 @@ export const levelAddedSuccessfully = createAction(
 
 export const levelsAddedFailure = createAction(
   '[Level api] level added failure',
-  props<{message: String}>()
+  props<{errors: {}}>()
 );
 
 export const levelUpdatedSuccessfully = createAction(
@@ -28,15 +28,15 @@ export const levelUpdatedSuccessfully = createAction(
 
 export const levelsUpdatedFailure = createAction(
   '[Level api] level updated failure',
-  props<{message: string}>()
+  props<{errors: {}}>()
 );
 
 export const levelDeletedSuccessfully = createAction(
   '[Level api] level deleted successfully',
-  props<{message: string, levelCode: number}>()
+  props<{message: String, levelCode: number}>()
 );
 
 export const levelsDeletedFailure = createAction(
   '[Level api] level deleted failure',
-  props<{message: string}>()
+  props<{errors: {}}>()
 );

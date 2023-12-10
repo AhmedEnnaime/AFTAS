@@ -9,6 +9,8 @@ import { EffectsModule } from '@ngrx/effects';
 import { MemberStateModule } from './store/member/member.state.module';
 import { MemberEffect } from './store/member/member.effect';
 import { HttpClientModule } from '@angular/common/http';
+import {LevelEffect} from "./store/level/level.effect";
+import {LevelStateModule} from "./store/level/level.state.module";
 
 @NgModule({
   declarations: [
@@ -19,11 +21,12 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     StoreModule.forRoot({}, {}),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
-    EffectsModule.forRoot([MemberEffect]),
+    EffectsModule.forRoot([MemberEffect, LevelEffect]),
     MemberStateModule,
+    LevelStateModule,
     HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule {} 
+export class AppModule {}

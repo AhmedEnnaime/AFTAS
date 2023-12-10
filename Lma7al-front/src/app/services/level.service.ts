@@ -25,7 +25,7 @@ export class LevelService {
       .pipe(catchError((error) => this.configService.handleError(error)));
   }
 
-  deleteLevel(id: number): Observable<string> {
+  deleteLevel(id: number | undefined): Observable<string> {
     return this.http
       .delete<string>(`${this.baseUrl}/levels/${id}`, this.httpOptions)
       .pipe(catchError((error) => this.configService.handleError(error)));
@@ -37,7 +37,7 @@ export class LevelService {
       .pipe(catchError((error) => this.configService.handleError(error)));
   }
 
-  updateLevel(level: Level, id: number): Observable<Level> {
+  updateLevel(id: number | undefined, level: Level): Observable<Level> {
     return this.http
       .put<Level>(`${this.baseUrl}/levels/${id}`, level, this.httpOptions)
       .pipe(catchError((error) => this.configService.handleError(error)));
