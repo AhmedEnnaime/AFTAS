@@ -19,10 +19,10 @@ import java.io.Serializable;
 @Embeddable
 public class CompetitionMember implements Serializable {
     
-    @Column(name = "member_num", nullable = false)
+    @Column(name = "member_num")
     private Integer memberNum;
 
-    @Column(name = "competition_code", nullable = false)
+    @Column(name = "competition_code")
     private String competitionCode;
 
     @Override 

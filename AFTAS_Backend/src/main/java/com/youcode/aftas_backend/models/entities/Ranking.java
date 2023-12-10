@@ -8,7 +8,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -33,13 +32,11 @@ public class Ranking {
     @Column(columnDefinition = "INT DEFAULT 0")
     private Integer score;
 
-    @NotNull(message = "ranking competition is required.")
     @ManyToOne
     @MapsId("competitionCode")
     private Competition competition;
 
-    @NotNull(message = "ranking member is required.")
-    @ManyToOne()
+    @ManyToOne
     @MapsId("memberNum")
     private Member member;
 }

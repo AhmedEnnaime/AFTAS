@@ -16,6 +16,7 @@ import com.youcode.aftas_backend.models.entities.Ranking;
 import com.youcode.aftas_backend.repositories.RankingRepository;
 import com.youcode.aftas_backend.services.CompetitionService;
 import com.youcode.aftas_backend.services.HuntingService;
+import com.youcode.aftas_backend.services.MemberService;
 import com.youcode.aftas_backend.services.RankingService;
 
 import lombok.AllArgsConstructor;
@@ -27,16 +28,19 @@ public class RankingServiceImpl implements RankingService {
 
     private final RankingRepository rankingRepository;
     private final HuntingService huntingService;
+    private final MemberService memberService;
     private final CompetitionService competitionService;
     private final ModelMapper modelMapper;
 
     @Override
     public RankingDto save(RankingDto rankingDto) {
-        var competition = competitionService.findByID(rankingDto.getCompetition().getCode());
+        var competition = competitionService.findByID(rankingDto.getId().getCompetitionCode());
         if(competition.getDate().isEqual((LocalDate.now(ZoneId.of("Africa/Casablanca")))) || 
             competition.getDate().isAfter(LocalDate.now(ZoneId.of("Africa/Casablanca")))
         ) 
             throw new RuntimeException("The competition is already closed.");
+        rankingDto.setCompetition(competition);
+        rankingDto.setMember(memberService.findByID(rankingDto.getId().getMemberNum()));
         Ranking rankingEntity = modelMapper.map(rankingDto, Ranking.class);
         Ranking savedRanking = rankingRepository.save(rankingEntity);
         return modelMapper.map(savedRanking, RankingDto.class);
