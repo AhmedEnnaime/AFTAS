@@ -11,6 +11,8 @@ import { MemberEffect } from './store/member/member.effect';
 import { HttpClientModule } from '@angular/common/http';
 import {LevelEffect} from "./store/level/level.effect";
 import {LevelStateModule} from "./store/level/level.state.module";
+import {FishEffect} from "./store/fish/fish.effect";
+import {FishStateModule} from "./store/fish/fish.state.module";
 
 @NgModule({
   declarations: [
@@ -21,9 +23,10 @@ import {LevelStateModule} from "./store/level/level.state.module";
     AppRoutingModule,
     StoreModule.forRoot({}, {}),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
-    EffectsModule.forRoot([MemberEffect, LevelEffect]),
+    EffectsModule.forRoot([MemberEffect, LevelEffect, FishEffect]),
     MemberStateModule,
     LevelStateModule,
+    FishStateModule,
     HttpClientModule
   ],
   providers: [],

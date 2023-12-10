@@ -9,3 +9,7 @@
 <div *ngFor="let level of levels$ | async" >
   <p class="mt-10 cursor-pointer bg-slate-700 text-white rounded-lg" (click)="deleteLevel(level.code)">{{ level.description }}</p>
 </div>
+
+<div *ngFor="let fish of fishes$ | async" >
+  <p class="mt-10 cursor-pointer bg-slate-700 text-white rounded-lg" (click)="deleteFish(fish.name)">{{ fish.name }}</p>
+</div>
