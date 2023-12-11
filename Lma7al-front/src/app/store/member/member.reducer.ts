@@ -5,10 +5,10 @@ import * as memberPageActions from "./actions/member-page.actions"
 import * as memberApiActions from "./actions/member-api.actions"
 
 export interface MemberState {
-    collection: Member[],
+    collection: Member[];
     selectedMemberNum: Number | null;
     loading: boolean;
-    errors: {}
+    errors: {};
 }
 
 const initialMemberState: MemberState = {
@@ -43,7 +43,8 @@ export const MemberReducer = createReducer(
        memberApiActions.membersByNameLoadedSuccessfully,
        (state, action) => ({
         ...state,
-        collection: action.members 
+        collection: action.members,
+        loading: false,
     })),
     on(memberPageActions.addMember,
        memberPageActions.updateMember,

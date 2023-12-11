@@ -31,9 +31,9 @@ export class RankingService {
           .pipe(catchError((error) => this.configService.handleError(error)));
       }
     
-      deleteRanking(identifier: CompetitionMember): Observable<string> {
+      deleteRanking(identifier: CompetitionMember): Observable<{message: String, deletedElementIdentifier: CompetitionMember}> {
         return this.http
-          .delete<string>(this.baseUrl + "competition/" + identifier.competitionCode + "/member/" + identifier.memberNum , this.httpOptions)
+          .delete<{message: String, deletedElementIdentifier: CompetitionMember}>(this.baseUrl + "competition/" + identifier.competitionCode + "/member/" + identifier.memberNum , this.httpOptions)
           .pipe(catchError((error) => this.configService.handleError(error)));
       }
     
