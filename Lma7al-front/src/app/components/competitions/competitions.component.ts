@@ -17,11 +17,11 @@ export class CompetitionsComponent implements OnInit{
     this.competitions = store.select(selectCompetitions)
   }
 
-  getFutureCompetitions() {
+  getAllCompetitions() {
     this.store.dispatch(competitionPageActions.enter({page: 0, size: 5} ))
   }
 
-  getAllCompetitions() {
+  getFutureCompetitions() {
     this.store.dispatch(competitionPageActions.LoadFutureCompetitions({page: 0, size: 5}))
   }
 
