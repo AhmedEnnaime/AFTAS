@@ -21,7 +21,7 @@ export class CompetitionService {
 
       getCompetitions(page?: Number, size?: Number): Observable<Competition[]> {
         return this.http
-          .get<Competition[]>(this.baseUrl + `/all/?page=${page || 0}&size=${size || 10}`, this.httpOptions)
+          .get<Competition[]>(this.baseUrl + `/all?page=${page || 0}&size=${size || 10}`, this.httpOptions)
           .pipe(catchError((error) => this.configService.handleError(error)));
       }
 

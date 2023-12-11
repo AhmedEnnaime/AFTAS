@@ -24,9 +24,12 @@ import { NotFoundComponent } from './shared/not-found/not-found.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { MembersComponent } from './components/members/members.component';
 import { MembersTableComponent } from './components/members/members-table/members-table.component';
+import {CompetitionsTableComponent} from "./components/competitions/competitions-table/competitions-table.component";
+import { CompetitionsPageComponent } from './pages/competitions-page/competitions-page.component';
+import {CompetitionsComponent} from "./components/competitions/competitions.component";
 
 @NgModule({
-  declarations: [AppComponent, MainLayoutComponent, NotFoundComponent, DashboardComponent, MembersComponent, MembersTableComponent],
+  declarations: [AppComponent, MainLayoutComponent, NotFoundComponent, DashboardComponent, MembersComponent, MembersTableComponent, CompetitionsComponent, CompetitionsTableComponent, CompetitionsPageComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

@@ -1,0 +1,69 @@
+<table class="min-w-full divide-y divide-gray-200 none:divide-gray-700">
+  <thead class="bg-gray-50 none:bg-gray-800">
+  <tr>
+    <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 none:text-gray-400">
+      Code
+    </th>
+
+    <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 none:text-gray-400">
+      Date
+    </th>
+
+    <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 none:text-gray-400">
+      Start Date
+    </th>
+
+    <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 none:text-gray-400">
+      Number Of Participants
+    </th>
+
+    <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 none:text-gray-400">
+      Location
+    </th>
+
+    <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 none:text-gray-400">
+      Amount
+    </th>
+
+  </tr>
+  </thead>
+  <tbody class="bg-white divide-y divide-gray-200 none:divide-gray-700 none:bg-gray-900">
+  <tr *ngFor="let competition of competitions | async">
+    <td class="px-12 py-4 text-sm font-medium whitespace-nowrap">
+      <div class="inline px-3 py-1 text-sm font-normal rounded-full gap-x-2 none:bg-gray-800">
+        {{competition?.code}}
+      </div>
+    </td>
+
+    <td class="px-12 py-4 text-sm font-medium whitespace-nowrap">
+      <div class="inline px-3 py-1 text-sm font-normal rounded-full gap-x-2 none:bg-gray-800">
+        {{competition?.date}}
+      </div>
+    </td>
+
+    <td class="px-12 py-4 text-sm font-medium whitespace-nowrap">
+      <div class="inline px-3 py-1 text-sm font-normal rounded-full gap-x-2 none:bg-gray-800">
+        {{competition?.startTime}}
+      </div>
+    </td>
+
+    <td class="px-12 py-4 text-sm font-medium whitespace-nowrap">
+      <div class="inline px-3 py-1 text-sm font-normal rounded-full gap-x-2 none:bg-gray-800">
+        {{competition?.numberOfParticipants}}
+      </div>
+    </td>
+
+    <td class="px-12 py-4 text-sm font-medium whitespace-nowrap">
+      <div class="inline px-3 py-1 text-sm font-normal rounded-full gap-x-2 none:bg-gray-800">
+        {{competition?.location}}
+      </div>
+    </td>
+
+    <td class="px-12 py-4 text-sm font-medium whitespace-nowrap">
+      <div class="inline px-3 py-1 text-sm font-normal rounded-full gap-x-2 none:bg-gray-800">
+        {{competition?.amount}}
+      </div>
+    </td>
+  </tr>
+  </tbody>
+</table>
