@@ -8,7 +8,7 @@ import { CompetitionMember, Ranking } from "../model/interfaces/ranking.model";
     providedIn: 'root'
 })
 export class RankingService {
-    private baseUrl: string = "http://localhost:9090/api/rankings/";
+    private baseUrl: string = "http://localhost:8082/api/rankings/";
 
     httpOptions = {
         headers: new HttpHeaders({
@@ -30,7 +30,7 @@ export class RankingService {
           .get<Ranking[]>(this.baseUrl + "competition/" + competitionCode, this.httpOptions)
           .pipe(catchError((error) => this.configService.handleError(error)));
       }
-    
+
       deleteRanking(identifier: CompetitionMember): Observable<{message: String, deletedElementIdentifier: CompetitionMember}> {
         return this.http
           .delete<{message: String, deletedElementIdentifier: CompetitionMember}>(this.baseUrl + "competition/" + identifier.competitionCode + "/member/" + identifier.memberNum , this.httpOptions)

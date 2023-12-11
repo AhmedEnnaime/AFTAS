@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
@@ -42,8 +43,10 @@ public class CompetitionServiceImpl implements CompetitionService {
     @Override
     public List<CompetitionDto> getAllCompetitions(final Integer page, final Integer size) {
         PageRequest pageable = PageRequest.of(page, size);
-        return Arrays.asList(modelMapper.map(competitionRepository.findAll(pageable) ,
-                            CompetitionDto[].class));
+        Page<Competition> competitionPage = competitionRepository.findAll(pageable);
+        return competitionPage.getContent().stream()
+                .map(competition -> modelMapper.map(competition, CompetitionDto.class))
+                .toList();
     }
 
     @Override

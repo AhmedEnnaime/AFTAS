@@ -27,8 +27,8 @@ public class CompetitionController extends Controller<CompetitionDto, String> {
 
     private final CompetitionService competitionService;
 
-    @GetMapping
-    public ResponseEntity<List<CompetitionDto>> getAll(@RequestParam(defaultValue = "0") final Integer page,@RequestParam(defaultValue = "10") final Integer size) {
+    @GetMapping("/all")
+    public ResponseEntity<List<CompetitionDto>> getAllCompetitions(@RequestParam(defaultValue = "0") final Integer page, @RequestParam(defaultValue = "10") final Integer size) {
         return new ResponseEntity<>(competitionService.getAllCompetitions(page, size), HttpStatus.OK);
     }
 

@@ -20,6 +20,7 @@ export class MembersComponent implements OnInit{
   searchForMember(event: any) {
     if(event.value == "") {
       this.store.dispatch(memberPageActions.enter());
+      return
     }
     this.store.dispatch(memberPageActions.filterMembersByName({memberName: event.value}))
   }
