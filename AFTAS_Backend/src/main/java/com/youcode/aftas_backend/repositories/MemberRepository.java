@@ -5,11 +5,14 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.youcode.aftas_backend.models.entities.Member;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public interface MemberRepository extends JpaRepository<Member, Integer> {
 
-    public List<Member> findByName(String name); 
-    public List<Member> findByFamilyName(String familyName);
+    @Query("SELECT m FROM Member m WHERE m.name LIKE %:keyword% OR m.familyName LIKE %:keyword%")
+    List<Member> findByNameOrFamilyNameContaining(@Param("keyword") String keyword);
+    public List<Member> findByFamilyNameContaining(String familyName);
 }

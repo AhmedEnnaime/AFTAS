@@ -19,9 +19,14 @@ import {HuntingEffect} from "./store/hunting/hunting.effect";
 import {HuntingStateModule} from "./store/hunting/hunting.state.module";
 import {RankingEffect} from "./store/ranking/ranking.effect";
 import {RankingStateModule} from "./store/ranking/ranking.state.module";
+import { MainLayoutComponent } from './shared/main-layout/main-layout.component';
+import { NotFoundComponent } from './shared/not-found/not-found.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { MembersComponent } from './components/members/members.component';
+import { MembersTableComponent } from './components/members/members-table/members-table.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, MainLayoutComponent, NotFoundComponent, DashboardComponent, MembersComponent, MembersTableComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

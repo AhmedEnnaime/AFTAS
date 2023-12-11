@@ -37,13 +37,13 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public List<MemberDto> getByName(String name) {
-        return Arrays.asList(modelMapper.map(memberRepository.findByName(name),
+        return Arrays.asList(modelMapper.map(memberRepository.findByNameOrFamilyNameContaining(name),
                             MemberDto[].class));
     }
 
     @Override
     public List<MemberDto> getByFamilyName(String familyName) {
-        return Arrays.asList(modelMapper.map(memberRepository.findByFamilyName(familyName),
+        return Arrays.asList(modelMapper.map(memberRepository.findByFamilyNameContaining(familyName),
                             MemberDto[].class));
     }
 
