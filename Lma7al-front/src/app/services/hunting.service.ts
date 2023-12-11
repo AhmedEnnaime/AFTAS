@@ -27,7 +27,7 @@ export class HuntingService {
       .pipe(catchError((error) => this.configService.handleError(error)));
   }
 
-  deleteHunting(id: number | undefined): Observable<{message: String, deletedElementIdentifier: number}> {
+  deleteHunting(id: number | undefined): Observable<{message: string, deletedElementIdentifier: number}> {
     return this.http
       .delete<{message: string, deletedElementIdentifier: number}>(this.baseUrl + '/hunting/' + id, this.httpOptions)
       .pipe(catchError((error) => this.configService.handleError(error)));

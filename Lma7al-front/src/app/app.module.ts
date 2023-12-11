@@ -15,6 +15,8 @@ import { FishEffect } from './store/fish/fish.effect';
 import { FishStateModule } from './store/fish/fish.state.module';
 import { CompetitionEffect } from './store/competition/comeptition.effect';
 import { CompetitionModule } from './store/competition/competitoin.state.module';
+import {HuntingEffect} from "./store/hunting/hunting.effect";
+import {HuntingStateModule} from "./store/hunting/hunting.state.module";
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,12 +25,12 @@ import { CompetitionModule } from './store/competition/competitoin.state.module'
     AppRoutingModule,
     StoreModule.forRoot({}, {}),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
-    EffectsModule.forRoot([MemberEffect, LevelEffect, FishEffect]),
-    EffectsModule.forRoot([MemberEffect, LevelEffect, CompetitionEffect]),
+    EffectsModule.forRoot([MemberEffect, LevelEffect, FishEffect, HuntingEffect, CompetitionEffect]),
     MemberStateModule,
     LevelStateModule,
     FishStateModule,
     CompetitionModule,
+    HuntingStateModule,
     HttpClientModule,
   ],
   providers: [],

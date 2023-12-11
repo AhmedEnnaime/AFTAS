@@ -11,6 +11,7 @@ import * as memberPageActions from './store/member/actions/member-page.actions';
 import * as levelPageActions from './store/level/actions/level-page.actions';
 import * as fishPageActions from './store/fish/actions/fish-page.actions';
 import * as competitionPageActions from './store/competition/actions/competition-page.actions';
+import * as huntingPageActions from './store/hunting/actions/hunting-page.actions';
 
 import { Level } from './model/interfaces/level';
 import {
@@ -24,6 +25,8 @@ import {
   selectCompetitions,
   selectSelectedCompetitoin,
 } from './store/competition/competition.selectors';
+import {Hunting} from "./model/interfaces/hunting";
+import {selectHuntings, selectSelectedHunting} from "./store/hunting/hunting.selectors";
 
 @Component({
   selector: 'app-root',
@@ -35,11 +38,13 @@ export class AppComponent implements OnInit {
   levels$: Observable<Level[]>;
   fishes$: Observable<Fish[]>;
   competitions$: Observable<Competition[]>;
+  huntings$: Observable<Hunting[]>;
 
   selectedMember$: Observable<Member | null>;
   selectedLevel$: Observable<Level | null>;
   selectedFish$: Observable<Fish | null>;
   selectedCompetition$: Observable<Competition | null>;
+  selectedHunting$: Observable<Hunting | null>;
 
   constructor(private store: Store) {
     this.members$ = store.select(selectMembers);
@@ -50,6 +55,8 @@ export class AppComponent implements OnInit {
     this.selectedFish$ = store.select(selectSelectedFish);
     this.selectedCompetition$ = store.select(selectSelectedCompetitoin);
     this.competitions$ = store.select(selectCompetitions);
+    this.huntings$ = store.select(selectHuntings);
+    this.selectedHunting$ = store.select(selectSelectedHunting);
   }
 
   ngOnInit(): void {
@@ -57,6 +64,7 @@ export class AppComponent implements OnInit {
     this.store.dispatch(levelPageActions.enter());
     this.store.dispatch(fishPageActions.enter());
     this.store.dispatch(competitionPageActions.enter());
+    this.store.dispatch(huntingPageActions.enter());
   }
 
   deleteMember(num: Number | undefined) {
@@ -75,5 +83,9 @@ export class AppComponent implements OnInit {
     this.store.dispatch(
       competitionPageActions.deleteCompetition({ CompetitionCode: code })
     );
+  }
+
+  deleteHunting(id: number | undefined) {
+    this.store.dispatch(huntingPageActions.deleteHunting({ huntingID: id }));
   }
 }
