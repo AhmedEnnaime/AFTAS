@@ -45,8 +45,8 @@ public class CompetitionServiceImpl implements CompetitionService {
         PageRequest pageable = PageRequest.of(page, size);
         Page<Competition> competitionPage = competitionRepository.findAll(pageable);
         return competitionPage.getContent().stream()
-                .map(competition -> modelMapper.map(competition, CompetitionDto.class))
-                .toList();
+            .map(competition -> modelMapper.map(competition, CompetitionDto.class))
+            .toList();
     }
 
     @Override
@@ -76,21 +76,27 @@ public class CompetitionServiceImpl implements CompetitionService {
     @Override
     public List<CompetitionDto> getOnGoingCompetition(final Integer page, final Integer size) {
         PageRequest pageable = PageRequest.of(page, size);
-        return Arrays.asList(modelMapper.map(competitionRepository.findByDate(LocalDate.now(ZoneId.of("Africa/Casablanca")), pageable), 
-               CompetitionDto[].class));
+        Page<Competition> competitionPage = competitionRepository.findByDate(LocalDate.now(ZoneId.of("Africa/Casablanca")), pageable);
+        return competitionPage.getContent().stream()
+            .map(competition -> modelMapper.map(competition, CompetitionDto.class))
+            .toList();
     }
 
     @Override
     public List<CompetitionDto> getClosedCompetitions(final Integer page, final Integer size) {
         PageRequest pageable = PageRequest.of(page, size);
-        return Arrays.asList(modelMapper.map(competitionRepository.findByDateBefore(LocalDate.now(ZoneId.of("Africa/Casablanca")), pageable),
-                            CompetitionDto[].class));
+        Page<Competition> competitionPage = competitionRepository.findByDateBefore(LocalDate.now(ZoneId.of("Africa/Casablanca")), pageable);
+        return competitionPage.getContent().stream()
+            .map(competition -> modelMapper.map(competition, CompetitionDto.class))
+            .toList();
     }
 
     @Override
     public List<CompetitionDto> getFutureCompetitions(final Integer page, final Integer size) {
         PageRequest pageable = PageRequest.of(page, size);
-        return Arrays.asList(modelMapper.map(competitionRepository.findByDateAfter(LocalDate.now(ZoneId.of("Africa/Casablanca")), pageable),
-                            CompetitionDto[].class));
+        Page<Competition> competitionPage = competitionRepository.findByDateAfter(LocalDate.now(ZoneId.of("Africa/Casablanca")), pageable);
+        return competitionPage.getContent().stream()
+            .map(competition -> modelMapper.map(competition, CompetitionDto.class))
+            .toList();
     }    
 }
