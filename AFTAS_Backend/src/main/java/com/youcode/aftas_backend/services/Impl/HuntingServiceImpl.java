@@ -42,6 +42,7 @@ public class HuntingServiceImpl implements HuntingService {
                                                .fish(fishRepository.findById(hunting.getFish_name()).get())
                                                        .competition(competitionRepository.findById(hunting.getCompetition_code()).get())
                                                                .member(memberRepository.findById(hunting.getMember_num()).get()).build();
+            System.out.println(huntingInstance.toString());
         }else{
             huntingInstance = huntingRepository.findHuntingByFishNameAndMemberNumAndCompetitionCode(
                     hunting.getFish_name(),
@@ -51,6 +52,7 @@ public class HuntingServiceImpl implements HuntingService {
             huntingInstance.setNumberOfFish(
                     hunting.getNumberOfFish() + hunting.getNumberOfFish()
             );
+            System.out.println(huntingInstance.toString());
         }
         return modelMapper.map(huntingRepository.save(huntingInstance), SingleHuntDto.class);
     }

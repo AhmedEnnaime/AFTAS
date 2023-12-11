@@ -3,8 +3,8 @@ server:
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/aftas
-    username: mizo
-    password: changemeinprod!
+    username: postgres
+    password: chnagemeinprod!
     driver-class-name: org.postgresql.Driver
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect

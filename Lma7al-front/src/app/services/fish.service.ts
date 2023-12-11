@@ -25,9 +25,9 @@ export class FishService {
       .pipe(catchError((error) => this.configService.handleError(error)));
   }
 
-  deleteFish(name: string): Observable<string> {
+  deleteFish(name: string | undefined): Observable<{message: String, deletedElementIdentifier: string}> {
     return this.http
-      .delete<string>(`${this.baseUrl}/fishes/${name}`, this.httpOptions)
+      .delete<{message: string, deletedElementIdentifier: string}>(this.baseUrl + '/fishes/' + name, this.httpOptions)
       .pipe(catchError((error) => this.configService.handleError(error)));
   }
 
@@ -43,7 +43,7 @@ export class FishService {
       .pipe(catchError((error) => this.configService.handleError(error)));
   }
 
-  updateFish(fish: Fish, name: string): Observable<Fish> {
+  updateFish(name: string | undefined, fish: Fish): Observable<Fish> {
     return this.http
       .put<Fish>(`${this.baseUrl}/fishes/${name}`, fish, this.httpOptions)
       .pipe(catchError((error) => this.configService.handleError(error)));

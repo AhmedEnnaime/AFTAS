@@ -11,7 +11,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(path = "api/fishes", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -45,9 +47,12 @@ public class FishController {
         return ResponseEntity.ok(updatedFish);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteFish(@PathVariable String id) {
-        fishService.delete(id);
-        return new ResponseEntity<>("Fish deleted successfully", HttpStatus.OK);
+    @DeleteMapping("/{name}")
+    public ResponseEntity<Map<String, String>> deleteFish(@PathVariable String name) {
+        fishService.delete(name);
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Fish deleted successfully.");
+        response.put("deletedElementIdentifier", name);
+        return new ResponseEntity<>(response ,HttpStatus.OK);
     }
 }
