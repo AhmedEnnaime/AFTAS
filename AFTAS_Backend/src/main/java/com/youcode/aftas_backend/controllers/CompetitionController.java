@@ -40,13 +40,13 @@ public class CompetitionController extends Controller<CompetitionDto, String> {
 
     @GetMapping("/future")
     public ResponseEntity<List<CompetitionDto>> getFutureCompetitions(@RequestParam(defaultValue = "0") final Integer page,@RequestParam(defaultValue = "10") final Integer size) {
-        var foundedDto = competitionService.getOnGoingCompetition(page, size);
+        var foundedDto = competitionService.getFutureCompetitions(page, size);
         return new ResponseEntity<>(foundedDto, HttpStatus.OK);
     }
 
     @GetMapping("/closed")
     public ResponseEntity<List<CompetitionDto>> getClosedCompetitions(@RequestParam(defaultValue = "0") final Integer page,@RequestParam(defaultValue = "10") final Integer size) {
-        var foundedDto = competitionService.getOnGoingCompetition(page, size);
+        var foundedDto = competitionService.getClosedCompetitions(page, size);
         return new ResponseEntity<>(foundedDto, HttpStatus.OK);
     }
 }

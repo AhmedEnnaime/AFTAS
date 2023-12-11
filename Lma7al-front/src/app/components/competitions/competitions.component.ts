@@ -17,6 +17,22 @@ export class CompetitionsComponent implements OnInit{
     this.competitions = store.select(selectCompetitions)
   }
 
+  getFutureCompetitions() {
+    this.store.dispatch(competitionPageActions.enter({page: 0, size: 5} ))
+  }
+
+  getAllCompetitions() {
+    this.store.dispatch(competitionPageActions.LoadFutureCompetitions({page: 0, size: 5}))
+  }
+
+  getClosedCompetitions() {
+    this.store.dispatch(competitionPageActions.LoadClosedCompetitions({page: 0, size: 5}))
+  }
+
+  getOnGoingCompetitions() {
+    this.store.dispatch(competitionPageActions.LoadCurrentCompetition({page: 0, size: 5}))
+  }
+
   ngOnInit() {
     this.store.dispatch(competitionPageActions.enter({page: 0, size: 5} ))
   }

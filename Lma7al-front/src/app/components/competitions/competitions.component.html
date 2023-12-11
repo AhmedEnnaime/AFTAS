@@ -2,19 +2,19 @@
 
   <div class="mt-6 md:flex md:items-center md:justify-between">
     <div class="inline-flex overflow-hidden bg-white border divide-x rounded-lg none:bg-gray-900 rtl:flex-row-reverse none:border-gray-700 none:divide-gray-700">
-      <button class="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 bg-gray-100 sm:text-sm none:bg-gray-800 none:text-gray-300">
+      <button (click)="getAllCompetitions()" class="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 bg-gray-100 sm:text-sm none:bg-gray-800 none:text-gray-300">
         View all
       </button>
 
-      <button class="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 sm:text-sm none:hover:bg-gray-800 none:text-gray-300 hover:bg-gray-100">
+      <button (click)="getOnGoingCompetitions()" class="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 sm:text-sm none:hover:bg-gray-800 none:text-gray-300 hover:bg-gray-100">
         On Going
       </button>
 
-      <button class="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 sm:text-sm none:hover:bg-gray-800 none:text-gray-300 hover:bg-gray-100">
+      <button (click)="getClosedCompetitions()" class="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 sm:text-sm none:hover:bg-gray-800 none:text-gray-300 hover:bg-gray-100">
         Closed
       </button>
 
-      <button class="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 sm:text-sm none:hover:bg-gray-800 none:text-gray-300 hover:bg-gray-100">
+      <button (click)="getOnGoingCompetitions()" class="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 sm:text-sm none:hover:bg-gray-800 none:text-gray-300 hover:bg-gray-100">
         Incoming
       </button>
     </div>
