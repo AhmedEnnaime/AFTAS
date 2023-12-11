@@ -7,7 +7,8 @@ import com.youcode.aftas_backend.superClasses.ServiceInterface;
 
 public interface CompetitionService extends ServiceInterface<CompetitionDto, String> {
 
-    List<CompetitionDto> getOnGoingCompetition();
-    List<CompetitionDto> getClosedCompetitions();
-    List<CompetitionDto> getFutureCompetitions();
+    List<CompetitionDto> getAllCompetitions(final Integer page, final Integer size);
+    List<CompetitionDto> getOnGoingCompetition(final Integer page, final Integer size);
+    List<CompetitionDto> getClosedCompetitions(final Integer page, final Integer size);
+    List<CompetitionDto> getFutureCompetitions(final Integer page, final Integer size);
 }

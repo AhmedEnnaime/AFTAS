@@ -8,7 +8,7 @@ import {Fish} from "../model/interfaces/fish";
   providedIn: 'root',
 })
 export class FishService {
-  private baseUrl: string = 'http://localhost:8082/api';
+  private baseUrl: string = 'http://localhost:9090/api';
 
   httpOptions = {
     headers: new HttpHeaders({

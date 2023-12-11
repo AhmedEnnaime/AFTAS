@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.youcode.aftas_backend.exceptions.ResourceNotFoundException;
@@ -39,6 +40,13 @@ public class CompetitionServiceImpl implements CompetitionService {
     }
 
     @Override
+    public List<CompetitionDto> getAllCompetitions(final Integer page, final Integer size) {
+        PageRequest pageable = PageRequest.of(page, size);
+        return Arrays.asList(modelMapper.map(competitionRepository.findAll(pageable) ,
+                            CompetitionDto[].class));
+    }
+
+    @Override
     public CompetitionDto update(String identifier, CompetitionDto competitionDto) {
         if(!competitionRepository.existsById(identifier)) 
             throw new ResourceNotFoundException("The competition with id " + identifier + " does not exist.");
@@ -63,21 +71,23 @@ public class CompetitionServiceImpl implements CompetitionService {
     }
 
     @Override
-    public List<CompetitionDto> getOnGoingCompetition() {
-
-        return Arrays.asList(modelMapper.map(competitionRepository.findByDate(LocalDate.now(ZoneId.of("Africa/Casablanca"))), 
+    public List<CompetitionDto> getOnGoingCompetition(final Integer page, final Integer size) {
+        PageRequest pageable = PageRequest.of(page, size);
+        return Arrays.asList(modelMapper.map(competitionRepository.findByDate(LocalDate.now(ZoneId.of("Africa/Casablanca")), pageable), 
                CompetitionDto[].class));
     }
 
     @Override
-    public List<CompetitionDto> getClosedCompetitions() {
-        return Arrays.asList(modelMapper.map(competitionRepository.findByDateBefore(LocalDate.now(ZoneId.of("Africa/Casablanca"))),
+    public List<CompetitionDto> getClosedCompetitions(final Integer page, final Integer size) {
+        PageRequest pageable = PageRequest.of(page, size);
+        return Arrays.asList(modelMapper.map(competitionRepository.findByDateBefore(LocalDate.now(ZoneId.of("Africa/Casablanca")), pageable),
                             CompetitionDto[].class));
     }
 
     @Override
-    public List<CompetitionDto> getFutureCompetitions() {
-        return Arrays.asList(modelMapper.map(competitionRepository.findByDateAfter(LocalDate.now(ZoneId.of("Africa/Casablanca"))),
+    public List<CompetitionDto> getFutureCompetitions(final Integer page, final Integer size) {
+        PageRequest pageable = PageRequest.of(page, size);
+        return Arrays.asList(modelMapper.map(competitionRepository.findByDateAfter(LocalDate.now(ZoneId.of("Africa/Casablanca")), pageable),
                             CompetitionDto[].class));
     }    
 }

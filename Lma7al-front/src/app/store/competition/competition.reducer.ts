@@ -24,6 +24,7 @@ export const competitionReducer = createReducer(
        competitionPageActions.LoadClosedCompetitions,
        competitionPageActions.LoadFutureCompetitions,
        competitionPageActions.LoadCurrentCompetition,
+       competitionPageActions.getCompetitionPage,
         (state, action) => ({
             ...state,
             selectedCometitionCode: null,
@@ -55,9 +56,11 @@ export const competitionReducer = createReducer(
        competitionApiActions.closedCompetitionsLoadedSuccessfully,
        competitionApiActions.currentCompetitionLoadedSuccessfully,
        competitionApiActions.futureCompetitionsLoadedSuccessfully,
+       competitionApiActions.competitionsPageLoadedSuccessfully,
         (state, action) => ({
             ...state,
             collection: action.competitions,
+            selectedCometitionCode: null,
             loading: false
         })
     ),
@@ -89,6 +92,7 @@ export const competitionReducer = createReducer(
        competitionApiActions.competitionAddedFailure,
        competitionApiActions.competitionsUpdatedFailure,
        competitionApiActions.competitionDeletedFailure,
+       competitionApiActions.competitionsPageLoadedFailure,
         (state, action) => ({
             ...state,
             loading: false,

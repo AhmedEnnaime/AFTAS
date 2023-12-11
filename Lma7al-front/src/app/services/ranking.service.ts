@@ -8,7 +8,7 @@ import { CompetitionMember, Ranking } from "../model/interfaces/ranking.model";
     providedIn: 'root'
 })
 export class RankingService {
-    private baseUrl: string = "http://localhost:8082/api/rankings/";
+    private baseUrl: string = "http://localhost:9090/api/rankings/";
 
     httpOptions = {
         headers: new HttpHeaders({

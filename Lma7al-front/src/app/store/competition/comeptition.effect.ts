@@ -13,10 +13,11 @@ export class CompetitionEffect {
 
     loadCompetitions$ = createEffect(() =>
         this.action$.pipe(
-            ofType(competitionPageActions.enter),
-            exhaustMap(() =>
+            ofType(competitionPageActions.enter,
+                   competitionPageActions.getCompetitionPage),
+            exhaustMap((action) =>
                 this.competitionService
-                    .getCompetitions()
+                    .getCompetitions(action.page, action.size)
                     .pipe(map(competitions => competitionApiActions.competitionsLoadedSuccessfully({competitions})))
             )
         )
@@ -24,9 +25,9 @@ export class CompetitionEffect {
     loadClosedCompetitions$ = createEffect(() =>
         this.action$.pipe(
             ofType(competitionPageActions.LoadClosedCompetitions),
-            exhaustMap(() =>
+            exhaustMap((action) =>
                 this.competitionService
-                    .getClosedCompetitions()
+                    .getClosedCompetitions(action.page, action.size)
                     .pipe(map(competitions => competitionApiActions.closedCompetitionsLoadedSuccessfully({competitions})))
             )
         )
@@ -34,9 +35,9 @@ export class CompetitionEffect {
     loadFutureCompetitions$ = createEffect(() =>
         this.action$.pipe(
             ofType(competitionPageActions.LoadFutureCompetitions),
-            exhaustMap(() =>
+            exhaustMap((action) =>
                 this.competitionService
-                    .getFutureCompetitions()
+                    .getFutureCompetitions(action.page, action.size)
                     .pipe(map(competitions => competitionApiActions.futureCompetitionsLoadedSuccessfully({competitions})))
             )
         )
@@ -45,9 +46,9 @@ export class CompetitionEffect {
     loadCurrentCompetitions$ = createEffect(() =>
         this.action$.pipe(
             ofType(competitionPageActions.LoadCurrentCompetition),
-            exhaustMap(() =>
+            exhaustMap((action) =>
                 this.competitionService
-                    .getCurrentCompetitions()
+                    .getCurrentCompetitions(action.page, action.size)
                     .pipe(map(competitions => competitionApiActions.currentCompetitionLoadedSuccessfully({competitions})))
             )
         )
