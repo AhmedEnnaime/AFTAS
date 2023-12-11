@@ -1,6 +1,8 @@
 package com.youcode.aftas_backend.controllers;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -38,9 +40,13 @@ public class RankingController extends Controller<RankingDto, CompetitionMember>
         );
     }
 
+
     @DeleteMapping("/competition/{competition-code}/member/{member-num}")
-    public ResponseEntity<String> delete(@PathVariable("competition-code") final String competitionCode, @PathVariable("member-num") final Integer memberNum) {
-        rankingService.deleteRanking(competitionCode, memberNum);
-        return new ResponseEntity<>("Ranking deleted successfully.",HttpStatus.NO_CONTENT);
+    public ResponseEntity<Map<String, String>> delete(@PathVariable("competition-code") final String competitionCode, @PathVariable("member-num") final Integer memberNum) {
+        var deletedRankingIdentifier = rankingService.deleteRanking(competitionCode, memberNum);
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Resource deleted successfully.");
+        response.put("deletedElementIdentifier", deletedRankingIdentifier.toString());
+        return new ResponseEntity<>(response ,HttpStatus.OK);
     } 
 }

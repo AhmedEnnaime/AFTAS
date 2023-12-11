@@ -8,5 +8,5 @@ import com.youcode.aftas_backend.superClasses.ServiceInterface;
 
 public interface RankingService extends ServiceInterface<RankingDto, CompetitionMember> {
     List<RankingDto> SetUpCompetitionRankings(String competitionCode);
-    void deleteRanking(final String competitionCode, final Integer memberNum);
+    CompetitionMember deleteRanking(final String competitionCode, final Integer memberNum);
 }

@@ -12,7 +12,7 @@ import java.util.List;
 public interface CompetitionRepository extends JpaRepository<Competition, String> {
 
     public boolean existsByDate(LocalDate date);
-    public Competition findByDate(LocalDate date);
+    public List<Competition> findByDate(LocalDate date);
     public List<Competition> findByDateBefore(LocalDate date);
     public List<Competition> findByDateAfter(LocalDate date);
 }

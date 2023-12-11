@@ -1,6 +1,7 @@
 package com.youcode.aftas_backend.services.Impl;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Arrays;
 import java.util.List;
 
@@ -62,20 +63,21 @@ public class CompetitionServiceImpl implements CompetitionService {
     }
 
     @Override
-    public CompetitionDto getOnGoingCompetition(LocalDate currentDate) {
-        return modelMapper.map(competitionRepository.findByDate(currentDate), 
-               CompetitionDto.class);
+    public List<CompetitionDto> getOnGoingCompetition() {
+
+        return Arrays.asList(modelMapper.map(competitionRepository.findByDate(LocalDate.now(ZoneId.of("Africa/Casablanca"))), 
+               CompetitionDto[].class));
     }
 
     @Override
-    public List<CompetitionDto> getClosedCompetitions(LocalDate currentDate) {
-        return Arrays.asList(modelMapper.map(competitionRepository.findByDateBefore(currentDate),
+    public List<CompetitionDto> getClosedCompetitions() {
+        return Arrays.asList(modelMapper.map(competitionRepository.findByDateBefore(LocalDate.now(ZoneId.of("Africa/Casablanca"))),
                             CompetitionDto[].class));
     }
 
     @Override
-    public List<CompetitionDto> getFutureCompetitions(LocalDate currentDate) {
-        return Arrays.asList(modelMapper.map(competitionRepository.findByDateAfter(currentDate),
+    public List<CompetitionDto> getFutureCompetitions() {
+        return Arrays.asList(modelMapper.map(competitionRepository.findByDateAfter(LocalDate.now(ZoneId.of("Africa/Casablanca"))),
                             CompetitionDto[].class));
     }    
 }

@@ -27,8 +27,10 @@ public class CompetitionMember implements Serializable {
 
     @Override 
     public String toString() {
-        return "\nmember num: " + this.memberNum + '\n' +
-               "competition code: " + this.competitionCode + '\n';
+        return "{\n" +
+                "\tmemberNum: " + this.memberNum + '\n' +
+               "\tcompetitionCode: " + this.competitionCode + '\n'+
+                "}";
     }
 
 }

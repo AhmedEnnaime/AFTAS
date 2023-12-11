@@ -59,16 +59,17 @@ public class RankingServiceImpl implements RankingService {
         return this.save(rankingDto);
     }
 
-    public void deleteRanking(final String competitionCode, final Integer memberNum) {
+    public CompetitionMember deleteRanking(final String competitionCode, final Integer memberNum) {
         var rankingIdentifier = CompetitionMember.builder()
                                                  .competitionCode(competitionCode)
                                                  .memberNum(memberNum)
                                                  .build();
         delete(rankingIdentifier);
+        return rankingIdentifier;
     }
 
     @Override
-    public void delete(CompetitionMember identifier) {
+    public void delete(final CompetitionMember identifier) {
         rankingRepository.deleteById(identifier);
     }
 
