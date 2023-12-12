@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 @Service
 @AllArgsConstructor
@@ -24,16 +25,25 @@ public class LevelServiceImpl implements LevelService {
 
     @Override
     public LevelDto save(LevelDto levelDto) {
-        Optional<Level> maxCodeLevelOpt = levelRepository.findTopByCodeLessThanOrderByCodeDesc(levelDto.getCode());
-        if (maxCodeLevelOpt.isPresent()) {
-            Level maxCodeLevel = maxCodeLevelOpt.get();
-            if (maxCodeLevel.getPoints() >= levelDto.getPoints()) {
-                throw new PointsValidationException("A level with a lower code cannot have more points.");
-            }
-        }
-        Level newLevel = modelMapper.map(levelDto, Level.class);
-        Level savedLevel = levelRepository.save(newLevel);
+        Optional<Level> existingLevelOpt = levelRepository.findById(levelDto.getCode());
+        existingLevelOpt.ifPresent(level -> {
+            throw new ResourceNotFoundException("The level with ID " + levelDto.getCode() + " already exists");
+        });
 
+        Optional<Level> minCodeLevelOpt = levelRepository.findTopByCodeLessThanOrderByCodeDesc(levelDto.getCode());
+        Optional<Level> maxCodeLevelOpt = levelRepository.findTopByCodeGreaterThanOrderByCodeAsc(levelDto.getCode());
+
+        Stream.of(minCodeLevelOpt, maxCodeLevelOpt)
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .forEach(level -> {
+                    if ((level == minCodeLevelOpt.get() && level.getPoints() >= levelDto.getPoints()) ||
+                            (level == maxCodeLevelOpt.get() && level.getPoints() <= levelDto.getPoints())) {
+                        throw new PointsValidationException("A level with inappropriate points for its code.");
+                    }
+                });
+
+        Level savedLevel = levelRepository.save(modelMapper.map(levelDto, Level.class));
         return modelMapper.map(savedLevel, LevelDto.class);
     }
 
