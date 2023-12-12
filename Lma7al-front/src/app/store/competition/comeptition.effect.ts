@@ -59,7 +59,7 @@ export class CompetitionEffect {
             ofType(competitionPageActions.addCompetition),
             concatMap((action) => 
                 this.competitionService
-                    .addCompetition(action.Competition)
+                    .addCompetition(action.competition)
                     .pipe(map(addedCompetition => competitionApiActions.competitionAddedSuccessfully({addedCompetition})))
             )
         )
@@ -70,7 +70,7 @@ export class CompetitionEffect {
             ofType(competitionPageActions.updateCompetition),
             concatMap((action) => 
                 this.competitionService
-                    .updateCompetition(action.CompetitionCode, action.Competition)
+                    .updateCompetition(action.competitionCode, action.competition)
                     .pipe(map(updatedCompetition => competitionApiActions.competitionUpdatedSuccessfully({updatedCompetition})))
             )
         )
@@ -81,7 +81,7 @@ export class CompetitionEffect {
             ofType(competitionPageActions.deleteCompetition),
             concatMap((action) => 
                 this.competitionService
-                    .deleteCompetition(action.CompetitionCode)
+                    .deleteCompetition(action.competitionCode)
                     .pipe(map(response => competitionApiActions.competitionDeletedSuccessfully({message: response.message, competitionCode: response.deletedElementIdentifier})))
             )
         )

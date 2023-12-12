@@ -1,0 +1,33 @@
+<div class="relative flex justify-center">
+  <div (click)="openModal()" class="cursor-pointer">
+    <ng-content select="[btn]" />
+  </div>
+
+  <div *ngIf="isOpen" class="fixed inset-0 z-10 overflow-y-auto backdrop-blur-sm " aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div class="flex items-end justify-center min-h-screen px-4 pt-4 pb-16 text-center sm:block sm:p-0">
+      <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+      <div class="relative inline-block px-6 pt-6 pb-6 overflow-hidden align-bottom transition-all transform bg-white none:bg-gray-800 rounded-lg shadow-2xl text-gray-800 none:text-white sm:my-8 sm:align-middle sm:max-w-2xl sm:w-full sm:p-4 delay-200">
+        <fa-icon (click)="closeModal()" class="cursor-pointer text-gray-900 none:text-white text-xl absolute right-3 top-2" [icon]="faTimes"></fa-icon>
+        <h3 class="mt-4 text-2xl font-semibold text-center leading-tight">{{ title }}</h3>
+        <p class="mt-3 text-base text-center leading-relaxed">{{ description }}</p>
+        <form class="py-4 px-2">
+          <ng-content select="[form-body]" />
+
+          <div class="w-full flex justify-center mt-10">
+            <btn (btnClick)="Onsubmit()" [text]="submitText" class="w-full max-w-md" />
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+

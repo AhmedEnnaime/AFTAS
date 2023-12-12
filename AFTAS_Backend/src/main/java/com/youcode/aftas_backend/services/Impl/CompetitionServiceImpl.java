@@ -27,7 +27,11 @@ public class CompetitionServiceImpl implements CompetitionService {
     private final ModelMapper modelMapper;
 
     @Override
-    public CompetitionDto save(final CompetitionDto competitionDto) {            
+    public CompetitionDto save(final CompetitionDto competitionDto) {
+        if(competitionRepository.existsByDate(competitionDto.getDate()))
+            throw new RuntimeException("Competition day is taken.");
+        else if(competitionRepository.existsById(competitionDto.getCode()))
+            throw new RuntimeException("Competition code is taken.");
         Competition competitionEntity = modelMapper.map(competitionDto, Competition.class);
         return 
             modelMapper.map(competitionRepository.save(competitionEntity),

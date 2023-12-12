@@ -3,6 +3,8 @@ package com.youcode.aftas_backend.models.entities;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import com.youcode.aftas_backend.models.enums.IdentityDocumentType;
 
 import jakarta.persistence.*;
@@ -36,7 +38,7 @@ public class Member {
     @Size(min = 3, max = 255, message = "member family name should be between 3 and 255 character.")
     private String familyName;
 
-    @Column(columnDefinition = "DATE DEFAULT CURRENT_DATE")
+    @CreationTimestamp
     private LocalDate accessionDate;
 
     @NotEmpty(message = "Member nationality is required")
