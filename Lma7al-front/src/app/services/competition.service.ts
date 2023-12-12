@@ -8,7 +8,7 @@ import { Competition } from "../model/interfaces/competition.model";
     providedIn: 'root'
 })
 export class CompetitionService {
-    private baseUrl: string = "http://localhost:9090/api/competitions";
+    private baseUrl: string = "http://localhost:8082/api/competitions";
 
     httpOptions = {
         headers: new HttpHeaders({

@@ -10,7 +10,11 @@
     </th>
 
     <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 none:text-gray-400">
-      Start Date
+      Start Time
+    </th>
+
+    <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 none:text-gray-400">
+      End Time
     </th>
 
     <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 none:text-gray-400">
@@ -43,7 +47,13 @@
 
     <td class="px-12 py-4 text-sm font-medium whitespace-nowrap">
       <div class="inline px-3 py-1 text-sm font-normal rounded-full gap-x-2 none:bg-gray-800">
-        {{competition?.startTime}}
+        {{ competition?.startTime | date:'shortTime' }}
+      </div>
+    </td>
+
+    <td class="px-12 py-4 text-sm font-medium whitespace-nowrap">
+      <div class="inline px-3 py-1 text-sm font-normal rounded-full gap-x-2 none:bg-gray-800">
+        {{ competition?.endTime | date:'shortTime' }}
       </div>
     </td>
 
