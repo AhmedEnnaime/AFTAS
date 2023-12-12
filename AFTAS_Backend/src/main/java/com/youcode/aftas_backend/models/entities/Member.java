@@ -39,6 +39,7 @@ public class Member {
     private String familyName;
 
     @CreationTimestamp
+    @Temporal(value = TemporalType.DATE)
     private LocalDate accessionDate;
 
     @NotEmpty(message = "Member nationality is required")

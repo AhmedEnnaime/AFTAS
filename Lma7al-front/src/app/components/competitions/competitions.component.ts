@@ -49,10 +49,16 @@ export class CompetitionsComponent implements OnInit{
 
   addCompetition() {
     const competition: Competition = this.competitionForm.value as Competition;
-    competition.code = competition.location?.substring(0,2) + "-" + competition.date?.toDateString;
-    competition.endTime = new Date(competition.date + "T" + competition.endTime + ":00");
-    competition.startTime = new Date(competition.date + "T" + competition.startTime + ":00");
-    this.store.dispatch(competitionPageActions.addCompetition({competition}));
+  
+    const dateObject = new Date(competition!.date!.toString());
+    
+    const day = ('0' + dateObject.getDate()).slice(-2);
+    const month = ('0' + (dateObject.getMonth() + 1)).slice(-2);
+    const year = dateObject.getFullYear().toString().slice(-2);
+    competition.code = (competition.location?.replace(/\s/g, '').substring(0, 3)) + "-" + `${day}-${month}-${year}`;
+    competition.endTime = new Date(competition.date + "T" + (competition.endTime?.toString() || "") + ":00");
+    competition.startTime = new Date(competition.date + "T" + (competition.startTime?.toString() || "") + ":00");
+    this.store.dispatch(competitionPageActions.addCompetition({ competition }));
   }
 
 }

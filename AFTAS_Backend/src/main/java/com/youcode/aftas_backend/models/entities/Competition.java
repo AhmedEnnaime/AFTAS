@@ -31,13 +31,17 @@ public class Competition {
     private String code;
 
     @NotNull(message = "Competition date must not be null")
+    @Temporal(value = TemporalType.DATE)
     private LocalDate date;
 
     @NotNull(message = "Competition start time must not be null")
+    @Temporal(value = TemporalType.TIMESTAMP)
     private LocalDateTime startTime;
 
     @NotNull(message = "Competition end time must not be null")
+    @Temporal(value = TemporalType.TIMESTAMP)
     private LocalDateTime endTime;
+
     private Integer numberOfParticipants;
 
     @NotEmpty(message = "Competition location is required")
