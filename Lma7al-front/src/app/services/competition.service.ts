@@ -27,19 +27,19 @@ export class CompetitionService {
 
       getClosedCompetitions(page?: Number, size?: Number): Observable<Competition[]> {
         return this.http
-          .get<Competition[]>(this.baseUrl + "/closed" + `?page=${page || 0}&size=${size || 10}`, this.httpOptions)
+          .get<Competition[]>(this.baseUrl + `/closed?page=${page || 0}&size=${size || 10}`, this.httpOptions)
           .pipe(catchError((error) => this.configService.handleError(error)));
       }
 
       getFutureCompetitions(page?: Number, size?: Number): Observable<Competition[]> {
         return this.http
-          .get<Competition[]>(this.baseUrl + "/future" + `?page=${page || 0}&size=${size || 10}` , this.httpOptions)
+          .get<Competition[]>(this.baseUrl + `/future?page=${page || 0}&size=${size || 10}` , this.httpOptions)
           .pipe(catchError((error) => this.configService.handleError(error)));
       }
 
       getCurrentCompetitions(page?: Number, size?: Number): Observable<Competition[]> {
         return this.http
-          .get<Competition[]>(this.baseUrl + "/current" + `?page=${page || 10}&size=${size || 10}`, this.httpOptions)
+          .get<Competition[]>(this.baseUrl + `/current?page=${page || 0}&size=${size || 10}`, this.httpOptions)
           .pipe(catchError((error) => this.configService.handleError(error)));
       }
 
@@ -57,7 +57,7 @@ export class CompetitionService {
 
       updateCompetition(code: String, competition: Competition): Observable<Competition> {
         return this.http
-          .put<Competition>(this.baseUrl + "/" + competition.code, competition, this.httpOptions)
+          .put<Competition>(this.baseUrl + "/" + code, competition, this.httpOptions)
           .pipe(catchError((error) => this.configService.handleError(error)));
       }
 }
