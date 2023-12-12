@@ -10,6 +10,7 @@ import { AbstractControl, FormControl } from '@angular/forms';
           type="date"
           [value]="control"
           (input)="onInputChange($event)"
+          [min]="minDate.toISOString().split('T')[0]"
           class="block w-full mt-2 rounded-lg border border-gray-300 none:border-gray-700 bg-white none:bg-gray-900 px-5 py-2.5 text-gray-700 none:text-gray-300 focus:border-red-400 focus:outline-none focus:ring focus:ring-red-300 focus:ring-opacity-40 transition-all duration-200"
         />
       <p *ngIf="error.length > 0" class="mt-3 text-xs text-red-400">{{ error }}</p>
@@ -19,8 +20,12 @@ import { AbstractControl, FormControl } from '@angular/forms';
 export class DatePickerComponent {
   @Input() label: string = '';
   @Input() error: string = '';
-  @Input() control:  AbstractControl<any> | null = new FormControl(); 
-    
+  @Input() control:  AbstractControl<any> | null = new FormControl();
+  minDate: Date = new Date(); 
+  
+  constructor() {
+    this.minDate.setDate( this.minDate.getDate() + 1 );
+  }
   onInputChange(event: Event) {
     this.getControl().setValue((event.target as HTMLInputElement).value);
   }
