@@ -7,5 +7,33 @@ import { Ranking } from 'src/app/model/interfaces/ranking.model';
   templateUrl: './rankings-table.component.html',
 })
 export class RankingsTableComponent {
-    @Input() rankings: Ranking[] = [];
+    @Input() rankings: Ranking[] = [
+      {
+      id: {competitionCode: "TES-11-111", memberNum: 12},
+      member: {
+        name: "hamza",
+        familyName: "essouli"
+      },
+      score: 100,
+      rank: 1
+    },
+    {
+      id: {competitionCode: "TES-11-111", memberNum: 12},
+      member: {
+        name: "hamza",
+        familyName: "essouli"
+      },
+      score: 100,
+      rank: 2
+    },
+    {
+      id: {competitionCode: "TES-11-111", memberNum: 12},
+      member: {
+        name: "hamza",
+        familyName: "essouli"
+      },
+      score: 100,
+      rank: 3
+    }
+  ];
 }

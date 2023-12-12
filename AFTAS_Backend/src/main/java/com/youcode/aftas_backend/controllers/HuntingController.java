@@ -6,6 +6,7 @@ import com.youcode.aftas_backend.models.dto.hunting.SpecificHuntDto;
 import com.youcode.aftas_backend.models.dto.hunting.HuntingDto;
 import com.youcode.aftas_backend.services.HuntingService;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,8 +20,9 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/hunting")
 @Validated
+@AllArgsConstructor
 public class HuntingController {
-    @Autowired
+
     private HuntingService huntingService;
     @PostMapping
     public ResponseEntity<SingleHuntDto> createHunt(@Valid @RequestBody  HuntingDto huntDto){
@@ -54,14 +56,14 @@ public class HuntingController {
 
     @PatchMapping("/{id}")
     public ResponseEntity<SingleHuntDto> editNumberOfFish(@PathVariable int id, @RequestBody @Valid HuntFishNbrDto HuntNbrDTO){
-        return ResponseEntity.status(HttpStatus.FOUND).body(
+        return ResponseEntity.status(HttpStatus.OK).body(
                 huntingService.updateNumberOfFish(id, HuntNbrDTO.getNumberOfFish())
         );
     }
 
     @PostMapping("/specific")
     public ResponseEntity<List<SingleHuntDto>> huntDetails(@Valid @RequestBody  SpecificHuntDto specificHuntDto){
-        return ResponseEntity.status(HttpStatus.FOUND).body(
+        return ResponseEntity.status(HttpStatus.OK).body(
                 huntingService.findHuntByCompetitionAndMember(
                         specificHuntDto.getCompetition_code(), specificHuntDto.getMember_num()
                 )

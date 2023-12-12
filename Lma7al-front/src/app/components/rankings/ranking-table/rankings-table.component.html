@@ -9,15 +9,15 @@
         Family Name
       </th>
   
-      <th *ngIf="rankings[0].rank != null"  scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 none:text-gray-400">
+      <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 none:text-gray-400">
         Score 
       </th>
   
-      <th *ngIf="rankings[0].rank != null" scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 none:text-gray-400">
+      <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 none:text-gray-400">
         Rank
       </th>
   
-      <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 none:text-gray-400">
+      <th scope="col" class="flex justify-end px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 none:text-gray-400">
         Actions
       </th>
   
@@ -48,6 +48,19 @@
           {{ranking?.rank}}
         </div>
       </td>
+
+      <td class="flex justify-end  px-8 py-2">
+        <popup 
+          title="Deleting a member from an competition"
+          description="Are you sure you want to delete this member ?"
+          submitText="Delete"
+        >
+          <button btn class="flex items-center justify-center w-1/2 px-5 py-2 text-sm tracking-wide text-white transition-colors duration-200 bg-blue-500 rounded-lg shrink-0 sm:w-auto gap-x-2 hover:bg-blue-600">
+            <span>Delete</span>
+          </button>
+        </popup>
+      </td>
+    </tr>
   
     </tbody>
   </table>

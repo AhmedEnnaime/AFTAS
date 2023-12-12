@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { AbstractControl, FormControl } from '@angular/forms';
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-select',
@@ -8,11 +9,11 @@ import { AbstractControl, FormControl } from '@angular/forms';
 export class SelectComponent {
   @Input() label: string = '';
   @Input() placeholder: string = 'Select an option';
-  @Input() options: any[] = [];
+  @Input() options?: Observable<any>;
   @Input() error: string = '';
 
-  @Input() control:  AbstractControl<any> | null = new FormControl(); 
-    
+  @Input() control:  AbstractControl<any> | null = new FormControl();
+
   onSelectChange(event: Event) {
     this.getControl().setValue((event.target as HTMLInputElement).value);
   }
@@ -33,4 +34,3 @@ export class SelectComponent {
     return control instanceof FormControl;
   }
 }
-  
