@@ -6,6 +6,8 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
+import javax.management.RuntimeErrorException;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -39,6 +41,9 @@ public class RankingServiceImpl implements RankingService {
             competition.getDate().isAfter(LocalDate.now(ZoneId.of("Africa/Casablanca")))
         ) 
             throw new RuntimeException("The competition is already closed.");
+        if(competition.getNumberOfParticipants() <= rankingRepository.countByCompetitionCode(competition.getCode()))
+            throw new RuntimeException("The cometition is full.");
+        
         rankingDto.setCompetition(competition);
         rankingDto.setMember(memberService.findByID(rankingDto.getId().getMemberNum()));
         Ranking rankingEntity = modelMapper.map(rankingDto, Ranking.class);
