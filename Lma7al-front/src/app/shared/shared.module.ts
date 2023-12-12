@@ -8,12 +8,14 @@ import { SelectComponent } from "./select/select.component";
 import { DatePickerComponent } from "./date-picker/date-picker.component";
 import { TimePickerComponent } from "./time-picker/time-picker.component";
 import { NumberInputComponent } from "./number-input/number-input.component";
+import {RouterLink} from "@angular/router";
 
 @NgModule({
     declarations: [PopupFormComponent, TextInputComponent, ButtonComponent, SelectComponent, DatePickerComponent, TimePickerComponent, NumberInputComponent],
     imports: [
-      CommonModule,
-      FontAwesomeModule,
+        CommonModule,
+        FontAwesomeModule,
+        RouterLink,
     ],
     exports: [PopupFormComponent, TextInputComponent, ButtonComponent, SelectComponent, DatePickerComponent, TimePickerComponent, NumberInputComponent]
   })
