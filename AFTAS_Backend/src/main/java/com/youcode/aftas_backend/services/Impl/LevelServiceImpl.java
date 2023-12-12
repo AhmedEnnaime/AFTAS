@@ -6,6 +6,7 @@ import com.youcode.aftas_backend.models.dto.LevelDto;
 import com.youcode.aftas_backend.models.entities.Level;
 import com.youcode.aftas_backend.repositories.LevelRepository;
 import com.youcode.aftas_backend.services.LevelService;
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,12 +15,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class LevelServiceImpl implements LevelService {
 
-    @Autowired
     private ModelMapper modelMapper;
 
-    @Autowired
     private LevelRepository levelRepository;
 
     @Override

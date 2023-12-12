@@ -30,9 +30,10 @@ import {CompetitionsComponent} from "./components/competitions/competitions.comp
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SahredModule } from './shared/shared.module';
 import { RankingsPageComponent } from './pages/rankings-page/rankings-page.component';
+import { HuntingComponent } from './components/hunting/hunting.component';
 
 @NgModule({
-  declarations: [AppComponent, MainLayoutComponent, NotFoundComponent, DashboardComponent, MembersComponent, MembersTableComponent, CompetitionsComponent, CompetitionsTableComponent, CompetitionsPageComponent, MembersComponent, RankingsPageComponent],
+  declarations: [AppComponent, MainLayoutComponent, NotFoundComponent, DashboardComponent, MembersComponent, MembersTableComponent, CompetitionsComponent, CompetitionsTableComponent, CompetitionsPageComponent, MembersComponent, RankingsPageComponent, HuntingComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

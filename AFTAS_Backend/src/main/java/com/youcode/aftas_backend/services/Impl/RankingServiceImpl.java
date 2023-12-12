@@ -36,7 +36,7 @@ public class RankingServiceImpl implements RankingService {
     public RankingDto save(RankingDto rankingDto) {
         var competition = competitionService.findByID(rankingDto.getId().getCompetitionCode());
         if(competition.getDate().isEqual((LocalDate.now(ZoneId.of("Africa/Casablanca")))) || 
-            competition.getDate().isAfter(LocalDate.now(ZoneId.of("Africa/Casablanca")))
+            competition.getDate().isBefore(LocalDate.now(ZoneId.of("Africa/Casablanca")))
         ) 
             throw new RuntimeException("The competition is already closed.");
         if(competition.getNumberOfParticipants() <= rankingRepository.countByCompetitionCode(competition.getCode()))
