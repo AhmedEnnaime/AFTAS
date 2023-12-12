@@ -11,6 +11,16 @@ export const competitionsLoadedFailure = createAction(
     props<{errors: {}}>()
 );
 
+export const competitionFoundedSuccessfully = createAction(
+    '[Competition api] Competition founded successfully',
+    props<{competition: Competition}>()
+);
+
+export const competitionFoundedFailure = createAction(
+    '[Competition api] Competitions founded failure',
+    props<{errors: {}}>()
+);
+
 export const competitionsPageLoadedSuccessfully = createAction(
     '[Competition api] Competitions page loaded successfully',
     props<{competitions: Competition[]}>()

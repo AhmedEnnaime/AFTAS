@@ -22,6 +22,18 @@ export class CompetitionEffect {
             )
         )
     );
+
+    findCompetition$ = createEffect(() =>
+        this.action$.pipe(
+            ofType(competitionPageActions.selectCompetition),
+            exhaustMap((action) =>
+                this.competitionService
+                    .findCompetition(action.competitionCode)
+                    .pipe(map(competition => competitionApiActions.competitionFoundedSuccessfully({competition})))
+            )
+        )
+    );
+
     loadClosedCompetitions$ = createEffect(() =>
         this.action$.pipe(
             ofType(competitionPageActions.LoadClosedCompetitions),
@@ -32,6 +44,7 @@ export class CompetitionEffect {
             )
         )
     );
+
     loadFutureCompetitions$ = createEffect(() =>
         this.action$.pipe(
             ofType(competitionPageActions.LoadFutureCompetitions),

@@ -5,7 +5,6 @@ import {Observable} from "rxjs";
 @Component({
   selector: 'app-members-table',
   templateUrl: './members-table.component.html',
-  styleUrls: ['./members-table.component.css']
 })
 export class MembersTableComponent {
   @Input() members?: Observable<Member[]>;

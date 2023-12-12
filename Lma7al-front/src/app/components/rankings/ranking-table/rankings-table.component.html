@@ -1,0 +1,54 @@
+<table class="min-w-full divide-y divide-gray-200 none:divide-gray-700">
+    <thead class="bg-gray-50 none:bg-gray-800">
+    <tr>
+      <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 none:text-gray-400">
+        Name
+      </th>
+  
+      <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 none:text-gray-400">
+        Family Name
+      </th>
+  
+      <th *ngIf="rankings[0].rank != null"  scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 none:text-gray-400">
+        Score 
+      </th>
+  
+      <th *ngIf="rankings[0].rank != null" scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 none:text-gray-400">
+        Rank
+      </th>
+  
+      <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 none:text-gray-400">
+        Actions
+      </th>
+  
+    </tr>
+    </thead>
+    <tbody class="bg-white divide-y divide-gray-200 none:divide-gray-700 none:bg-gray-900">
+    <tr *ngFor="let ranking of rankings">
+      <td class="px-12 py-4 text-sm font-medium whitespace-nowrap">
+        <div class="inline px-3 py-1 text-sm font-normal rounded-full gap-x-2 none:bg-gray-800">
+          {{ranking.member?.name}}
+        </div>
+      </td>
+  
+      <td class="px-12 py-4 text-sm font-medium whitespace-nowrap">
+        <div class="inline px-3 py-1 text-sm font-normal rounded-full gap-x-2 none:bg-gray-800">
+          {{ranking.member?.familyName}}
+        </div>
+      </td>
+
+      <td class="px-12 py-4 text-sm font-medium whitespace-nowrap">
+        <div class="inline px-3 py-1 text-sm font-normal rounded-full gap-x-2 none:bg-gray-800">
+          {{ranking?.score}}
+        </div>
+      </td>
+  
+      <td class="px-12 py-4 text-sm font-medium whitespace-nowrap">
+        <div class="inline px-3 py-1 text-sm font-normal rounded-full gap-x-2 none:bg-gray-800">
+          {{ranking?.rank}}
+        </div>
+      </td>
+  
+    </tbody>
+  </table>
+  

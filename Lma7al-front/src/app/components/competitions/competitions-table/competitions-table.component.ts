@@ -6,7 +6,6 @@ import {Router} from "@angular/router";
 @Component({
   selector: 'app-competitions-table',
   templateUrl: './competitions-table.component.html',
-  styleUrls: ['./competitions-table.component.css']
 })
 export class CompetitionsTableComponent {
   @Input() competitions?: Observable<Competition[]>

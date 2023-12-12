@@ -8,7 +8,7 @@ import { Competition } from "../model/interfaces/competition.model";
     providedIn: 'root'
 })
 export class CompetitionService {
-    private baseUrl: string = "http://localhost:8082/api/competitions";
+    private baseUrl: string = "http://localhost:9090/api/competitions";
 
     httpOptions = {
         headers: new HttpHeaders({
@@ -22,6 +22,13 @@ export class CompetitionService {
       getCompetitions(page?: Number, size?: Number): Observable<Competition[]> {
         return this.http
           .get<Competition[]>(this.baseUrl + `/all?page=${page || 0}&size=${size || 10}`, this.httpOptions)
+          .pipe(catchError((error) => this.configService.handleError(error)));
+      }
+
+      findCompetition(competitionCode: String): Observable<Competition> {
+        console.log("service: " + competitionCode);
+        return this.http
+          .get<Competition>(this.baseUrl + `/${competitionCode}`, this.httpOptions)
           .pipe(catchError((error) => this.configService.handleError(error)));
       }
 

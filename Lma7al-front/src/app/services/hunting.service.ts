@@ -10,7 +10,7 @@ import {Hunting} from "../model/interfaces/hunting";
 })
 export class HuntingService {
 
-  private baseUrl: string = 'http://localhost:8082/api';
+  private baseUrl: string = 'http://localhost:9090/api';
 
   httpOptions = {
     headers: new HttpHeaders({
