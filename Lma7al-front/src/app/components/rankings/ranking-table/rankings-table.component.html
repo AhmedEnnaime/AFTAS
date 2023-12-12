@@ -1,0 +1,67 @@
+<table class="min-w-full divide-y divide-gray-200 none:divide-gray-700">
+    <thead class="bg-gray-50 none:bg-gray-800">
+    <tr>
+      <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 none:text-gray-400">
+        Name
+      </th>
+  
+      <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 none:text-gray-400">
+        Family Name
+      </th>
+  
+      <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 none:text-gray-400">
+        Score 
+      </th>
+  
+      <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 none:text-gray-400">
+        Rank
+      </th>
+  
+      <th scope="col" class="flex justify-end px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 none:text-gray-400">
+        Actions
+      </th>
+  
+    </tr>
+    </thead>
+    <tbody class="bg-white divide-y divide-gray-200 none:divide-gray-700 none:bg-gray-900">
+    <tr *ngFor="let ranking of rankings">
+      <td class="px-12 py-4 text-sm font-medium whitespace-nowrap">
+        <div class="inline px-3 py-1 text-sm font-normal rounded-full gap-x-2 none:bg-gray-800">
+          {{ranking.member?.name}}
+        </div>
+      </td>
+  
+      <td class="px-12 py-4 text-sm font-medium whitespace-nowrap">
+        <div class="inline px-3 py-1 text-sm font-normal rounded-full gap-x-2 none:bg-gray-800">
+          {{ranking.member?.familyName}}
+        </div>
+      </td>
+
+      <td class="px-12 py-4 text-sm font-medium whitespace-nowrap">
+        <div class="inline px-3 py-1 text-sm font-normal rounded-full gap-x-2 none:bg-gray-800">
+          {{ranking?.score}}
+        </div>
+      </td>
+  
+      <td class="px-12 py-4 text-sm font-medium whitespace-nowrap">
+        <div class="inline px-3 py-1 text-sm font-normal rounded-full gap-x-2 none:bg-gray-800">
+          {{ranking?.rank}}
+        </div>
+      </td>
+
+      <td class="flex justify-end  px-8 py-2">
+        <popup 
+          title="Deleting a member from an competition"
+          description="Are you sure you want to delete this member ?"
+          submitText="Delete"
+        >
+          <button btn class="flex items-center justify-center w-1/2 px-5 py-2 text-sm tracking-wide text-white transition-colors duration-200 bg-blue-500 rounded-lg shrink-0 sm:w-auto gap-x-2 hover:bg-blue-600">
+            <span>Delete</span>
+          </button>
+        </popup>
+      </td>
+    </tr>
+  
+    </tbody>
+  </table>
+  

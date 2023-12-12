@@ -6,14 +6,14 @@ import * as competitionApiActions from './actions/competition-api.actions';
 
 export interface CompetitionState {
     collection: Competition[],
-    selectedCometitionCode: String | null,
+    selectedCompetitionCode: String | null,
     loading: boolean,
     errors: {}
 }
 
 const initialState: CompetitionState = {
     collection: [],
-    selectedCometitionCode: null,
+    selectedCompetitionCode: null,
     loading: false,
     errors: {}
 }
@@ -35,7 +35,8 @@ export const competitionReducer = createReducer(
     on(competitionPageActions.selectCompetition,
         (state, action) => ({
             ...state,
-            selectedCometitionCode: action.competitionCode
+            selectedCometitionCode: action.competitionCode,
+            loading: true,
         })
     ),
     on(competitionPageActions.unselectCompetition,
@@ -93,12 +94,20 @@ export const competitionReducer = createReducer(
        competitionApiActions.competitionsUpdatedFailure,
        competitionApiActions.competitionDeletedFailure,
        competitionApiActions.competitionsPageLoadedFailure,
+       competitionApiActions.competitionFoundedFailure,
         (state, action) => ({
             ...state,
             loading: false,
             errors: action.errors
         })
     ),
+    on(competitionApiActions.competitionFoundedSuccessfully,
+        (state, action) => {
+            state.collection.push(action.competition);
+            state.loading = false;
+            return state;
+        }
+    )
 );
 
 

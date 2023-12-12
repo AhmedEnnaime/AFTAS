@@ -24,7 +24,6 @@ import { selectFishes, selectSelectedFish } from './store/fish/fish.selectors';
 import { Competition } from './model/interfaces/competition.model';
 import {
   selectCompetitions,
-  selectSelectedCompetitoin,
 } from './store/competition/competition.selectors';
 import {Hunting} from "./model/interfaces/hunting";
 import {selectHuntings, selectSelectedHunting} from "./store/hunting/hunting.selectors";

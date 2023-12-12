@@ -12,7 +12,6 @@ import {Observable} from "rxjs";
 @Component({
   selector: 'app-hunting',
   templateUrl: './hunting.component.html',
-  styleUrls: ['./hunting.component.css']
 })
 export class HuntingComponent implements OnInit{
   @Input() memberNum?: number

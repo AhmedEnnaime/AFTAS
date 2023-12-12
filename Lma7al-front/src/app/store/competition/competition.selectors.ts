@@ -10,8 +10,8 @@ export const selectCompetitionState = createFeatureSelector<CompetitionState>(CO
  */
 
 const getAllCompetitions = (state: CompetitionState) => state.collection;
-const getSelectedCompetitionCode = (state: CompetitionState) => state.selectedCometitionCode;
-const getErros = (state: CompetitionState) => state.errors
+const getSelectedCompetitionCode = (state: CompetitionState) => state.selectedCompetitionCode;
+const getErrors = (state: CompetitionState) => state.errors
 const getLoadingState = (state: CompetitionState) => state.loading
 
 const getSelectedCompeition = createSelector(
@@ -33,9 +33,14 @@ export const selectSelectedCompetitionCode = createSelector(
     getSelectedCompetitionCode
 );
 
-export const selectSelectedCompetitoin = createSelector(
+export const selectSelectedCompetition = createSelector(
     selectCompetitionState,
     getSelectedCompeition
+);
+
+export const selectFoundedCompetition = createSelector(
+    selectCompetitionState,
+    (state) => state.collection[0] 
 );
 
 export const selectLoadingState = createSelector(
@@ -45,5 +50,5 @@ export const selectLoadingState = createSelector(
 
 export const selectErrorState = createSelector(
     selectCompetitionState,
-    getErros
+    getErrors
 );

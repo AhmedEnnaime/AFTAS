@@ -3,6 +3,8 @@ import { Competition } from "src/app/model/interfaces/competition.model";
 
 export const enter = createAction('[Competition page] enter', props<{page?: Number, size?: Number}>());
 
+export const findCompetition = createAction('[Rankings page] Find competition', props<{competitionCode: String}>())
+
 export const getCompetitionPage = createAction(
     '[Competition page] get competition by page',
     props<{page?: Number, size?: Number}>()
