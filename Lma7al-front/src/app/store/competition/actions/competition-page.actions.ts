@@ -17,17 +17,17 @@ export const unselectCompetition = createAction('[Competition page] unselect Com
 
 export const addCompetition = createAction(
     '[Competition page] add Competition',
-    props<{Competition: Competition}>()
+    props<{competition: Competition}>()
 );
 
 export const updateCompetition = createAction(
     '[Competition page] update Competition',
-    props<{CompetitionCode: String, Competition: Competition}>()
+    props<{competitionCode: String, competition: Competition}>()
 );
 
 export const deleteCompetition = createAction(
     '[Competition page] delete Competition',
-    props<{CompetitionCode: String | undefined}>()
+    props<{competitionCode: String | undefined}>()
 );
 
 export const LoadCurrentCompetition = createAction(

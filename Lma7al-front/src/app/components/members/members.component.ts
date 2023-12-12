@@ -4,6 +4,7 @@ import {Observable} from "rxjs";
 import {Store} from "@ngrx/store";
 import {selectMembers} from "../../store/member/member.selectors";
 import * as memberPageActions from "../../store/member/actions/member-page.actions";
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-members',
@@ -12,9 +13,17 @@ import * as memberPageActions from "../../store/member/actions/member-page.actio
 })
 export class MembersComponent implements OnInit{
   members: Observable<Member[]>;
+  memberForm: FormGroup;
 
-  constructor(private store: Store) {
-    this.members = store.select(selectMembers)
+  constructor(private store: Store, private fb: FormBuilder) {
+    this.members = store.select(selectMembers);
+    this.memberForm = this.fb.group({
+      name: ['', Validators.required], 
+      familyName: ['', Validators.required],
+      nationality: ['', Validators.required],
+      identityDocument: ['', Validators.required],
+      identityNumber: ['', Validators.required]
+    });
   }
 
   searchForMember(event: any) {
@@ -26,6 +35,11 @@ export class MembersComponent implements OnInit{
   }
   ngOnInit() {
     this.store.dispatch(memberPageActions.enter());
+  }
+
+  addMember() {
+    const member: Member = this.memberForm.value as Member;
+    this.store.dispatch(memberPageActions.addMember({member}));
   }
 
 }

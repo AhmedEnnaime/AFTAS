@@ -3,3 +3,18 @@
 @tailwind utilities;
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+select {
+    -webkit-appearance: none;
+    -moz-appearance: textfield;
+    appearance: none;
+}
+  
+@supports (-moz-appearance: none) {
+    select {
+        background-image: none;
+        padding-right: 1em;
+    }
+}
+
+  

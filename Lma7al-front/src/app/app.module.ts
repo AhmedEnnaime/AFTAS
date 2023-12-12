@@ -27,9 +27,11 @@ import { MembersTableComponent } from './components/members/members-table/member
 import {CompetitionsTableComponent} from "./components/competitions/competitions-table/competitions-table.component";
 import { CompetitionsPageComponent } from './pages/competitions-page/competitions-page.component';
 import {CompetitionsComponent} from "./components/competitions/competitions.component";
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { SahredModule } from './shared/shared.module';
 
 @NgModule({
-  declarations: [AppComponent, MainLayoutComponent, NotFoundComponent, DashboardComponent, MembersComponent, MembersTableComponent, CompetitionsComponent, CompetitionsTableComponent, CompetitionsPageComponent],
+  declarations: [AppComponent, MainLayoutComponent, NotFoundComponent, DashboardComponent, MembersComponent, MembersTableComponent, CompetitionsComponent, CompetitionsTableComponent, CompetitionsPageComponent, MembersComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -43,6 +45,8 @@ import {CompetitionsComponent} from "./components/competitions/competitions.comp
     HuntingStateModule,
     RankingStateModule,
     HttpClientModule,
+    SahredModule,
+    FontAwesomeModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
