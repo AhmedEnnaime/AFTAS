@@ -106,8 +106,8 @@ export const competitionReducer = createReducer(
 const createCompeition = (compeitions: Competition[], addedCompeition: Competition) => [...compeitions, addedCompeition];
 const updateCompeition = (competitions: Competition[], updatedCompetition: Competition): Competition[] => (
     competitions.map(
-        competition => 
-                competition.code == updatedCompetition.code 
+        competition =>
+                competition.code == updatedCompetition.code
                 ? Object.assign({}, competition, updatedCompetition)
                 : competition
     )

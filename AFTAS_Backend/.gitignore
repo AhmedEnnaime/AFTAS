@@ -2,4 +2,4 @@
 ./target
 ./docker-composae.yaml
 ./Dockerfile
-.yaml
+.yml

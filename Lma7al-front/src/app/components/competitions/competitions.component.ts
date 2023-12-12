@@ -28,7 +28,7 @@ export class CompetitionsComponent implements OnInit{
   }
 
   getAllCompetitions() {
-    this.store.dispatch(competitionPageActions.enter({page: 0, size: 5} ))
+    this.store.dispatch(competitionPageActions.enter({page: 0, size: 10} ))
   }
 
   getFutureCompetitions() {
@@ -44,7 +44,7 @@ export class CompetitionsComponent implements OnInit{
   }
 
   ngOnInit() {
-    this.store.dispatch(competitionPageActions.enter({page: 0, size: 5} ))
+    this.store.dispatch(competitionPageActions.enter({page: 0, size: 10} ))
   }
 
   addCompetition() {

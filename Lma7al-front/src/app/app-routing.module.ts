@@ -4,6 +4,7 @@ import {MainLayoutComponent} from "./shared/main-layout/main-layout.component";
 import {NotFoundComponent} from "./shared/not-found/not-found.component";
 import {DashboardComponent} from "./pages/dashboard/dashboard.component";
 import {CompetitionsPageComponent} from "./pages/competitions-page/competitions-page.component";
+import {RankingsPageComponent} from "./pages/rankings-page/rankings-page.component";
 
 const routes: Routes = [
   {
@@ -15,6 +16,11 @@ const routes: Routes = [
     path: 'competitions',
     component: MainLayoutComponent,
     children: [{ path: '', component: CompetitionsPageComponent }],
+  },
+  {
+    path: 'rankings/:id',
+    component: MainLayoutComponent,
+    children: [{ path: '', component: RankingsPageComponent }],
   },
   {
     path: '**',

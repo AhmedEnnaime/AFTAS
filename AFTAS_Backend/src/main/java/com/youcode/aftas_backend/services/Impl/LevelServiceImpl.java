@@ -24,7 +24,7 @@ public class LevelServiceImpl implements LevelService {
 
     @Override
     public LevelDto save(LevelDto levelDto) {
-        Optional<Level> maxCodeLevelOpt = levelRepository.findFirstByOrderByCodeDesc();
+        Optional<Level> maxCodeLevelOpt = levelRepository.findTopByCodeLessThanOrderByCodeDesc(levelDto.getCode());
         if (maxCodeLevelOpt.isPresent()) {
             Level maxCodeLevel = maxCodeLevelOpt.get();
             if (maxCodeLevel.getPoints() >= levelDto.getPoints()) {
