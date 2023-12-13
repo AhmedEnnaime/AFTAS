@@ -5,18 +5,18 @@
             <img class="object-cover object-center w-full h-56" src="https://maghreb.simplonline.co/_next/image?url=https%3A%2F%2Fsimplonline-v3-prod.s3.eu-west-3.amazonaws.com%2Fmedia%2Fimage%2Fjpg%2Fchasse-sous-marine-sous-eau-950002-169315-657215df5fd58614044589.jpg&w=1280&q=75" alt="avatar">
             <div class="px-6 py-4">
                 <h2 class="text-xl font-semibold text-gray-800 none:text-white">{{ competition?.code }}</h2>
-        
+
                 <div class="flex items-center mt-4 text-gray-700 none:text-gray-200">
                   <fa-icon  class="text-xl right-3 top-2 text-blue-900" [icon]="locationIcon"></fa-icon>
                   <h2 class="px-2 text-sm">{{competition?.location}}</h2>
                 </div>
 
-                <div class="flex items-center mt-4 text-gray-700 none:text-gray-200">     
-                    <fa-icon  class="text-xl right-3 top-2 text-blue-900" [icon]="dateIcon"></fa-icon>   
+                <div class="flex items-center mt-4 text-gray-700 none:text-gray-200">
+                    <fa-icon  class="text-xl right-3 top-2 text-blue-900" [icon]="dateIcon"></fa-icon>
                     <h2 class="px-2 text-sm">{{competition?.date}}</h2>
                 </div>
-        
-                <div class="flex items-center mt-4 text-gray-700 none:text-gray-200">       
+
+                <div class="flex items-center mt-4 text-gray-700 none:text-gray-200">
                     <fa-icon  class="text-xl right-3 top-2 text-blue-900" [icon]="timeIcon"></fa-icon>
                     <h2 class="px-2 text-sm">{{competition?.startTime | date:'shortTime' }} -> {{competition?.endTime | date:'shortTime'}}</h2>
                 </div>
@@ -24,37 +24,47 @@
           </div>
           <button (click)="setUpCompetitionRankings()"  class="flex w-full items-center justify-center  px-5 py-2 text-sm tracking-wide text-white transition-colors duration-200 bg-blue-500 rounded-lg shrink-0  gap-x-2 hover:bg-blue-600">
             <fa-icon class="text-white" [icon]="checkIcon" ></fa-icon>
-        
+
             <span>Finish</span>
           </button>
         </div>
-        
+
         <div class="flex flex-col w-4/5">
           <div class="flex items-center justify-between">
             <div class="inline-flex text-2xl overflow-hidden divide-x none:bg-gray-900 rtl:flex-row-reverse none:border-gray-700 none:divide-gray-700">
-              Rankings   
+              Rankings
             </div>
-        
+
             <popup (submit)="addRanking()" title="Register a member" description="register a member by selecting it." submitText="register">
               <button btn class="flex items-center justify-center w-1/2 px-5 py-2 text-sm tracking-wide text-white transition-colors duration-200 bg-blue-500 rounded-lg shrink-0 sm:w-auto gap-x-2 hover:bg-blue-600">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-          
+
                 <span>Rgister a member</span>
               </button>
-        
-              <div form-body  class="grid grid-cols-1 sm:grid-cols-2 gap-x-3 gap-y-6">
-                <app-select
-                  [control]="memberNum"
-                  label="select a member"
-                  class="col-span-2"
-                />
-              </div>           
+
+              <form form-body class="grid grid-cols-1">
+                <label class="block text-left text-sm text-gray-500 none:text-gray-300 font-bold">Member</label>
+                <div class="relative">
+                  <select
+                   [formControl]="memberNum"
+                    class="block w-full mt-2 rounded-lg border border-gray-300 none:border-gray-700 bg-white none:bg-gray-900 px-5 py-2.5 text-gray-700 none:text-gray-300 focus:border-red-400 focus:outline-none focus:ring focus:ring-red-300 focus:ring-opacity-40 transition-all duration-200"
+                  >
+                    <option value="" disabled selected>Select Member</option>
+                    <option *ngFor="let member of members | async" [value]="member.num">{{ member.name }}  {{ member.familyName }}</option>
+                  </select>
+                  <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+                    <svg class="h-5 w-5 text-gray-500 none:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                  </div>
+                </div>
+              </form>
             </popup>
-            
+
           </div>
-        
+
           <div class="flex flex-col mt-6">
             <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
               <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">

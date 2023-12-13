@@ -20,35 +20,51 @@
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
           <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
-  
+
         <span>Add member</span>
       </button>
 
-      <div form-body  class="grid grid-cols-1 sm:grid-cols-2 gap-x-3 gap-y-6">
-        <text-input 
+      <form form-body [formGroup]="memberForm" class="grid grid-cols-1 sm:grid-cols-2 gap-x-3 gap-y-6">
+        <text-input
           [control]="memberForm.get('name')"
           placeholder="Enter member name"
         />
         <text-input
-          [control]="memberForm.get('familyName')" 
-          placeholder="Enter member family name" 
-        />
-        <text-input 
-          [control]="memberForm.get('nationality')" 
-          placeholder="Nationality"  
-          class="col-span-2" 
-        />
-        <app-select
-          [control]="memberForm.get('identityDocument')"  
-          placeholder="Select identity document type" 
+          [control]="memberForm.get('familyName')"
+          placeholder="Enter member family name"
         />
         <text-input
-          [control]="memberForm.get('identityNumber')" 
-          placeholder="Enter identity  number" 
+          [control]="memberForm.get('nationality')"
+          placeholder="Nationality"
+          class="col-span-2"
         />
-      </div>           
+        <div>
+          <label class="block text-left text-sm text-gray-500 none:text-gray-300 font-bold">Identity Document</label>
+          <div class="relative">
+            <select
+              formControlName="identityDocument"
+              class="block w-full mt-2 rounded-lg border border-gray-300 none:border-gray-700 bg-white none:bg-gray-900 px-5 py-2.5 text-gray-700 none:text-gray-300 focus:border-red-400 focus:outline-none focus:ring focus:ring-red-300 focus:ring-opacity-40 transition-all duration-200"
+            >
+              <option value="" disabled selected>Select Identity Document</option>
+              <option value="PASSPORT">PASSPORT</option>
+              <option value="CIN">CIN</option>
+              <option value="CART_RESIDENCE">CART_RESIDENCE</option>
+            </select>
+            <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+              <svg class="h-5 w-5 text-gray-500 none:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </div>
+          </div>
+        </div>
+        <text-input
+          label="Identity Number"
+          [control]="memberForm.get('identityNumber')"
+          placeholder="Enter identity  number"
+        />
+      </form>
     </popup>
-    
+
   </div>
 
   <div class="flex flex-col mt-6">

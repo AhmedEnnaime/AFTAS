@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import * as memberPageActions from "../../store/member/actions/member-page.actions";
 
 import { selectCompetition as selectCompetitionAction } from 'src/app/store/competition/actions/competition-page.actions';
 
@@ -14,6 +15,9 @@ import * as rankingPageActoins from './../../store/ranking/actions/ranking-page.
 import { findCompetition } from 'src/app/store/competition/actions/competition-page.actions';
 
 import { faCalendarDays, faCheckCircle, faLocationDot, faStopwatch } from '@fortawesome/free-solid-svg-icons';
+import {Member} from "../../model/interfaces/member.model";
+import {selectMembers} from "../../store/member/member.selectors";
+import {selectRankings} from "../../store/ranking/ranking.selectors";
 
 
 
@@ -24,27 +28,27 @@ import { faCalendarDays, faCheckCircle, faLocationDot, faStopwatch } from '@fort
 export class RankingsComponent implements OnInit {
   competition?: Competition;
   competitionCode!: String;
-  rankings: Ranking[] = [];
+  rankings?: Observable<Ranking[]>;
   memberNum: FormControl;
   locationIcon = faLocationDot;
   dateIcon = faCalendarDays;
   timeIcon = faStopwatch;
   checkIcon = faCheckCircle;
-
-  
-  
+  members?: Observable<Member[]>
 
   constructor(private store: Store, private route: ActivatedRoute, private fb: FormBuilder) {
     this.route.paramMap.subscribe((params) => {
         this.competitionCode = params.get('id') ?? '';
     });
     this.memberNum = this.fb.control('');
-    
+
   }
 
 
   ngOnInit(): void {
-    this.store.dispatch(findCompetition({competitionCode: this.competitionCode}))
+    this.store.dispatch(findCompetition({competitionCode: this.competitionCode}));
+    this.store.dispatch(memberPageActions.enter());
+    this.members = this.store.select(selectMembers);
     this.store.select(selectFoundedCompetition).subscribe(competition => this.competition = competition);
   }
 
@@ -52,12 +56,12 @@ export class RankingsComponent implements OnInit {
     const ranking: Ranking = {
       id: {
         competitionCode: this.competitionCode,
-        memberNum: this.memberNum.value as Number
+        memberNum: this.memberNum.value as number
       }
     }
-    console.log("component: " +ranking.id.competitionCode);
-    
-    this.store.dispatch(rankingPageActoins.addRanking({ranking}))
+
+    this.store.dispatch(rankingPageActoins.addRanking({ranking}));
+    this.store.dispatch(findCompetition({competitionCode: this.competitionCode}));
   }
 
   deleteRanking(rankingId: CompetitionMember) {

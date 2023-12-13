@@ -110,19 +110,19 @@ public class RankingServiceImplTest {
 
     //@Test
     public void testSetupCompetitionRankingsWhenCompetitionCodeValid() {
-        String competitionCode = "Saf-12-12-23";
+        String competitionCode = "Ims-12-12-23";
         CompetitionMember rankingId1 = CompetitionMember.builder()
-                .competitionCode("Saf-12-12-23")
+                .competitionCode("Ims-12-12-23")
                 .memberNum(1)
                 .build();
 
         Competition competition1 = Competition.builder()
-                .code("Saf-12-12-23")
+                .code("Ims-12-12-23")
                 .date(LocalDate.now())
                 .startTime(LocalDateTime.now())
                 .endTime(LocalDateTime.now())
                 .amount(100.00)
-                .location("Safi")
+                .location("Imseouane")
                 .build();
 
         Member member1 = Member.builder()
