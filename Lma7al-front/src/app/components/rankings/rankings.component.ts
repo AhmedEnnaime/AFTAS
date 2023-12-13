@@ -7,9 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import * as memberPageActions from "../../store/member/actions/member-page.actions";
 
-import { selectCompetition as selectCompetitionAction } from 'src/app/store/competition/actions/competition-page.actions';
-
-import { selectFoundedCompetition, selectSelectedCompetition } from 'src/app/store/competition/competition.selectors';
+import { selectFoundedCompetition } from 'src/app/store/competition/competition.selectors';
 
 import * as rankingPageActoins from './../../store/ranking/actions/ranking-page.actions'
 import { findCompetition } from 'src/app/store/competition/actions/competition-page.actions';
@@ -31,18 +29,17 @@ export class RankingsComponent implements OnInit {
   competitionCode!: String;
   rankings?: Observable<Ranking[]>;
   memberNum: FormControl;
+  members?: Observable<Member[]>;
   locationIcon = faLocationDot;
   dateIcon = faCalendarDays;
   timeIcon = faStopwatch;
   checkIcon = faCheckCircle;
-  members?: Observable<Member[]>
 
   constructor(private store: Store, private route: ActivatedRoute, private fb: FormBuilder, private datePipe: DatePipe) {
     this.route.paramMap.subscribe((params) => {
         this.competitionCode = params.get('id') ?? '';
     });
     this.memberNum = this.fb.control('');
-
   }
 
   isCompetitionDatePassed(): boolean {
@@ -65,9 +62,11 @@ export class RankingsComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(findCompetition({competitionCode: this.competitionCode}));
+    this.store.dispatch(rankingPageActoins.loadCompetitionRankings({competitionCode: this.competitionCode}));
+    this.store.select(selectFoundedCompetition).subscribe(competition => this.competition = competition);
+    this.rankings = this.store.select(selectRankings);
     this.store.dispatch(memberPageActions.enter());
     this.members = this.store.select(selectMembers);
-    this.store.select(selectFoundedCompetition).subscribe(competition => this.competition = competition);
   }
 
   addRanking() {
@@ -79,7 +78,6 @@ export class RankingsComponent implements OnInit {
     }
 
     this.store.dispatch(rankingPageActoins.addRanking({ranking}));
-    this.store.dispatch(findCompetition({competitionCode: this.competitionCode}));
   }
 
   deleteRanking(rankingId: CompetitionMember) {

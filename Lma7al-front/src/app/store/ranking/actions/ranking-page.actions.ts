@@ -7,6 +7,8 @@ export const addRanking = createAction(
     props<{ ranking: Ranking }>()
 );
 
+export const loadCompetitionRankings = createAction('[Ranking page] load competition rankings', props<{competitionCode: String}>());
+
 export const deleteRanking = createAction(
     '[Ranking page] delete ranking',
     props<{ rankingId : CompetitionMember }>()
