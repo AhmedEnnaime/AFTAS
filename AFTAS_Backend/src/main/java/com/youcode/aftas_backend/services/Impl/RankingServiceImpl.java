@@ -55,6 +55,11 @@ public class RankingServiceImpl implements RankingService {
     }
 
     @Override
+    public List<RankingDto> getCompetitionRankings(String identifier) {
+        return Arrays.asList(modelMapper.map(rankingRepository.findByCompetitionCode(identifier), RankingDto[].class));
+    }
+
+    @Override
     public RankingDto update(CompetitionMember identifier, RankingDto rankingDto) {
         rankingDto.setId(identifier);
         rankingDto.setCompetition(null);

@@ -8,7 +8,7 @@ import {Level} from "../model/interfaces/level";
   providedIn: 'root',
 })
 export class LevelService {
-  private baseUrl: string = 'http://localhost:8082/api';
+  private baseUrl: string = 'http://localhost:9090/api';
 
   httpOptions = {
     headers: new HttpHeaders({

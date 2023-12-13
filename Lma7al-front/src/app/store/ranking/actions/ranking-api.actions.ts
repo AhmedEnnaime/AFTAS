@@ -30,3 +30,13 @@ export const rankingSetupFailure = createAction(
     '[Ranking page] Ranking set-up failure',
     props<{ message: String }>()
 );
+
+export const competitionRankingSuccsesfully = createAction(
+    '[Ranking page] Competition ranking  successfully',
+    props<{ rankings: Ranking[] }>()
+);
+
+export const competitionRankingSetupFailure = createAction(
+    '[Ranking page] Competition ranking  failure',
+    props<{ message: String }>()
+);

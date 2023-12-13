@@ -7,7 +7,7 @@ import { CompetitionMember, Ranking } from 'src/app/model/interfaces/ranking.mod
   templateUrl: './rankings-table.component.html',
 })
 export class RankingsTableComponent {
-    @Input() rankings?: Ranking[];
+    @Input() rankings?: Observable<Ranking[]>;
 
     @Output() deleteRanking: EventEmitter<CompetitionMember> = new EventEmitter();
 

@@ -45,9 +45,22 @@ export class RankingEffect {
             ofType(rankingPageActions.setCompetitionRanking),
             exhaustMap((action) =>
                 this.rankingService
-                    .getCompetitionRankings(action.competitionCode)
+                    .setCompetitionRankings(action.competitionCode)
                     .pipe(
                         map(rankings => rankingApiActions.rankingSetupSuccsesfully({rankings}))
+                    )
+            )
+        )
+    );
+
+    getCompetitionRankings$ = createEffect(() => 
+        this.action$.pipe(
+            ofType(rankingPageActions.loadCompetitionRankings),
+            exhaustMap((action) =>
+                this.rankingService
+                    .getCompetitionRankings(action.competitionCode)
+                    .pipe(
+                        map(rankings =>  rankingApiActions.competitionRankingSuccsesfully({rankings}))
                     )
             )
         )

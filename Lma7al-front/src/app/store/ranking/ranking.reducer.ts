@@ -23,6 +23,7 @@ export const rankingReducer = createReducer(
     on(rankingPageActions.addRanking,
        rankingPageActions.deleteRanking,
        rankingPageActions.setCompetitionRanking,
+       rankingPageActions.loadCompetitionRankings,
         (state, action) => ({
             ...state,
             loading: true,
@@ -42,6 +43,14 @@ export const rankingReducer = createReducer(
             collection: deleteRanking(state.collection, action.deletedElementIdentifier),
         })
     ),
+    on(rankingApiActions.competitionRankingSuccsesfully,
+        rankingApiActions.rankingSetupSuccsesfully,
+        (state, action) => ({
+            ...state,
+            loading: false,
+            collection: action.rankings
+        })
+    ),
     on(rankingApiActions.rankingAddedFailure,
        rankingApiActions.rankingDeletedFailure,
        rankingApiActions.rankingSetupFailure,
@@ -50,11 +59,13 @@ export const rankingReducer = createReducer(
             loading: false,
             errors: action.message
         })
-
     ),
 );
 
 
 const addRanking = (rankings: Ranking[], addedRanking: Ranking) => [...rankings, addedRanking];
 
-const deleteRanking = (rankings: Ranking[], rankingId: CompetitionMember) => rankings.filter(ranking => ranking.id != rankingId);
+const deleteRanking = (rankings: Ranking[], rankingId: CompetitionMember) =>
+  rankings.filter((ranking) => 
+    JSON.stringify(ranking.id) !== JSON.stringify(rankingId) 
+);
