@@ -8,7 +8,6 @@ import com.youcode.aftas_backend.repositories.LevelRepository;
 import com.youcode.aftas_backend.services.LevelService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

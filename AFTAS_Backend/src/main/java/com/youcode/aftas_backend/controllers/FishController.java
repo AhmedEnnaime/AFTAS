@@ -5,7 +5,6 @@ import com.youcode.aftas_backend.models.dto.fish.FishDtoResponse;
 import com.youcode.aftas_backend.services.FishService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

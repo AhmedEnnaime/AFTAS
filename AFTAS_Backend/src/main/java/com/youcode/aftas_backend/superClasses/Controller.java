@@ -28,30 +28,30 @@ public abstract class Controller<Dto, Identifier> {
     }
 
     @PostMapping
-    public ResponseEntity<Dto> save(@Valid @RequestBody final Dto dto) {
+    protected ResponseEntity<Dto> save(@Valid @RequestBody final Dto dto) {
         var savedDto = service.save(dto);
         return new ResponseEntity<>(savedDto, HttpStatus.CREATED);
     } 
     
     @GetMapping
-    public ResponseEntity<List<Dto>> getAll() {
+    protected ResponseEntity<List<Dto>> getAll() {
         return new ResponseEntity<>(service.getAll(), HttpStatus.OK);
     } 
 
     @GetMapping("/{id}")
-    public ResponseEntity<Dto> find(@PathVariable("id") final Identifier id) {
+    protected ResponseEntity<Dto> find(@PathVariable("id") final Identifier id) {
         var foundedDto = service.findByID(id);
         return new ResponseEntity<>(foundedDto, HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Dto> update(@PathVariable("id") final Identifier id, @Valid @RequestBody final Dto dto) {
+    protected ResponseEntity<Dto> update(@PathVariable("id") final Identifier id, @Valid @RequestBody final Dto dto) {
         var updatedDto = service.update(id, dto);
         return new ResponseEntity<>(updatedDto, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Map<String, String>> delete(@PathVariable("id") final Identifier id) {
+    protected ResponseEntity<Map<String, String>> delete(@PathVariable("id") final Identifier id) {
         service.delete(id);
         Map<String, String> response = new HashMap<>();
         response.put("message", "Resource deleted successfully.");
