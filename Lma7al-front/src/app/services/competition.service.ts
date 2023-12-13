@@ -20,9 +20,9 @@ export class CompetitionService {
 
       constructor(private http: HttpClient, private configService: ConfigService) {}
 
-      getCompetitions(page?: Number, size?: Number): Observable<CompetitionPage[]> {
+      getCompetitions(page?: Number, size?: Number): Observable<CompetitionPage> {
         return this.http
-          .get<CompetitionPage[]>(this.baseUrl + `/all?page=${page || 0}&size=${size || 10}`, this.httpOptions)
+          .get<CompetitionPage>(this.baseUrl + `/all?page=${page || 0}&size=${size || 10}`, this.httpOptions)
           .pipe(catchError((error) => this.configService.handleError(error)));
       }
 
@@ -33,21 +33,21 @@ export class CompetitionService {
           .pipe(catchError((error) => this.configService.handleError(error)));
       }
 
-      getClosedCompetitions(page?: Number, size?: Number): Observable<CompetitionPage[]> {
+      getClosedCompetitions(page?: Number, size?: Number): Observable<CompetitionPage> {
         return this.http
-          .get<CompetitionPage[]>(this.baseUrl + `/closed?page=${page || 0}&size=${size || 10}`, this.httpOptions)
+          .get<CompetitionPage>(this.baseUrl + `/closed?page=${page || 0}&size=${size || 10}`, this.httpOptions)
           .pipe(catchError((error) => this.configService.handleError(error)));
       }
 
-      getFutureCompetitions(page?: Number, size?: Number): Observable<CompetitionPage[]> {
+      getFutureCompetitions(page?: Number, size?: Number): Observable<CompetitionPage> {
         return this.http
-          .get<CompetitionPage[]>(this.baseUrl + `/future?page=${page || 0}&size=${size || 10}` , this.httpOptions)
+          .get<CompetitionPage>(this.baseUrl + `/future?page=${page || 0}&size=${size || 10}` , this.httpOptions)
           .pipe(catchError((error) => this.configService.handleError(error)));
       }
 
-      getCurrentCompetitions(page?: Number, size?: Number): Observable<CompetitionPage[]> {
+      getCurrentCompetitions(page?: Number, size?: Number): Observable<CompetitionPage> {
         return this.http
-          .get<CompetitionPage[]>(this.baseUrl + `/current?page=${page || 0}&size=${size || 10}`, this.httpOptions)
+          .get<CompetitionPage>(this.baseUrl + `/current?page=${page || 0}&size=${size || 10}`, this.httpOptions)
           .pipe(catchError((error) => this.configService.handleError(error)));
       }
 

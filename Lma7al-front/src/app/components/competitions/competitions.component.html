@@ -72,8 +72,9 @@
 
   <div class="mt-6 sm:flex sm:items-center sm:justify-between ">
     <div class="text-sm text-gray-500 none:text-gray-400">
-      Page <span class="font-medium text-gray-700 none:text-gray-100">1 of 10</span>
-    </div>
+      Page <span class="font-medium text-gray-700 none:text-gray-100">{{ ((currentPage | async)?.valueOf() ?? 0) + 1 }} of {{ totalPages | async }}</span>
+    </div>    
+
 
     <div class="flex items-center mt-4 gap-x-4 sm:mt-0">
       <a href="#" class="flex items-center justify-center w-1/2 px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md sm:w-auto gap-x-2 hover:bg-gray-100 none:bg-gray-900 none:text-gray-200 none:border-gray-700 none:hover:bg-gray-800">
@@ -86,7 +87,7 @@
                 </span>
       </a>
 
-      <a href="#" class="flex items-center justify-center w-1/2 px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md sm:w-auto gap-x-2 hover:bg-gray-100 none:bg-gray-900 none:text-gray-200 none:border-gray-700 none:hover:bg-gray-800">
+      <a (click)="handleNext()" class="flex items-center justify-center w-1/2 px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md sm:w-auto gap-x-2 hover:bg-gray-100 none:bg-gray-900 none:text-gray-200 none:border-gray-700 none:hover:bg-gray-800">
                 <span>
                     Next
                 </span>

@@ -7,6 +7,10 @@ import * as competitionApiActions from './actions/competition-api.actions';
 export interface CompetitionState {
     collection: Competition[],
     selectedCompetitionCode: String | null,
+    currentPage: Number | number | undefined,
+    totalPages: Number | number | undefined,
+    pageSize: Number | number | undefined,
+    totalElements: Number | number | undefined,
     loading: boolean,
     errors: {}
 }
@@ -14,6 +18,10 @@ export interface CompetitionState {
 const initialState: CompetitionState = {
     collection: [],
     selectedCompetitionCode: null,
+    currentPage: 0,
+    totalPages: 1,
+    pageSize: 10,
+    totalElements: 0,
     loading: false,
     errors: {}
 }
@@ -29,6 +37,7 @@ export const competitionReducer = createReducer(
             ...state,
             selectedCometitionCode: null,
             loading: true,
+            currentPage: action.page,
             errors: {}
         })
     ),
@@ -60,7 +69,11 @@ export const competitionReducer = createReducer(
        competitionApiActions.competitionsPageLoadedSuccessfully,
         (state, action) => ({
             ...state,
-            collection: action.competitions,
+            collection: action.competitions.content,
+            currentPage: action.competitions.number,
+            totalPages: action.competitions.totalPages,
+            pageSize: action.competitions.size,
+            totalElements: action.competitions.totalElements,
             selectedCometitionCode: null,
             loading: false
         })

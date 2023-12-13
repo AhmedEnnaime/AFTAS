@@ -95,7 +95,7 @@ export class CompetitionEffect {
             concatMap((action) => 
                 this.competitionService
                     .deleteCompetition(action.competitionCode)
-                    .pipe(map(response => competitionApiActions.competitionDeletedSuccessfully({message: response.message, competitionCode: response.deletedElementIdentifier})))
+                    .pipe(map(competitions => competitionApiActions.competitionDeletedSuccessfully({message: competitions.message, competitionCode: competitions.deletedElementIdentifier})))
             )
         )
     );

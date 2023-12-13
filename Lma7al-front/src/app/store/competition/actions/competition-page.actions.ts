@@ -7,7 +7,7 @@ export const findCompetition = createAction('[Rankings page] Find competition', 
 
 export const getCompetitionPage = createAction(
     '[Competition page] get competition by page',
-    props<{page?: Number, size?: Number}>()
+    props<{page: Number, size: Number}>()
 );
 
 export const selectCompetition = createAction(
@@ -34,13 +34,13 @@ export const deleteCompetition = createAction(
 
 export const LoadCurrentCompetition = createAction(
     '[Competition page]  load current competition',
-    props<{page?: Number, size?: Number}>()
+    props<{page: Number, size: Number}>()
 );
 export const LoadFutureCompetitions = createAction(
     '[Competition page]  load future competitions',
-    props<{page?: Number, size?: Number}>()
+    props<{page: Number, size: Number}>()
 );
 export const LoadClosedCompetitions = createAction(
     '[Competition page]  load closed competitions',
-    props<{page?: Number, size?: Number}>()
+    props<{page: Number, size: Number}>()
 );

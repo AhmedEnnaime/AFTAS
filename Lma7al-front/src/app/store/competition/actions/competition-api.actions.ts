@@ -1,9 +1,10 @@
 import { createAction, props } from "@ngrx/store";
+import { CompetitionPage } from "src/app/model/interfaces/CompetitionPage";
 import { Competition } from "src/app/model/interfaces/competition.model";
 
 export const competitionsLoadedSuccessfully = createAction(
     '[Competition api] Competitions loaded successfully',
-    props<{competitions: Competition[]}>()
+    props<{competitions: CompetitionPage}>()
 );
 
 export const competitionsLoadedFailure = createAction(
@@ -23,7 +24,7 @@ export const competitionFoundedFailure = createAction(
 
 export const competitionsPageLoadedSuccessfully = createAction(
     '[Competition api] Competitions page loaded successfully',
-    props<{competitions: Competition[]}>()
+    props<{competitions: CompetitionPage}>()
 );
 
 export const competitionsPageLoadedFailure = createAction(
@@ -63,7 +64,7 @@ export const competitionDeletedFailure = createAction(
 
 export const currentCompetitionLoadedSuccessfully = createAction(
     '[Competition api] current competition loaded successfully',
-    props<{competitions: Competition[]}>()
+    props<{competitions: CompetitionPage}>()
 );
 
 export const currentCompetitionLoadedFailure = createAction(
@@ -73,7 +74,7 @@ export const currentCompetitionLoadedFailure = createAction(
 
 export const closedCompetitionsLoadedSuccessfully = createAction(
     '[Competition api] closed competitions loaded successfully',
-    props<{competitions: Competition[]}>()
+    props<{competitions: CompetitionPage}>()
 );
 
 export const closedCompetitionsLoadedFailure = createAction(
@@ -83,7 +84,7 @@ export const closedCompetitionsLoadedFailure = createAction(
 
 export const futureCompetitionsLoadedSuccessfully = createAction(
     '[Competition api] future competitions loaded successfully',
-    props<{competitions: Competition[]}>()
+    props<{competitions: CompetitionPage}>()
 );
 
 export const futureCompetitionsLoadedFailure = createAction(
