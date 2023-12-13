@@ -33,25 +33,27 @@ import { RankingsPageComponent } from './pages/rankings-page/rankings-page.compo
 import { HuntingComponent } from './components/hunting/hunting.component';
 import { RankingsComponent } from './components/rankings/rankings.component';
 import { RankingsTableComponent } from './components/rankings/ranking-table/rankings-table.component';
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [AppComponent, MainLayoutComponent, NotFoundComponent, DashboardComponent, MembersComponent, MembersTableComponent, CompetitionsComponent, CompetitionsTableComponent, CompetitionsPageComponent, MembersComponent, RankingsPageComponent, HuntingComponent, RankingsComponent, RankingsTableComponent],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    StoreModule.forRoot({}, {}),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
-    EffectsModule.forRoot([MemberEffect, LevelEffect, FishEffect, HuntingEffect, CompetitionEffect, RankingEffect]),
-    MemberStateModule,
-    LevelStateModule,
-    FishStateModule,
-    CompetitionModule,
-    HuntingStateModule,
-    RankingStateModule,
-    HttpClientModule,
-    SahredModule,
-    FontAwesomeModule,
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        StoreModule.forRoot({}, {}),
+        StoreDevtoolsModule.instrument({maxAge: 25, logOnly: !isDevMode()}),
+        EffectsModule.forRoot([MemberEffect, LevelEffect, FishEffect, HuntingEffect, CompetitionEffect, RankingEffect]),
+        MemberStateModule,
+        LevelStateModule,
+        FishStateModule,
+        CompetitionModule,
+        HuntingStateModule,
+        RankingStateModule,
+        HttpClientModule,
+        SahredModule,
+        FontAwesomeModule,
+        ReactiveFormsModule,
+    ],
   providers: [],
   bootstrap: [AppComponent],
 })
