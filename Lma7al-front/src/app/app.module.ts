@@ -34,6 +34,7 @@ import { RankingsComponent } from './components/rankings/rankings.component';
 import { RankingsTableComponent } from './components/rankings/ranking-table/rankings-table.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import { HuntingComponent } from './components/hunting/hunting.component';
+import {DatePipe} from "@angular/common";
 
 @NgModule({
   declarations: [AppComponent, MainLayoutComponent, NotFoundComponent, DashboardComponent, MembersComponent, MembersTableComponent, CompetitionsComponent, CompetitionsTableComponent, CompetitionsPageComponent, MembersComponent, RankingsPageComponent, HuntingComponent, RankingsComponent, RankingsTableComponent],
@@ -54,7 +55,7 @@ import { HuntingComponent } from './components/hunting/hunting.component';
         FontAwesomeModule,
         ReactiveFormsModule,
     ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

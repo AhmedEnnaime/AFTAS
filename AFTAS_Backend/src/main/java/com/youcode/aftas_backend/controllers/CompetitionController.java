@@ -1,5 +1,6 @@
 package com.youcode.aftas_backend.controllers;
 
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.youcode.aftas_backend.models.dto.competetion.CompetitionDto;
@@ -28,24 +29,24 @@ public class CompetitionController extends Controller<CompetitionDto, String> {
     private final CompetitionService competitionService;
 
     @GetMapping("/all")
-    public ResponseEntity<List<CompetitionDto>> getAllCompetitions(@RequestParam(defaultValue = "0") final Integer page, @RequestParam(defaultValue = "10") final Integer size) {
+    public ResponseEntity<Page<CompetitionDto>> getAllCompetitions(@RequestParam(defaultValue = "0") final Integer page, @RequestParam(defaultValue = "10") final Integer size) {
         return new ResponseEntity<>(competitionService.getAllCompetitions(page, size), HttpStatus.OK);
     }
 
     @GetMapping("/current")
-    public ResponseEntity<List<CompetitionDto>> getCurrentCompetitions(@RequestParam(defaultValue = "0") final Integer page,@RequestParam(defaultValue = "10") final Integer size) {
+    public ResponseEntity<Page<CompetitionDto>> getCurrentCompetitions(@RequestParam(defaultValue = "0") final Integer page,@RequestParam(defaultValue = "10") final Integer size) {
         var foundedDto = competitionService.getOnGoingCompetition(page, size);
         return new ResponseEntity<>(foundedDto, HttpStatus.OK);
     }
 
     @GetMapping("/future")
-    public ResponseEntity<List<CompetitionDto>> getFutureCompetitions(@RequestParam(defaultValue = "0") final Integer page,@RequestParam(defaultValue = "10") final Integer size) {
+    public ResponseEntity<Page<CompetitionDto>> getFutureCompetitions(@RequestParam(defaultValue = "0") final Integer page,@RequestParam(defaultValue = "10") final Integer size) {
         var foundedDto = competitionService.getFutureCompetitions(page, size);
         return new ResponseEntity<>(foundedDto, HttpStatus.OK);
     }
 
     @GetMapping("/closed")
-    public ResponseEntity<List<CompetitionDto>> getClosedCompetitions(@RequestParam(defaultValue = "0") final Integer page,@RequestParam(defaultValue = "10") final Integer size) {
+    public ResponseEntity<Page<CompetitionDto>> getClosedCompetitions(@RequestParam(defaultValue = "0") final Integer page,@RequestParam(defaultValue = "10") final Integer size) {
         var foundedDto = competitionService.getClosedCompetitions(page, size);
         return new ResponseEntity<>(foundedDto, HttpStatus.OK);
     }

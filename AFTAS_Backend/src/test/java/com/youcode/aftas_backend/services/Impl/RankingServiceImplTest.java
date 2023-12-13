@@ -1,6 +1,7 @@
 package com.youcode.aftas_backend.services.Impl;
 
 import com.youcode.aftas_backend.models.dto.RankingDto;
+import com.youcode.aftas_backend.models.dto.competetion.CompetitionDto;
 import com.youcode.aftas_backend.models.embeddables.CompetitionMember;
 import com.youcode.aftas_backend.models.entities.Competition;
 import com.youcode.aftas_backend.models.entities.Member;
@@ -54,6 +55,8 @@ public class RankingServiceImplTest {
 
     private RankingDto rankingDto;
 
+    private CompetitionDto competitionDto;
+
     @Mock
     private MemberServiceImpl memberService;
 
@@ -63,6 +66,7 @@ public class RankingServiceImplTest {
     @Mock
     private CompetitionServiceImpl competitionService;
 
+    @Mock
     private HuntingRepository huntingRepository;
 
     @BeforeEach
@@ -88,6 +92,12 @@ public class RankingServiceImplTest {
                 .memberNum(1)
                 .competitionCode("Saf-12-12-23")
                 .build();
+        competitionDto = new CompetitionDto();
+        competitionDto.setCode("Saf-12-12-23");
+        competitionDto.setDate(LocalDate.now());
+        competitionDto.setAmount(120.00);
+        competitionDto.setStartTime(LocalDateTime.now());
+        competitionDto.setEndTime(LocalDateTime.now());
 
         ranking = Ranking.builder()
                 .id(id)
@@ -96,6 +106,11 @@ public class RankingServiceImplTest {
                 .member(member)
                 .competition(competition)
                 .build();
+        rankingDto = new RankingDto();
+        rankingDto.setId(id);
+        rankingDto.setRank(1);
+        rankingDto.setScore(100);
+        rankingDto.setCompetition(competitionDto);
     }
 
     @Test
@@ -141,12 +156,12 @@ public class RankingServiceImplTest {
                 .competition(competition1)
                 .member(member1)
                 .build();
-        System.out.println("Competition 1 :" + competition1.getLocation());
-        System.out.println("Member 1 :" + member1.getName());
-        System.out.println("Ranking 1 :" + ranking1.getCompetition().getLocation());
+//        System.out.println("Competition 1 :" + competition1.getLocation());
+//        System.out.println("Member 1 :" + member1.getName());
+//        System.out.println("Ranking 1 :" + ranking1.getCompetition().getLocation());
         List<Ranking> sampleRankings = Arrays.asList(ranking, ranking1);
-        System.out.println("Rankings size : " + sampleRankings.size());
-        given(rankingService.save(rankingDto)).willReturn(rankingDto);
+//        System.out.println("Rankings size : " + sampleRankings.size());
+        System.out.println("competition date " + rankingDto.getCompetition().getDate());
         given(rankingRepository.findByCompetitionCode(competitionCode)).willReturn(sampleRankings);
         List<RankingDto> result = rankingService.SetUpCompetitionRankings(competitionCode);
         assertEquals(sampleRankings.size(), result.size());

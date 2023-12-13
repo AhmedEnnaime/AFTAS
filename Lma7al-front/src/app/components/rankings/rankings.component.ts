@@ -18,6 +18,7 @@ import { faCalendarDays, faCheckCircle, faLocationDot, faStopwatch } from '@fort
 import {Member} from "../../model/interfaces/member.model";
 import {selectMembers} from "../../store/member/member.selectors";
 import {selectRankings} from "../../store/ranking/ranking.selectors";
+import {DatePipe} from "@angular/common";
 
 
 
@@ -36,12 +37,29 @@ export class RankingsComponent implements OnInit {
   checkIcon = faCheckCircle;
   members?: Observable<Member[]>
 
-  constructor(private store: Store, private route: ActivatedRoute, private fb: FormBuilder) {
+  constructor(private store: Store, private route: ActivatedRoute, private fb: FormBuilder, private datePipe: DatePipe) {
     this.route.paramMap.subscribe((params) => {
         this.competitionCode = params.get('id') ?? '';
     });
     this.memberNum = this.fb.control('');
 
+  }
+
+  isCompetitionDatePassed(): boolean {
+    if (this.competition && this.competition.date) {
+      const competitionDate = new Date(this.competition.date);
+
+      if (!isNaN(competitionDate.getTime())) {
+        const currentDate = new Date();
+        const formattedCompetitionDate = this.datePipe.transform(competitionDate, 'yyyy-MM-dd');
+        const formattedCurrentDate = this.datePipe.transform(currentDate, 'yyyy-MM-dd');
+
+        if (formattedCompetitionDate !== null && formattedCurrentDate !== null) {
+          return formattedCompetitionDate <= formattedCurrentDate;
+        }
+      }
+    }
+    return false;
   }
 
 
