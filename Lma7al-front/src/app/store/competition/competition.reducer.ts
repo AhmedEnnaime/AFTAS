@@ -102,11 +102,11 @@ export const competitionReducer = createReducer(
         })
     ),
     on(competitionApiActions.competitionFoundedSuccessfully,
-        (state, action) => {
-            state.collection.push(action.competition);
-            state.loading = false;
-            return state;
-        }
+        (state, action) => ({
+            ...state,
+            collection: [...state.collection, action.competition],
+            loading: false
+        })
     )
 );
 

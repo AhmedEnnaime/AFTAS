@@ -25,7 +25,7 @@ export class CompetitionEffect {
 
     findCompetition$ = createEffect(() =>
         this.action$.pipe(
-            ofType(competitionPageActions.selectCompetition),
+            ofType(competitionPageActions.findCompetition),
             exhaustMap((action) =>
                 this.competitionService
                     .findCompetition(action.competitionCode)

@@ -15,11 +15,13 @@ export class RankingEffect {
     addRanking$ = createEffect(() => 
         this.action$.pipe(
             ofType(rankingPageActions.addRanking),
-            concatMap((action) =>
+            concatMap((action) => 
                 this.rankingService
                     .addRanking(action.ranking)
                     .pipe(
-                        map(addedRanking => rankingApiActions.rankingAddedSuccessfully({addedRanking}))
+                        map(addedRanking => {
+                            return rankingApiActions.rankingAddedSuccessfully({addedRanking});
+                        })
                     )      
             )
         )

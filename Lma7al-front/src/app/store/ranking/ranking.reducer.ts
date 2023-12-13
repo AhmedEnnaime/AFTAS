@@ -25,13 +25,14 @@ export const rankingReducer = createReducer(
        rankingPageActions.setCompetitionRanking,
         (state, action) => ({
             ...state,
-            loading: false,
+            loading: true,
         })
     ),
     on(rankingApiActions.rankingAddedSuccessfully,
         (state, action) => ({
             ...state,
-            collection: addRanking(state.collection, action.addedRanking)
+            collection: addRanking(state.collection, action.addedRanking),
+            loading: false,
         })
     ),
     on(rankingApiActions.rankingDeletedSuccsessfully,

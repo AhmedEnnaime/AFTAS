@@ -9,7 +9,7 @@ import {Observable} from "rxjs";
 export class SelectComponent {
   @Input() label: string = '';
   @Input() placeholder: string = 'Select an option';
-  @Input() options?: Observable<any>;
+  @Input() options?: any[];
   @Input() error: string = '';
 
   @Input() control:  AbstractControl<any> | null = new FormControl();

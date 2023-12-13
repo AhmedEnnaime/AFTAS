@@ -9,14 +9,18 @@ import { DatePickerComponent } from "./date-picker/date-picker.component";
 import { TimePickerComponent } from "./time-picker/time-picker.component";
 import { NumberInputComponent } from "./number-input/number-input.component";
 import {RouterLink} from "@angular/router";
+import { FormsModule } from "@angular/forms";
+import { SearchSelectComponent } from "./search-select-input/search-select-input.component";
 
 @NgModule({
-    declarations: [PopupFormComponent, TextInputComponent, ButtonComponent, SelectComponent, DatePickerComponent, TimePickerComponent, NumberInputComponent],
+    declarations: [PopupFormComponent, TextInputComponent, ButtonComponent, SelectComponent, DatePickerComponent, TimePickerComponent, NumberInputComponent, SearchSelectComponent],
     imports: [
         CommonModule,
         FontAwesomeModule,
         RouterLink,
+        FormsModule,
+
     ],
-    exports: [PopupFormComponent, TextInputComponent, ButtonComponent, SelectComponent, DatePickerComponent, TimePickerComponent, NumberInputComponent]
+    exports: [PopupFormComponent, TextInputComponent, ButtonComponent, SelectComponent, DatePickerComponent, TimePickerComponent, NumberInputComponent, SelectComponent, SearchSelectComponent]
   })
   export class SahredModule {}

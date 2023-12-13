@@ -8,7 +8,7 @@ import { CompetitionMember, Ranking } from "../model/interfaces/ranking.model";
     providedIn: 'root'
 })
 export class RankingService {
-    private baseUrl: string = "http://localhost:9090/api/rankings/";
+    private baseUrl: string = "http://localhost:9090/api/rankings";
 
     httpOptions = {
         headers: new HttpHeaders({
@@ -27,17 +27,19 @@ export class RankingService {
 
       getCompetitionRankings(competitionCode: String): Observable<Ranking[]> {
         return this.http
-          .get<Ranking[]>(this.baseUrl + "competition/" + competitionCode, this.httpOptions)
+          .get<Ranking[]>(this.baseUrl + "/competition/" + competitionCode, this.httpOptions)
           .pipe(catchError((error) => this.configService.handleError(error)));
       }
 
       deleteRanking(identifier: CompetitionMember): Observable<{message: String, deletedElementIdentifier: CompetitionMember}> {
         return this.http
-          .delete<{message: String, deletedElementIdentifier: CompetitionMember}>(this.baseUrl + "competition/" + identifier.competitionCode + "/member/" + identifier.memberNum , this.httpOptions)
+          .delete<{message: String, deletedElementIdentifier: CompetitionMember}>(this.baseUrl + "/competition/" + identifier.competitionCode + "/member/" + identifier.memberNum , this.httpOptions)
           .pipe(catchError((error) => this.configService.handleError(error)));
       }
 
       addRanking(ranking: Ranking): Observable<Ranking> {
+        console.log("service: " + ranking.id.competitionCode);
+        
         return this.http
           .post<Ranking>(this.baseUrl, ranking, this.httpOptions)
           .pipe(catchError((error) => this.configService.handleError(error)));
@@ -45,7 +47,7 @@ export class RankingService {
 
       updateRanking(identifier: CompetitionMember, ranking: Ranking): Observable<Ranking> {
         return this.http
-          .put<Ranking>(this.baseUrl + "competition/" + identifier.competitionCode + "/member/" + identifier.memberNum, ranking, this.httpOptions)
+          .put<Ranking>(this.baseUrl + "/competition/" + identifier.competitionCode + "/member/" + identifier.memberNum, ranking, this.httpOptions)
           .pipe(catchError((error) => this.configService.handleError(error)));
       }
 
