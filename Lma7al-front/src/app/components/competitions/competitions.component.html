@@ -72,7 +72,7 @@
 
   <div class="mt-6 sm:flex sm:items-center sm:justify-between ">
     <div class="text-sm text-gray-500 none:text-gray-400">
-      Page <span class="font-medium text-gray-700 none:text-gray-100">{{ (currentPage?.valueOf() ?? 0) + 1 }} of {{ totalPages }}</span>
+      Page <span class="font-medium text-gray-700 none:text-gray-100">{{ (currentPage?.valueOf() ?? 0) + 1 }} of {{ totalPages == 0 ? 1 : totalPages }}</span>
     </div>
 
     <div class="flex items-center mt-4 gap-x-4 sm:mt-0">

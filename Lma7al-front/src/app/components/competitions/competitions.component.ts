@@ -71,7 +71,7 @@ export class CompetitionsComponent implements OnInit{
       this.store.dispatch(
         competitionPageActions.enter({ page: ((this.currentPage?.valueOf() ?? 0) + 1) as number, size: 10 })
       );
-    } else if (this.selectedCompetitions == 1 && this.currentPage! < this.totalPages!) {
+    } else if (this.selectedCompetitions == 1 && currentPageValue + 1 < (this.totalPages! as number)) {
       console.log('competitions page of future ' + this.currentPage);
       this.store.dispatch(
         competitionPageActions.LoadFutureCompetitions({
@@ -79,7 +79,7 @@ export class CompetitionsComponent implements OnInit{
           size: 5,
         })
       );
-    } else if (this.selectedCompetitions == 2 && this.currentPage! < this.totalPages!) {
+    } else if (this.selectedCompetitions == 2 && currentPageValue + 1 < (this.totalPages! as number)) {
       console.log('competitions page of closed ' + this.currentPage);
       this.store.dispatch(
         competitionPageActions.LoadClosedCompetitions({
@@ -87,7 +87,7 @@ export class CompetitionsComponent implements OnInit{
           size: 5,
         })
       );
-    } else if (this.selectedCompetitions == 3 && this.currentPage! < this.totalPages!) {
+    } else if (this.selectedCompetitions == 3 && currentPageValue + 1 < (this.totalPages! as number)) {
       console.log('competitions page of current ' + this.currentPage);
       this.store.dispatch(
         competitionPageActions.LoadCurrentCompetition({
