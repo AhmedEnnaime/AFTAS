@@ -25,12 +25,17 @@ export const HuntingReducer = createReducer(
   initialHuntingState,
   on(
     huntingPageActions.enter,
-    huntingPageActions.selectHuntingDetails,
     (state, action) => ({
       ...state,
-      selectedHuntingID: null,
       loading: true,
     })),
+  on(huntingPageActions.selectHuntingDetails,
+    (state, action) => ({
+      ...state,
+      specificHuntID: action.specific,
+      loading: true,
+    })
+  ),
   on(huntingPageActions.unselectHuntings,
     (state, action) => ({
       ...state,

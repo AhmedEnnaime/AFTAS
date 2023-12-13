@@ -1,5 +1,6 @@
 import { createAction, props } from "@ngrx/store";
 import {Hunting} from "../../../model/interfaces/hunting";
+import { CompetitionMember } from "src/app/model/interfaces/ranking.model";
 
 export const enter = createAction('[Hunting page] enter');
 
@@ -27,7 +28,7 @@ export const deleteHunting = createAction(
 
 export const selectHuntingDetails = createAction(
   '[Hunting page] select hunting details',
-  props<{hunting: Hunting}>()
+  props<{specific: CompetitionMember}>()
 );
 
 export const addBatchHunting = createAction(

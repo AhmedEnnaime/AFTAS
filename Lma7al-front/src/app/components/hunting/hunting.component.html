@@ -6,21 +6,28 @@
 
     <span>Add hunt</span>
   </button>
-
-  <div form-body  class="grid grid-cols-1 sm:grid-cols-2 gap-x-3 gap-y-6">
-    <div>
-      <label class="block text-left text-sm text-gray-500 none:text-gray-300 font-bold">Hunted Fish</label>
-      <select formControlName="fish_name" class="block w-full mt-2 rounded-lg border border-gray-300 none:border-gray-700 bg-white none:bg-gray-900 px-5 py-2.5 text-gray-700 none:text-gray-300 focus:border-red-400 focus:outline-none focus:ring focus:ring-red-300 focus:ring-opacity-40 transition-all duration-200">
+  <form form-body [formGroup]="huntForm">
+    <div   class="grid grid-cols-1 sm:grid-cols-2 gap-x-3 gap-y-6">
+      <div class="relative">
+        <select
+          formControlName="fish_name"
+          class="block w-full mt-2 rounded-lg border border-gray-300 none:border-gray-700 bg-white none:bg-gray-900 px-5 py-2.5 text-gray-700 none:text-gray-300 focus:border-red-400 focus:outline-none focus:ring focus:ring-red-300 focus:ring-opacity-40 transition-all duration-200"
+        >
         <option value="">Select Fish Hunted</option>
         <option *ngFor="let fish of fishes | async" value="{{fish.name}}">{{fish.name}}</option>
-
-      </select>
+        </select>
+        <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+          <svg class="h-5 w-5 text-gray-500 none:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+          </svg>
+        </div>
+      </div>
+      <number-input
+        [control]="huntForm.get('numberOfFish')"
+        label="Number of fish hunted"
+      />
     </div>
+  </form>
 
-    <number-input
-      [control]="huntForm.get('numberOfFish')"
-      label="Number of fish hunted"
-    />
-  </div>
 
 </popup>

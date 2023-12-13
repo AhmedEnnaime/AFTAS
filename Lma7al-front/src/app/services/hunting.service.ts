@@ -4,13 +4,14 @@ import {ConfigService} from "../config/config.service";
 import {catchError, Observable} from "rxjs";
 import {Fish} from "../model/interfaces/fish";
 import {Hunting} from "../model/interfaces/hunting";
+import { CompetitionMember } from '../model/interfaces/ranking.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HuntingService {
 
-  private baseUrl: string = 'http://localhost:8082/api';
+  private baseUrl: string = 'http://localhost:9090/api';
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -57,9 +58,9 @@ export class HuntingService {
       .pipe(catchError((error) => this.configService.handleError(error)));
   }
 
-  getHuntDetails(hunting: Hunting): Observable<Hunting[]> {
+  getHuntDetails(specific: CompetitionMember): Observable<Hunting[]> {
     return this.http
-      .post<Hunting[]>(`${this.baseUrl}/hunting/specific`, hunting, this.httpOptions)
+      .post<Hunting[]>(`${this.baseUrl}/hunting/specific`, {competition_code: specific.competitionCode, member_num: specific.memberNum}, this.httpOptions)
       .pipe(catchError((error) => this.configService.handleError(error)));
   }
 }

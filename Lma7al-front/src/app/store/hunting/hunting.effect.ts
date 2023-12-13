@@ -82,7 +82,7 @@ export class HuntingEffect {
       ofType(huntingPageActions.selectHuntingDetails),
       switchMap((action) =>
         this.huntingService
-          .getHuntDetails(action.hunting)
+          .getHuntDetails(action.specific)
           .pipe(
             map(huntings => huntingApiActions.huntDetailsLoadedSuccessfully({huntings}))
           )

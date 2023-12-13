@@ -8,7 +8,7 @@ export interface Hunting {
   fish?: Fish;
   competition?: Competition;
   member?: Member;
-  member_code?: number;
+  member_num?: number;
   competition_code?: string;
   fish_name?: string;
 }
