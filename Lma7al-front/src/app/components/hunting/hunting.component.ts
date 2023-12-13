@@ -29,12 +29,10 @@ export class HuntingComponent implements OnInit{
       competition_code: [this.competitionCode, Validators.required],
       numberOfFish: [1, [Validators.required, Validators.min(1)]]
     });
-    console.log(this.competitionCode);
-    
   }
 
   ngOnInit() {
-    
+
     this.store.dispatch(fishPageActions.enter());
   }
 

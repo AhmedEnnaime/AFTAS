@@ -16,6 +16,7 @@ export class PopupFormComponent {
 
   Onsubmit() {
     this.submit.emit();
+    this.closeModal();
   }
 
   openModal() {

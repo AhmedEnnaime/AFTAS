@@ -8,7 +8,7 @@ import { CompetitionMember, Ranking } from "../model/interfaces/ranking.model";
     providedIn: 'root'
 })
 export class RankingService {
-    private baseUrl: string = "http://localhost:9090/api/rankings";
+    private baseUrl: string = "http://localhost:8082/api/rankings";
 
     httpOptions = {
         headers: new HttpHeaders({
@@ -39,7 +39,7 @@ export class RankingService {
 
       addRanking(ranking: Ranking): Observable<Ranking> {
         console.log("service: " + ranking.id.competitionCode);
-        
+
         return this.http
           .post<Ranking>(this.baseUrl, ranking, this.httpOptions)
           .pipe(catchError((error) => this.configService.handleError(error)));
