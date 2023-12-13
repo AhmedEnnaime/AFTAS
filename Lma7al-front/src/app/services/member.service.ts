@@ -8,7 +8,7 @@ import { Member } from "../model/interfaces/member.model";
     providedIn: 'root'
 })
 export class MemberService {
-    private baseUrl: string = "http://localhost:9090/api/members";
+    private baseUrl: string = "http://localhost:8082/api/members";
 
     httpOptions = {
         headers: new HttpHeaders({
