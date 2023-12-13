@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MemberServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">AFTAS_Backend</a> &gt; <a href="index.source.html" class="el_package">com.youcode.aftas_backend.services.Impl</a> &gt; <span class="el_source">MemberServiceImpl.java</span></div><h1>MemberServiceImpl.java</h1><pre class="source lang-java linenums">package com.youcode.aftas_backend.services.Impl;
+
+import java.util.Arrays;
+import java.util.List;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Service;
+
+import com.youcode.aftas_backend.exceptions.ResourceNotFoundException;
+import com.youcode.aftas_backend.models.dto.Member.MemberDto;
+import com.youcode.aftas_backend.models.entities.Member;
+import com.youcode.aftas_backend.repositories.MemberRepository;
+import com.youcode.aftas_backend.services.MemberService;
+
+import lombok.AllArgsConstructor;
+
+<span class="nc" id="L17">@AllArgsConstructor</span>
+
+@Service
+public class MemberServiceImpl implements MemberService {
+
+    private final MemberRepository memberRepository;
+    private final ModelMapper modelMapper;
+
+    @Override
+    public MemberDto save(MemberDto memberDto) {
+<span class="nc" id="L27">        Member memberEntity = modelMapper.map(memberDto, Member.class);</span>
+<span class="nc" id="L28">        Member savedMember = memberRepository.save(memberEntity);</span>
+<span class="nc" id="L29">        return modelMapper.map(savedMember, MemberDto.class);</span>
+    }
+
+    @Override
+    public List&lt;MemberDto&gt; getAll() {
+<span class="nc" id="L34">        return Arrays.asList(modelMapper.map(memberRepository.findAll(),</span>
+                            MemberDto[].class));
+    }
+
+    @Override
+    public List&lt;MemberDto&gt; getByName(String name) {
+<span class="nc" id="L40">        return Arrays.asList(modelMapper.map(memberRepository.findByNameOrFamilyNameContaining(name),</span>
+                            MemberDto[].class));
+    }
+
+    @Override
+    public List&lt;MemberDto&gt; getByFamilyName(String familyName) {
+<span class="nc" id="L46">        return Arrays.asList(modelMapper.map(memberRepository.findByFamilyNameContaining(familyName),</span>
+                            MemberDto[].class));
+    }
+
+    @Override
+    public MemberDto update(Integer identifier, MemberDto memberDto) {
+<span class="nc" id="L52">        memberDto.setNum(identifier);</span>
+<span class="nc" id="L53">        return this.save(memberDto);</span>
+    }
+
+    @Override
+    public void delete(Integer identifier) {
+<span class="nc" id="L58">        memberRepository.deleteById(identifier);</span>
+<span class="nc" id="L59">    }</span>
+
+    @Override
+    public MemberDto findByID(Integer identifier) {
+<span class="nc" id="L63">        Member foundedMember = memberRepository.findById(identifier)</span>
+<span class="nc" id="L64">                        .orElseThrow(() -&gt; new ResourceNotFoundException(&quot;The member with the num &quot; + identifier + &quot; does not exist.&quot;));</span>
+<span class="nc" id="L65">        return modelMapper.map(foundedMember, MemberDto.class);</span>
+    }
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

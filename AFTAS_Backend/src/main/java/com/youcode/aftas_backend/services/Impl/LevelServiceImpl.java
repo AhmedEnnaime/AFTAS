@@ -55,16 +55,30 @@ public class LevelServiceImpl implements LevelService {
     }
 
     @Override
-    public LevelDto update(Integer integer, LevelDto levelDto) {
-        Level existingLevel = levelRepository.findById(integer)
-                .orElseThrow(() -> new ResourceNotFoundException("The level with ID " + integer + " does not exist"));
-        if (levelDto.getPoints() < existingLevel.getPoints()) {
-            throw new PointsValidationException("A level cannot have fewer points than its current value.");
+    public LevelDto update(Integer id, LevelDto updatedLevelDto) {
+        Level existingLevel = levelRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("The level with ID " + id + " does not exist"));
+
+        if (!existingLevel.getCode().equals(updatedLevelDto.getCode())) {
+            throw new IllegalArgumentException("Cannot change the code of the level during update.");
         }
-        existingLevel.setDescription(levelDto.getDescription());
-        existingLevel.setPoints(levelDto.getPoints());
-        Level updatedLevel = levelRepository.save(existingLevel);
-        return modelMapper.map(updatedLevel, LevelDto.class);
+        Optional<Level> minCodeLevelOpt = levelRepository.findTopByCodeLessThanOrderByCodeDesc(existingLevel.getCode());
+        Optional<Level> maxCodeLevelOpt = levelRepository.findTopByCodeGreaterThanOrderByCodeAsc(existingLevel.getCode());
+
+        Stream.of(minCodeLevelOpt, maxCodeLevelOpt)
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .forEach(level -> {
+                    if ((level == minCodeLevelOpt.get() && level.getPoints() >= updatedLevelDto.getPoints()) ||
+                            (level == maxCodeLevelOpt.get() && level.getPoints() <= updatedLevelDto.getPoints())) {
+                        throw new PointsValidationException("A level with inappropriate points for its code.");
+                    }
+                });
+        existingLevel.setDescription(updatedLevelDto.getDescription());
+        existingLevel.setPoints(updatedLevelDto.getPoints());
+
+        Level savedLevel = levelRepository.save(existingLevel);
+        return modelMapper.map(savedLevel, LevelDto.class);
     }
 
 

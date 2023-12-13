@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RankingServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">AFTAS_Backend</a> &gt; <a href="index.source.html" class="el_package">com.youcode.aftas_backend.services.Impl</a> &gt; <span class="el_source">RankingServiceImpl.java</span></div><h1>RankingServiceImpl.java</h1><pre class="source lang-java linenums">package com.youcode.aftas_backend.services.Impl;
+
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Service;
+
+import com.youcode.aftas_backend.exceptions.ResourceNotFoundException;
+import com.youcode.aftas_backend.models.dto.RankingDto;
+import com.youcode.aftas_backend.models.embeddables.CompetitionMember;
+import com.youcode.aftas_backend.models.entities.Ranking;
+import com.youcode.aftas_backend.repositories.RankingRepository;
+import com.youcode.aftas_backend.services.CompetitionService;
+import com.youcode.aftas_backend.services.HuntingService;
+import com.youcode.aftas_backend.services.MemberService;
+import com.youcode.aftas_backend.services.RankingService;
+
+import lombok.AllArgsConstructor;
+
+<span class="fc" id="L24">@AllArgsConstructor</span>
+
+@Service
+public class RankingServiceImpl implements RankingService {
+
+    private final RankingRepository rankingRepository;
+    private final HuntingService huntingService;
+    private final MemberService memberService;
+    private final CompetitionService competitionService;
+    private final ModelMapper modelMapper;
+
+    @Override
+    public RankingDto save(RankingDto rankingDto) {
+<span class="nc" id="L37">        var competition = competitionService.findByID(rankingDto.getId().getCompetitionCode());</span>
+<span class="nc bnc" id="L38" title="All 2 branches missed.">        if(competition.getDate().isEqual((LocalDate.now(ZoneId.of(&quot;Africa/Casablanca&quot;)))) || </span>
+<span class="nc bnc" id="L39" title="All 2 branches missed.">            competition.getDate().isBefore(LocalDate.now(ZoneId.of(&quot;Africa/Casablanca&quot;)))</span>
+        ) 
+<span class="nc" id="L41">            throw new RuntimeException(&quot;The competition is already closed.&quot;);</span>
+<span class="nc bnc" id="L42" title="All 2 branches missed.">        if(competition.getNumberOfParticipants() &lt;= rankingRepository.countByCompetitionCode(competition.getCode()))</span>
+<span class="nc" id="L43">            throw new RuntimeException(&quot;The cometition is full.&quot;);</span>
+        
+<span class="nc" id="L45">        rankingDto.setCompetition(competition);</span>
+<span class="nc" id="L46">        rankingDto.setMember(memberService.findByID(rankingDto.getId().getMemberNum()));</span>
+<span class="nc" id="L47">        Ranking rankingEntity = modelMapper.map(rankingDto, Ranking.class);</span>
+<span class="nc" id="L48">        Ranking savedRanking = rankingRepository.save(rankingEntity);</span>
+<span class="nc" id="L49">        return modelMapper.map(savedRanking, RankingDto.class);</span>
+    }
+
+    @Override
+    public List&lt;RankingDto&gt; getAll() {
+<span class="nc" id="L54">        return Arrays.asList(modelMapper.map(rankingRepository.findAll(), RankingDto[].class));</span>
+    }
+
+    @Override
+    public RankingDto update(CompetitionMember identifier, RankingDto rankingDto) {
+<span class="nc" id="L59">        rankingDto.setId(identifier);</span>
+<span class="nc" id="L60">        rankingDto.setCompetition(null);</span>
+<span class="nc" id="L61">        rankingDto.setMember(null);</span>
+<span class="nc" id="L62">        return this.save(rankingDto);</span>
+    }
+
+    public CompetitionMember deleteRanking(final String competitionCode, final Integer memberNum) {
+<span class="nc" id="L66">        var rankingIdentifier = CompetitionMember.builder()</span>
+<span class="nc" id="L67">                                                 .competitionCode(competitionCode)</span>
+<span class="nc" id="L68">                                                 .memberNum(memberNum)</span>
+<span class="nc" id="L69">                                                 .build();</span>
+<span class="nc" id="L70">        delete(rankingIdentifier);</span>
+<span class="nc" id="L71">        return rankingIdentifier;</span>
+    }
+
+    @Override
+    public void delete(final CompetitionMember identifier) {
+<span class="nc" id="L76">        rankingRepository.deleteById(identifier);</span>
+<span class="nc" id="L77">    }</span>
+
+    @Override
+    public RankingDto findByID(CompetitionMember identifier) {
+<span class="nc" id="L81">        Ranking foundedRanking = rankingRepository.findById(identifier)</span>
+<span class="nc" id="L82">                    .orElseThrow(() -&gt; new ResourceNotFoundException(&quot;The ranking with credentials: &quot; + identifier + &quot; does not exist.&quot;));</span>
+<span class="nc" id="L83">        return modelMapper.map(foundedRanking, RankingDto.class);</span>
+    }
+
+    @Override
+    public List&lt;RankingDto&gt; SetUpCompetitionRankings(String competitionCode) {
+<span class="fc" id="L88">        List&lt;Ranking&gt; rankings = rankingRepository.findByCompetitionCode(competitionCode);</span>
+<span class="pc bpc" id="L89" title="1 of 2 branches missed.">        if(rankings.isEmpty())</span>
+<span class="fc" id="L90">            throw new RuntimeException(&quot;There are no rankings in the given competition.&quot;);</span>
+<span class="nc" id="L91">        rankings.forEach(</span>
+                    ranking -&gt; {
+<span class="nc" id="L93">                        ranking.setScore(</span>
+<span class="nc" id="L94">                            huntingService.findHuntByCompetitionAndMember(competitionCode, ranking.getMember().getNum())</span>
+<span class="nc" id="L95">                            .stream()</span>
+<span class="nc" id="L96">                            .mapToInt(hunt -&gt; hunt.getNumberOfFish() * hunt.getFish().getLevel().getPoints() )</span>
+<span class="nc" id="L97">                            .sum()</span>
+                        );
+<span class="nc" id="L99">                    } </span>
+                );
+<span class="nc" id="L101">        rankings.sort(Comparator.comparingInt(Ranking::getScore).reversed());</span>
+<span class="nc" id="L102">        int rank = 1;</span>
+<span class="nc bnc" id="L103" title="All 2 branches missed.">        for(Ranking ranking :  rankings)</span>
+<span class="nc" id="L104">            ranking.setRank(rank++);</span>
+        
+<span class="nc" id="L106">        return Arrays.asList(</span>
+<span class="nc" id="L107">            modelMapper.map(</span>
+<span class="nc" id="L108">                rankingRepository.saveAll(rankings),</span>
+                RankingDto[].class
+            )
+        );
+    }
+
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

@@ -107,7 +107,6 @@ public class RankingServiceImplTest {
         });
         assertThat(exception.getMessage()).isEqualTo("There are no rankings in the given competition.");
     }
-
     //@Test
     public void testSetupCompetitionRankingsWhenCompetitionCodeValid() {
         String competitionCode = "Ims-12-12-23";
@@ -142,8 +141,12 @@ public class RankingServiceImplTest {
                 .competition(competition1)
                 .member(member1)
                 .build();
-
+        System.out.println("Competition 1 :" + competition1.getLocation());
+        System.out.println("Member 1 :" + member1.getName());
+        System.out.println("Ranking 1 :" + ranking1.getCompetition().getLocation());
         List<Ranking> sampleRankings = Arrays.asList(ranking, ranking1);
+        System.out.println("Rankings size : " + sampleRankings.size());
+        given(rankingService.save(rankingDto)).willReturn(rankingDto);
         given(rankingRepository.findByCompetitionCode(competitionCode)).willReturn(sampleRankings);
         List<RankingDto> result = rankingService.SetUpCompetitionRankings(competitionCode);
         assertEquals(sampleRankings.size(), result.size());
