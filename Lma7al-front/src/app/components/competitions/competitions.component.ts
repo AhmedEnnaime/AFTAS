@@ -13,16 +13,16 @@ import { CompetitionPage } from 'src/app/model/interfaces/CompetitionPage';
 })
 export class CompetitionsComponent implements OnInit{
   competitions: Observable<Competition[]>;
-  currentPage: Observable<undefined | Number>;
-  totalPages: Observable<undefined | Number>;
+  currentPage: number | undefined | Number;
+  totalPages: number | undefined | Number;
   pageSize: Observable<undefined | Number>;
   competitionForm: FormGroup;
-  selectedCompetitions?: number = 0;
+  selectedCompetitions?: Number = 0;
 
   constructor(private store: Store, private fb: FormBuilder) {
     this.competitions = store.select(selectCompetitions);
-    this.currentPage = store.select(selectCurrentPageState);
-    this.totalPages = store.select(selectTotalPagesState);
+    store.select(selectCurrentPageState).subscribe((page) => (this.currentPage = page));
+    store.select(selectTotalPagesState).subscribe((total) => (this.totalPages = total));
     this.pageSize = store.select(selectPageSize);
     this.competitionForm = fb.group({
       date: [Date.now(), Validators.required],
@@ -34,60 +34,104 @@ export class CompetitionsComponent implements OnInit{
     })
   }
 
-  getCurrentPage(): Number {
-    let currentPage: Number | undefined = 0;
-    this.currentPage.subscribe(page => currentPage = page);
-    return currentPage.valueOf() + 1;
-  }
-
   selectCompetitionType(type: number) {
     this.selectedCompetitions = type;
   }
 
   getAllCompetitions() {
     this.selectCompetitionType(0);
-    this.store.dispatch(competitionPageActions.enter({page: this.getCurrentPage(), size: 10} ))
+    this.store.dispatch(competitionPageActions.enter({page: 0, size: 10} ))
   }
 
   getFutureCompetitions() {
     this.selectCompetitionType(1);
-    this.store.dispatch(competitionPageActions.LoadFutureCompetitions({page: this.getCurrentPage(), size: 5}))
+    this.selectedCompetitions = 1;
+    this.store.dispatch(competitionPageActions.LoadFutureCompetitions({page: 0, size: 5}))
   }
 
   getClosedCompetitions() {
     this.selectCompetitionType(2);
-    this.store.dispatch(competitionPageActions.LoadClosedCompetitions({page: this.getCurrentPage(), size: 5}))
+    this.selectedCompetitions = 2;
+    this.store.dispatch(competitionPageActions.LoadClosedCompetitions({page: 0, size: 5}))
   }
 
   getOnGoingCompetitions() {
     this.selectCompetitionType(3);
-    this.store.dispatch(competitionPageActions.LoadCurrentCompetition({page: this.getCurrentPage(), size: 5}))
+    this.selectedCompetitions = 3;
+    this.store.dispatch(competitionPageActions.LoadCurrentCompetition({page: 0, size: 5}))
   }
 
   handleNext() {
-    console.log(this.selectedCompetitions);
-    if(this.selectedCompetitions == 0) {
-      
+    const currentPageValue = Number(this.currentPage?.valueOf()) || 0;
 
-      this.store.dispatch(competitionPageActions.enter({page: this.getCurrentPage(), size: 10} ))
+    if (this.selectedCompetitions == 0 && currentPageValue + 1 < (this.totalPages! as number)) {
+      this.store.dispatch(
+        competitionPageActions.enter({ page: ((this.currentPage?.valueOf() ?? 0) + 1) as number, size: 10 })
+      );
+    } else if (this.selectedCompetitions == 1 && currentPageValue + 1 < (this.totalPages! as number)) {
+      this.store.dispatch(
+        competitionPageActions.LoadFutureCompetitions({
+          page: (this.currentPage?.valueOf() ?? 0) + 1,
+          size: 5,
+        })
+      );
+    } else if (this.selectedCompetitions == 2 && currentPageValue + 1 < (this.totalPages! as number)) {
+      this.store.dispatch(
+        competitionPageActions.LoadClosedCompetitions({
+          page: (this.currentPage?.valueOf() ?? 0) + 1,
+          size: 5,
+        })
+      );
+    } else if (this.selectedCompetitions == 3 && currentPageValue + 1 < (this.totalPages! as number)) {
+      this.store.dispatch(
+        competitionPageActions.LoadCurrentCompetition({
+          page: (this.currentPage?.valueOf() ?? 0) + 1,
+          size: 5,
+        })
+      );
     }
   }
 
   handlePrevious() {
-    if(this.selectedCompetitions == 0) {
-      console.log("zbi");
-      this.store.dispatch(competitionPageActions.enter({page: this.getCurrentPage(), size: 10} ))
+    const currentPageValue = this.currentPage?.valueOf() ?? 0;
+
+    if (this.selectedCompetitions == 0 && currentPageValue > 0) {
+      this.store.dispatch(
+        competitionPageActions.enter({ page: currentPageValue - 1, size: 10 })
+      );
+    } else if (this.selectedCompetitions == 1 && currentPageValue > 0) {
+      this.store.dispatch(
+        competitionPageActions.LoadFutureCompetitions({
+          page: currentPageValue - 1,
+          size: 5,
+        })
+      );
+    } else if (this.selectedCompetitions == 2 && currentPageValue > 0) {
+      this.store.dispatch(
+        competitionPageActions.LoadClosedCompetitions({
+          page: currentPageValue - 1,
+          size: 5,
+        })
+      );
+    } else if (this.selectedCompetitions == 3 && currentPageValue > 0) {
+      this.store.dispatch(
+        competitionPageActions.LoadCurrentCompetition({
+          page: currentPageValue - 1,
+          size: 5,
+        })
+      );
     }
   }
+
   ngOnInit() {
     this.store.dispatch(competitionPageActions.enter({page: 0, size: 10} ))
   }
 
   addCompetition() {
     const competition: Competition = this.competitionForm.value as Competition;
-  
+
     const dateObject = new Date(competition!.date!.toString());
-    
+
     const day = ('0' + dateObject.getDate()).slice(-2);
     const month = ('0' + (dateObject.getMonth() + 1)).slice(-2);
     const year = dateObject.getFullYear().toString().slice(-2);

@@ -2,19 +2,19 @@
 
   <div class="mt-6 md:flex md:items-center md:justify-between">
     <div class="inline-flex overflow-hidden bg-white border divide-x rounded-lg none:bg-gray-900 rtl:flex-row-reverse none:border-gray-700 none:divide-gray-700">
-      <button (click)="getAllCompetitions()" class="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 bg-gray-100 sm:text-sm none:bg-gray-800 none:text-gray-300">
+      <button (click)="getAllCompetitions()" [class.bg-gray-100]="selectedCompetitions === 0" class="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 sm:text-sm none:bg-gray-800 none:text-gray-300">
         View all
       </button>
 
-      <button (click)="getOnGoingCompetitions()" class="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 sm:text-sm none:hover:bg-gray-800 none:text-gray-300 hover:bg-gray-100">
+      <button (click)="getOnGoingCompetitions()" [class.bg-gray-100]="selectedCompetitions === 3" class="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 sm:text-sm none:hover:bg-gray-800 none:text-gray-300 hover:bg-gray-100">
         On Going
       </button>
 
-      <button (click)="getClosedCompetitions()" class="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 sm:text-sm none:hover:bg-gray-800 none:text-gray-300 hover:bg-gray-100">
+      <button (click)="getClosedCompetitions()" [class.bg-gray-100]="selectedCompetitions === 2" class="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 sm:text-sm none:hover:bg-gray-800 none:text-gray-300 hover:bg-gray-100">
         Closed
       </button>
 
-      <button (click)="getFutureCompetitions()" class="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 sm:text-sm none:hover:bg-gray-800 none:text-gray-300 hover:bg-gray-100">
+      <button (click)="getFutureCompetitions()" [class.bg-gray-100]="selectedCompetitions === 1" class="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 sm:text-sm none:hover:bg-gray-800 none:text-gray-300 hover:bg-gray-100">
         Incoming
       </button>
     </div>
@@ -24,29 +24,29 @@
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
           <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
-  
+
         <span>Add Competition</span>
       </button>
 
       <div form-body class="grid grid-cols-1 sm:grid-cols-2 gap-x-3 gap-y-6">
-        <app-date-picker 
+        <app-date-picker
           [control]="competitionForm.get('date')"
           label="Competition date"
-           class="col-span-2" 
+           class="col-span-2"
         />
-        <text-input 
+        <text-input
           [control]="competitionForm.get('location')"
           label="Competition location"
           placeholder="Enter competition location"
-           class="col-span-2" 
+           class="col-span-2"
         />
         <time-picker
           [control]="competitionForm.get('startTime')"
-          label="Start time" 
+          label="Start time"
         />
         <time-picker
           [control]="competitionForm.get('endTime')"
-          label="End time" 
+          label="End time"
         />
         <number-input
           [control]="competitionForm.get('numberOfParticipants')"
@@ -56,7 +56,7 @@
           [control]="competitionForm.get('amount')"
           label="Competitino Amount"
         />
-      </div>           
+      </div>
     </popup>
   </div>
 
@@ -72,12 +72,11 @@
 
   <div class="mt-6 sm:flex sm:items-center sm:justify-between ">
     <div class="text-sm text-gray-500 none:text-gray-400">
-      Page <span class="font-medium text-gray-700 none:text-gray-100">{{ ((currentPage | async)?.valueOf() ?? 0) + 1 }} of {{ totalPages | async }}</span>
-    </div>    
-
+      Page <span class="font-medium text-gray-700 none:text-gray-100">{{ (currentPage?.valueOf() ?? 0) + 1 }} of {{ totalPages == 0 ? 1 : totalPages }}</span>
+    </div>
 
     <div class="flex items-center mt-4 gap-x-4 sm:mt-0">
-      <a href="#" class="flex items-center justify-center w-1/2 px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md sm:w-auto gap-x-2 hover:bg-gray-100 none:bg-gray-900 none:text-gray-200 none:border-gray-700 none:hover:bg-gray-800">
+      <a (click)="handlePrevious()" class="flex items-center justify-center w-1/2 px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md sm:w-auto gap-x-2 hover:bg-gray-100 none:bg-gray-900 none:text-gray-200 none:border-gray-700 none:hover:bg-gray-800">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 rtl:-scale-x-100">
           <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18" />
         </svg>

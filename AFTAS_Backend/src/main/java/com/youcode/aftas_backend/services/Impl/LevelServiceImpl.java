@@ -32,19 +32,22 @@ public class LevelServiceImpl implements LevelService {
         Optional<Level> minCodeLevelOpt = levelRepository.findTopByCodeLessThanOrderByCodeDesc(levelDto.getCode());
         Optional<Level> maxCodeLevelOpt = levelRepository.findTopByCodeGreaterThanOrderByCodeAsc(levelDto.getCode());
 
-        Stream.of(minCodeLevelOpt, maxCodeLevelOpt)
-                .filter(Optional::isPresent)
-                .map(Optional::get)
-                .forEach(level -> {
-                    if ((level == minCodeLevelOpt.get() && level.getPoints() >= levelDto.getPoints()) ||
-                            (level == maxCodeLevelOpt.get() && level.getPoints() <= levelDto.getPoints())) {
-                        throw new PointsValidationException("A level with inappropriate points for its code.");
-                    }
-                });
+        minCodeLevelOpt.ifPresent(minCodeLevel -> {
+            if (minCodeLevel.getPoints() >= levelDto.getPoints()) {
+                throw new PointsValidationException("A level with inappropriate points for its code.");
+            }
+        });
+
+        maxCodeLevelOpt.ifPresent(maxCodeLevel -> {
+            if (maxCodeLevel.getPoints() <= levelDto.getPoints()) {
+                throw new PointsValidationException("A level with inappropriate points for its code.");
+            }
+        });
 
         Level savedLevel = levelRepository.save(modelMapper.map(levelDto, Level.class));
         return modelMapper.map(savedLevel, LevelDto.class);
     }
+
 
     @Override
     public List<LevelDto> getAll() {
