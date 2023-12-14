@@ -29,6 +29,8 @@ public class CompetitionServiceImpl implements CompetitionService {
 
     @Override
     public CompetitionDto save(final CompetitionDto competitionDto) {
+        if(competitionDto.getDate().isBefore(LocalDate.now()) || competitionDto.getDate().isEqual(LocalDate.now()))
+            throw new RuntimeException("Competition day sould be in the future.");
         if(competitionRepository.existsByDate(competitionDto.getDate()))
             throw new RuntimeException("Competition day is taken.");
         else if(competitionRepository.existsById(competitionDto.getCode()))

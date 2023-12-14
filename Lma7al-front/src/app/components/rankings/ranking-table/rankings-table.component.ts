@@ -10,6 +10,7 @@ export class RankingsTableComponent {
     @Input() rankings?: Observable<Ranking[]>;
     @Input() competitionDate?: Date;
 
+
     @Output() deleteRanking: EventEmitter<CompetitionMember> = new EventEmitter();
 
     isRankNull() {
@@ -27,6 +28,7 @@ export class RankingsTableComponent {
       (new Date(this.competitionDate ?? '' ) == new Date() ) ?
       bool = true : bool = false ;
     }
+    
     onDelete(id: CompetitionMember) {
       this.deleteRanking.emit(id);
     }

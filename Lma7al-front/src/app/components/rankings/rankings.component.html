@@ -1,4 +1,4 @@
-<section class="container px-4 mx-auto mt-20">
+<section class="container mx-auto mt-20">
     <div class="flex gap-8">
         <div class="flex flex-col space-y-8">
           <div class="w-full max-w-sm overflow-hidden bg-white rounded-lg shadow-lg none:bg-gray-800">
@@ -60,19 +60,16 @@
                     </svg>
                   </div>
                 </div>
+                <a routerLink="members"  class="text-blue-500">Add new member</a>
               </form>
             </popup>
           </div>
 
           <div class="flex flex-col mt-6">
-            <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-              <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
                 <div class="overflow-hidden border border-gray-200 none:border-gray-700 md:rounded-lg">
                   <rankings-table [competitionDate]="competition.date" (deleteRanking)="deleteRanking($event)" [rankings]="rankings" ></rankings-table>
                 </div>
               </div>
-            </div>
-          </div>
         </div>
     </div>
 

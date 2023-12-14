@@ -6,25 +6,25 @@ services:
       context: ./AFTAS_Backend
       dockerfile: Dockerfile
     ports:
-      - "8082:8082"
+      - "9090:9090"
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-db:5432/aftas
-      - SPRING_DATASOURCE_USERNAME=postgres
-      - SPRING_DATASOURCE_PASSWORD=admin
+      - SPRING_DATASOURCE_USERNAME=mizo
+      - SPRING_DATASOURCE_PASSWORD=changemeinprod!
     networks:
       - aftas
     depends_on:
       - postgres-db
   postgres-db:
-    container_name: postgres-db
-    image: "postgres:15"
+    container_name: aftas-postgres
+    image: "postgres"
     restart: always
     ports:
       - "5432:5432"
     environment:
+      POSTGRES_USER: "mizo"
+      POSTGRES_PASSWORD: "changemeinprod!"
       POSTGRES_DB: "aftas"
-      POSTGRES_USER: "postgres"
-      POSTGRES_PASSWORD: "admin"
     volumes:
       - postgres-db:/var/lib/postgresql/data
     networks:
@@ -33,13 +33,13 @@ services:
     container_name: lma7al-front
     build:
       context: ./Lma7al-front
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile.prod
     ports:
       - "4200:4200"
     expose:
       - "4200"
     environment:
-      - MOD=dev
+      - MOD=prod
     volumes:
       - ./Lma7al-front:/app/lma7al-front
       - /app/lma7al-front/node_modules

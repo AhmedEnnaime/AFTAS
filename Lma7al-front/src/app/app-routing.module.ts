@@ -10,7 +10,7 @@ const routes: Routes = [
   {
     path: '',
     component: MainLayoutComponent,
-    children: [{ path: '', component: DashboardComponent }],
+    children: [{ path: '', component: CompetitionsPageComponent }],
   },
   {
     path: 'competitions',
@@ -18,9 +18,14 @@ const routes: Routes = [
     children: [{ path: '', component: CompetitionsPageComponent }],
   },
   {
-    path: 'rankings/:id',
+    path: 'competitions/:id',
     component: MainLayoutComponent,
     children: [{ path: '', component: RankingsPageComponent }],
+  },
+  {
+    path: 'members',
+    component: MainLayoutComponent,
+    children: [{ path: '', component: DashboardComponent }],
   },
   {
     path: '**',
