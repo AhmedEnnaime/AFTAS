@@ -15,6 +15,8 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -32,27 +34,31 @@ public class HuntingServiceImpl implements HuntingService {
 
     @Override
     public SingleHuntDto createHunt(HuntingDto hunting){
-        Hunting huntingInstance;
+        Hunting huntingInstance = new Hunting();
         if(!huntingRepository.existsHuntingByFishNameAndMemberNumAndCompetitionCode(
                 hunting.getFish_name(),
                 hunting.getMember_num(),
                 hunting.getCompetition_code()
-        )){
+        ))
             huntingInstance = Hunting.builder().numberOfFish(hunting.getNumberOfFish())
                                                .fish(fishRepository.findById(hunting.getFish_name()).get())
-                                                       .competition(competitionRepository.findById(hunting.getCompetition_code()).get())
-                                                               .member(memberRepository.findById(hunting.getMember_num()).get()).build();
-            System.out.println(huntingInstance.toString());
-        }else{
+                                               .competition(competitionRepository.findById(hunting.getCompetition_code()).get())
+                                               .member(memberRepository.findById(hunting.getMember_num()).get())
+                                               .build();
+            if(LocalDateTime.now(ZoneId.of("Africa/casablanca")).isAfter(huntingInstance.getCompetition().getEndTime())
+                || LocalDateTime.now(ZoneId.of("Africa/casablanca")).isEqual(huntingInstance.getCompetition().getEndTime()) ||
+                huntingInstance.getCompetition().getRankings().get(0).getRank() != null
+            )
+                throw new RuntimeException("Competition is already closed.");
+        else {
             huntingInstance = huntingRepository.findHuntingByFishNameAndMemberNumAndCompetitionCode(
                     hunting.getFish_name(),
                     hunting.getMember_num(),
                     hunting.getCompetition_code()
             );
             huntingInstance.setNumberOfFish(
-                    hunting.getNumberOfFish() + hunting.getNumberOfFish()
+                    hunting.getNumberOfFish() + huntingInstance.getNumberOfFish()
             );
-            System.out.println(huntingInstance.toString());
         }
         return modelMapper.map(huntingRepository.save(huntingInstance), SingleHuntDto.class);
     }

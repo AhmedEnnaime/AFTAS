@@ -9,7 +9,6 @@ import com.youcode.aftas_backend.superClasses.Controller;
 
 import lombok.AllArgsConstructor;
 
-import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

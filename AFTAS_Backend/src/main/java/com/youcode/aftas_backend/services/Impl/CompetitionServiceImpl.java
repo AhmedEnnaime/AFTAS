@@ -34,8 +34,7 @@ public class CompetitionServiceImpl implements CompetitionService {
         else if(competitionRepository.existsById(competitionDto.getCode()))
             throw new RuntimeException("Competition code is taken.");
         Competition competitionEntity = modelMapper.map(competitionDto, Competition.class);
-        return 
-            modelMapper.map(competitionRepository.save(competitionEntity),
+        return modelMapper.map(competitionRepository.save(competitionEntity),
              CompetitionDto.class);
     }
 

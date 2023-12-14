@@ -1,6 +1,5 @@
 package com.youcode.aftas_backend.services;
 
-import java.util.List;
 
 import com.youcode.aftas_backend.models.dto.competetion.CompetitionDto;
 import com.youcode.aftas_backend.superClasses.ServiceInterface;

@@ -1,6 +1,7 @@
 package com.youcode.aftas_backend.services.Impl;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -90,9 +91,14 @@ public class RankingServiceImpl implements RankingService {
 
     @Override
     public List<RankingDto> SetUpCompetitionRankings(String competitionCode) {
+        var competition = competitionService.findByID(competitionCode);
+        if(LocalDateTime.now(ZoneId.of("Africa/Casablanca")).isBefore(competition.getStartTime()))
+            throw new RuntimeException("The competition didn't start yet!");
         List<Ranking> rankings = rankingRepository.findByCompetitionCode(competitionCode);
         if(rankings.isEmpty())
             throw new RuntimeException("There are no rankings in the given competition.");
+        if(rankings.get(0).getRank() != null) 
+            throw new RuntimeException("The Competition rankings is already set-up.");
         rankings.forEach(
                     ranking -> {
                         ranking.setScore(

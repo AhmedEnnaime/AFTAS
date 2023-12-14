@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CompetitionServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">AFTAS_Backend</a> &gt; <a href="index.source.html" class="el_package">com.youcode.aftas_backend.services.Impl</a> &gt; <span class="el_source">CompetitionServiceImpl.java</span></div><h1>CompetitionServiceImpl.java</h1><pre class="source lang-java linenums">package com.youcode.aftas_backend.services.Impl;
+
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Arrays;
+import java.util.List;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
+
+import com.youcode.aftas_backend.exceptions.ResourceNotFoundException;
+import com.youcode.aftas_backend.models.dto.competetion.CompetitionDto;
+import com.youcode.aftas_backend.models.entities.Competition;
+import com.youcode.aftas_backend.repositories.CompetitionRepository;
+import com.youcode.aftas_backend.services.CompetitionService;
+
+import lombok.AllArgsConstructor;
+
+<span class="nc" id="L22">@AllArgsConstructor</span>
+
+@Service
+public class CompetitionServiceImpl implements CompetitionService {
+
+    private final CompetitionRepository competitionRepository;
+    private final ModelMapper modelMapper;
+
+    @Override
+    public CompetitionDto save(final CompetitionDto competitionDto) {
+<span class="nc bnc" id="L32" title="All 2 branches missed.">        if(competitionRepository.existsByDate(competitionDto.getDate()))</span>
+<span class="nc" id="L33">            throw new RuntimeException(&quot;Competition day is taken.&quot;);</span>
+<span class="nc bnc" id="L34" title="All 2 branches missed.">        else if(competitionRepository.existsById(competitionDto.getCode()))</span>
+<span class="nc" id="L35">            throw new RuntimeException(&quot;Competition code is taken.&quot;);</span>
+<span class="nc" id="L36">        Competition competitionEntity = modelMapper.map(competitionDto, Competition.class);</span>
+<span class="nc" id="L37">        return modelMapper.map(competitionRepository.save(competitionEntity),</span>
+             CompetitionDto.class);
+    }
+
+    @Override
+    public List&lt;CompetitionDto&gt; getAll() {
+<span class="nc" id="L43">        return Arrays.asList(modelMapper.map(competitionRepository.findAll(),</span>
+                            CompetitionDto[].class));
+    }
+
+    @Override
+    public Page&lt;CompetitionDto&gt; getAllCompetitions(final Integer page, final Integer size) {
+<span class="nc" id="L49">        PageRequest pageable = PageRequest.of(page, size);</span>
+<span class="nc" id="L50">        Page&lt;Competition&gt; competitionPage = competitionRepository.findAll(pageable);</span>
+<span class="nc" id="L51">        List&lt;CompetitionDto&gt; competitionDtos = competitionPage.getContent().stream()</span>
+<span class="nc" id="L52">                .map(competition -&gt; modelMapper.map(competition, CompetitionDto.class))</span>
+<span class="nc" id="L53">                .toList();</span>
+<span class="nc" id="L54">        return new PageImpl&lt;&gt;(competitionDtos, pageable, competitionPage.getTotalElements());</span>
+    }
+
+
+    @Override
+    public CompetitionDto update(String identifier, CompetitionDto competitionDto) {
+<span class="nc bnc" id="L60" title="All 2 branches missed.">        if(!competitionRepository.existsById(identifier)) </span>
+<span class="nc" id="L61">            throw new ResourceNotFoundException(&quot;The competition with id &quot; + identifier + &quot; does not exist.&quot;);</span>
+<span class="nc" id="L62">        competitionDto.setCode(identifier);</span>
+<span class="nc" id="L63">        Competition competitionEntity = modelMapper.map(competitionDto, Competition.class);</span>
+<span class="nc" id="L64">        competitionRepository.save(competitionEntity);</span>
+<span class="nc" id="L65">        return modelMapper.map(competitionEntity, CompetitionDto.class);</span>
+    }
+
+    @Override
+    public void delete(String identifier) {
+<span class="nc bnc" id="L70" title="All 2 branches missed.">        if(!competitionRepository.existsById(identifier)) </span>
+<span class="nc" id="L71">            throw new ResourceNotFoundException(&quot;The competition with id &quot; + identifier + &quot; does not exist.&quot;);</span>
+<span class="nc" id="L72">        competitionRepository.deleteById(identifier);</span>
+<span class="nc" id="L73">    }</span>
+
+    @Override
+    public CompetitionDto findByID(String identifier) {
+<span class="nc" id="L77">        Competition foundedCompetition = competitionRepository.findById(identifier)</span>
+<span class="nc" id="L78">                    .orElseThrow(() -&gt; new ResourceNotFoundException(&quot;The competition with id &quot; + identifier + &quot; does not exist.&quot;));</span>
+<span class="nc" id="L79">        return modelMapper.map(foundedCompetition, CompetitionDto.class);</span>
+    }
+
+    @Override
+    public Page&lt;CompetitionDto&gt; getOnGoingCompetition(final Integer page, final Integer size) {
+<span class="nc" id="L84">        PageRequest pageable = PageRequest.of(page, size);</span>
+<span class="nc" id="L85">        Page&lt;Competition&gt; competitionPage = competitionRepository.findByDate(LocalDate.now(ZoneId.of(&quot;Africa/Casablanca&quot;)), pageable);</span>
+<span class="nc" id="L86">        List&lt;CompetitionDto&gt; competitionDtos = competitionPage.getContent().stream()</span>
+<span class="nc" id="L87">                .map(competition -&gt; modelMapper.map(competition, CompetitionDto.class))</span>
+<span class="nc" id="L88">                .toList();</span>
+<span class="nc" id="L89">        return new PageImpl&lt;&gt;(competitionDtos, pageable, competitionPage.getTotalElements());</span>
+    }
+
+    @Override
+    public Page&lt;CompetitionDto&gt; getClosedCompetitions(final Integer page, final Integer size) {
+<span class="nc" id="L94">        PageRequest pageable = PageRequest.of(page, size);</span>
+<span class="nc" id="L95">        Page&lt;Competition&gt; competitionPage = competitionRepository.findByDateBefore(LocalDate.now(ZoneId.of(&quot;Africa/Casablanca&quot;)), pageable);</span>
+<span class="nc" id="L96">        List&lt;CompetitionDto&gt; competitionDtos = competitionPage.getContent().stream()</span>
+<span class="nc" id="L97">                .map(competition -&gt; modelMapper.map(competition, CompetitionDto.class))</span>
+<span class="nc" id="L98">                .toList();</span>
+<span class="nc" id="L99">        return new PageImpl&lt;&gt;(competitionDtos, pageable, competitionPage.getTotalElements());</span>
+    }
+
+    @Override
+    public Page&lt;CompetitionDto&gt; getFutureCompetitions(final Integer page, final Integer size) {
+<span class="nc" id="L104">        PageRequest pageable = PageRequest.of(page, size);</span>
+<span class="nc" id="L105">        Page&lt;Competition&gt; competitionPage = competitionRepository.findByDateAfter(LocalDate.now(ZoneId.of(&quot;Africa/Casablanca&quot;)), pageable);</span>
+<span class="nc" id="L106">        List&lt;CompetitionDto&gt; competitionDtos = competitionPage.getContent().stream()</span>
+<span class="nc" id="L107">                .map(competition -&gt; modelMapper.map(competition, CompetitionDto.class))</span>
+<span class="nc" id="L108">                .toList();</span>
+<span class="nc" id="L109">        return new PageImpl&lt;&gt;(competitionDtos, pageable, competitionPage.getTotalElements());</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
