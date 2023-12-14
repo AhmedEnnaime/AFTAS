@@ -50,7 +50,7 @@ public class HuntingServiceImpl implements HuntingService {
                     hunting.getCompetition_code()
             );
             huntingInstance.setNumberOfFish(
-                    hunting.getNumberOfFish() + hunting.getNumberOfFish()
+                    hunting.getNumberOfFish() + huntingInstance.getNumberOfFish()
             );
             System.out.println(huntingInstance.toString());
         }
