@@ -2,7 +2,7 @@ import { Ranking } from "./ranking.model";
 
 export interface Competition {
     code: String;
-    date?: Date;
+    date: Date;
     startTime?: Date;
     endTime?: Date;
     numberOfParticipants?: Number;

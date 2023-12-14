@@ -14,10 +14,10 @@ import {Observable} from "rxjs";
   templateUrl: './hunting.component.html',
 })
 export class HuntingComponent implements OnInit{
-  @Input() memberNum?: string
-  huntForm: FormGroup
+  @Input() memberNum?: string;
+  huntForm: FormGroup;
   competitionCode?: string;
-  fishes: Observable<Fish[]>
+  fishes: Observable<Fish[]>;
 
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private store: Store) {
     this.route.paramMap.subscribe((params) => {
@@ -32,7 +32,6 @@ export class HuntingComponent implements OnInit{
   }
 
   ngOnInit() {
-
     this.store.dispatch(fishPageActions.enter());
   }
 
