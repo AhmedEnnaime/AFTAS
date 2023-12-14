@@ -46,7 +46,6 @@ public class RankingServiceImplTest {
     private CompetitionDto competitionDto;
     private Hunting hunting;
 
-
     @BeforeEach
     public void setUp() {
         member = Member.builder()

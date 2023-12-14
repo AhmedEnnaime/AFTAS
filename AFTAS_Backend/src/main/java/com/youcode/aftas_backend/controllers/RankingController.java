@@ -41,7 +41,7 @@ public class RankingController extends Controller<RankingDto, CompetitionMember>
     @GetMapping("/competition")
     public ResponseEntity<List<RankingDto>> getCompetitionRankings(@RequestParam final String code) {
         return new ResponseEntity<>(
-            rankingService.SetUpCompetitionRankings(code),
+            rankingService.getCompetitionRankings(code),
             HttpStatus.OK
         );
     }

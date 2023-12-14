@@ -1,6 +1,5 @@
 package com.youcode.aftas_backend.services.Impl;
 
-import com.youcode.aftas_backend.exceptions.PointsValidationException;
 import com.youcode.aftas_backend.exceptions.ResourceNotFoundException;
 import com.youcode.aftas_backend.models.dto.LevelDto;
 import com.youcode.aftas_backend.models.entities.Level;
