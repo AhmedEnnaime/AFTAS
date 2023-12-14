@@ -62,36 +62,30 @@ export class CompetitionsComponent implements OnInit{
   }
 
   handleNext() {
-    console.log('Selected competitions ' + this.currentPage);
-    console.log('Total Pages ' + this.totalPages);
     const currentPageValue = Number(this.currentPage?.valueOf()) || 0;
 
     if (this.selectedCompetitions == 0 && currentPageValue + 1 < (this.totalPages! as number)) {
-      console.log('competitions page of all ' + this.currentPage);
       this.store.dispatch(
         competitionPageActions.enter({ page: ((this.currentPage?.valueOf() ?? 0) + 1) as number, size: 10 })
       );
     } else if (this.selectedCompetitions == 1 && currentPageValue + 1 < (this.totalPages! as number)) {
-      console.log('competitions page of future ' + this.currentPage);
       this.store.dispatch(
         competitionPageActions.LoadFutureCompetitions({
-          page: ((this.currentPage?.valueOf() ?? 0) + 1) as number,
+          page: (this.currentPage?.valueOf() ?? 0) + 1,
           size: 5,
         })
       );
     } else if (this.selectedCompetitions == 2 && currentPageValue + 1 < (this.totalPages! as number)) {
-      console.log('competitions page of closed ' + this.currentPage);
       this.store.dispatch(
         competitionPageActions.LoadClosedCompetitions({
-          page: ((this.currentPage?.valueOf() ?? 0) + 1) as number,
+          page: (this.currentPage?.valueOf() ?? 0) + 1,
           size: 5,
         })
       );
     } else if (this.selectedCompetitions == 3 && currentPageValue + 1 < (this.totalPages! as number)) {
-      console.log('competitions page of current ' + this.currentPage);
       this.store.dispatch(
         competitionPageActions.LoadCurrentCompetition({
-          page: ((this.currentPage?.valueOf() ?? 0) + 1) as number,
+          page: (this.currentPage?.valueOf() ?? 0) + 1,
           size: 5,
         })
       );
@@ -99,10 +93,7 @@ export class CompetitionsComponent implements OnInit{
   }
 
   handlePrevious() {
-    console.log('Selected competitions ' + this.currentPage);
-    console.log('Total Pages ' + this.totalPages);
-
-    const currentPageValue = this.currentPage?.valueOf() || 0;
+    const currentPageValue = this.currentPage?.valueOf() ?? 0;
 
     if (this.selectedCompetitions == 0 && currentPageValue > 0) {
       this.store.dispatch(
