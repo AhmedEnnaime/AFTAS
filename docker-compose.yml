@@ -33,13 +33,13 @@ services:
     container_name: lma7al-front
     build:
       context: ./Lma7al-front
-      dockerfile: Dockerfile.prod
+      dockerfile: Dockerfile.dev
     ports:
-      - "80:80"
+      - "4200:4200"
     expose:
-      - "80"
+      - "4200"
     environment:
-      - MOD=prod
+      - MOD=dev
     volumes:
       - ./Lma7al-front:/app/lma7al-front
       - /app/lma7al-front/node_modules

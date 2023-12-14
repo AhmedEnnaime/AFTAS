@@ -22,6 +22,6 @@ export class CompetitionsTableComponent {
   }
 
   navigateToRankings(id: String) {
-    this.router.navigate(['/rankings', id]);
+    this.router.navigate(['/competitions', id]);
   }
 }

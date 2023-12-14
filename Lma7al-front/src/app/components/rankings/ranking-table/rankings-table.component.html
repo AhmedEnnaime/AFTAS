@@ -9,15 +9,15 @@
         Family Name
       </th>
 
-      <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 none:text-gray-400">
+      <th *ngIf="isRankNull()" scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 none:text-gray-400">
         Score
       </th>
 
-      <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 none:text-gray-400">
+      <th *ngIf="isRankNull()" scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 none:text-gray-400">
         Rank
       </th>
 
-      <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 none:text-gray-400">
+      <th  *ngIf="!isRankNull()" scope="col" class="px-12 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500 none:text-gray-400">
         Actions
       </th>
 
@@ -27,32 +27,33 @@
     <tr *ngFor="let ranking of rankings | async">
       <td class="px-12 py-4 text-sm font-medium whitespace-nowrap">
         <div class="inline px-3 py-1 text-sm font-normal rounded-full gap-x-2 none:bg-gray-800">
-          {{ranking.member?.name}}
+          {{ranking.member?.name ?? ''}}
         </div>
       </td>
 
       <td class="px-12 py-4 text-sm font-medium whitespace-nowrap">
         <div class="inline px-3 py-1 text-sm font-normal rounded-full gap-x-2 none:bg-gray-800">
-          {{ranking.member?.familyName}}
+          {{ranking.member?.familyName ?? ''}}
         </div>
       </td>
 
-      <td class="px-12 py-4 text-sm font-medium whitespace-nowrap">
+      <td *ngIf="ranking?.rank != null" class="px-12 py-4 text-sm font-medium whitespace-nowrap">
         <div class="inline px-3 py-1 text-sm font-normal rounded-full gap-x-2 none:bg-gray-800">
           {{ranking?.score}}
         </div>
       </td>
 
-      <td class="px-12 py-4 text-sm font-medium whitespace-nowrap">
+      <td *ngIf="ranking?.rank != null" class="px-12 py-4 text-sm font-medium whitespace-nowrap">
         <div class="inline px-3 py-1 text-sm font-normal rounded-full gap-x-2 none:bg-gray-800">
-          {{ranking?.rank}}
+          {{ranking?.rank ?? ''}}
         </div>
       </td>
 
-      <td class="flex justify-end px-8 py-2">
+      <td class="flex items-center justify-center px-8 py-2">
         <div class="flex gap-x-2">
-          <app-hunting [memberNum]="ranking.id.memberNum.toString()" />
+          <app-hunting *ngIf="isCompetitionOngoing()" [memberNum]="ranking.id.memberNum.toString()" />
           <popup
+          *ngIf="ranking.rank == null"
           title="Deleting a member from an competition"
           description="Are you sure you want to delete this member ?"
           submitText="Delete"

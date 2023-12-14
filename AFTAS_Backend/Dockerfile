@@ -12,6 +12,6 @@ WORKDIR /app
 
 COPY --from=build /app/target/*.jar AFTAS.jar
 
-EXPOSE 8082
+EXPOSE 9090
 
 ENTRYPOINT ["java", "-jar", "/app/AFTAS.jar"]

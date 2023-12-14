@@ -25,7 +25,7 @@ import {DatePipe} from "@angular/common";
   templateUrl: './rankings.component.html',
 })
 export class RankingsComponent implements OnInit {
-  competition?: Competition;
+  competition!: Competition;
   competitionCode!: String;
   rankings?: Observable<Ranking[]>;
   memberNum: FormControl;
@@ -40,6 +40,16 @@ export class RankingsComponent implements OnInit {
         this.competitionCode = params.get('id') ?? '';
     });
     this.memberNum = this.fb.control('');
+  }
+
+  isRankingsExists() {
+    let bool = false;
+    this.rankings?.subscribe( rankings =>
+      (rankings.length == 0 || new Date(this.competition.date) > new Date() ) ?
+      bool = false
+      : bool = true
+    );    
+    return bool;
   }
 
   isCompetitionDatePassed(): boolean {
