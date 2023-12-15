@@ -9,7 +9,7 @@ import {
   selector: 'rankings-table',
   templateUrl: './rankings-table.component.html',
 })
-export class RankingsTableComponent implements OnInit {
+export class RankingsTableComponent {
   @Input() rankings?: Observable<Ranking[]>;
   @Input() competitionStartTime?: Date;
   @Input() competitionEndTime?: Date;
@@ -27,20 +27,20 @@ export class RankingsTableComponent implements OnInit {
     return bool;
   }
 
-  isCompetitionCurrent() {
-    let now = new Date();
-    let start = new Date(this.competitionStartTime ?? '');
-    let end = new Date(this.competitionEndTime ?? '');
+  // isCompetitionCurrent() {
+  //   let now = new Date();
+  //   let start = new Date(this.competitionStartTime ?? '');
+  //   let end = new Date(this.competitionEndTime ?? '');
 
-    start.setMinutes(start.getMinutes() + start.getTimezoneOffset());
-    end.setMinutes(end.getMinutes() + end.getTimezoneOffset());
+  //   start.setMinutes(start.getMinutes() + start.getTimezoneOffset());
+  //   end.setMinutes(end.getMinutes() + end.getTimezoneOffset());
 
-    if (now >= start && now <= end) {
-      return true;
-    } else {
-      return false;
-    }
-  }
+  //   if (now >= start && now <= end) {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // }
   isCompetitionOngoing() {
     let now = new Date().getTime();
     let start = new Date(this.competitionStartTime ?? '').getTime();
@@ -55,9 +55,5 @@ export class RankingsTableComponent implements OnInit {
 
   onDelete(id: CompetitionMember) {
     this.deleteRanking.emit(id);
-  }
-
-  ngOnInit(): void {
-    console.log(this.isCompetitionOngoing());
   }
 }

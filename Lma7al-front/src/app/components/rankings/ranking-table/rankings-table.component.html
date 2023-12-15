@@ -56,7 +56,7 @@
 
       <td class="flex items-center justify-center px-8 py-2">
         <div class="flex gap-x-2">
-          <app-hunting *ngIf="isCompetitionCurrent()" [memberNum]="ranking.id.memberNum.toString()" />
+          <app-hunting *ngIf="isCompetitionOngoing()" [memberNum]="ranking.id.memberNum.toString()" />
           <popup *ngIf="ranking.rank == null" title="Deleting a member from an competition"
             description="Are you sure you want to delete this member ?" submitText="Delete"
             (submit)="onDelete(ranking.id)">
