@@ -1,7 +1,11 @@
 package com.youcode.aftas_backend.services.Impl;
 
+import com.youcode.aftas_backend.models.dto.LevelDto;
 import com.youcode.aftas_backend.models.dto.RankingDto;
+import com.youcode.aftas_backend.models.dto.Member.MemberDto;
 import com.youcode.aftas_backend.models.dto.competetion.CompetitionDto;
+import com.youcode.aftas_backend.models.dto.fish.FishDtoResponse;
+import com.youcode.aftas_backend.models.dto.hunting.SingleHuntDto;
 import com.youcode.aftas_backend.models.embeddables.CompetitionMember;
 import com.youcode.aftas_backend.models.entities.Competition;
 import com.youcode.aftas_backend.models.entities.Fish;
@@ -18,9 +22,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import java.util.Arrays;
 
@@ -76,7 +82,15 @@ public class RankingServiceImplTest {
                          )
                          .build();
         
-        
+        member = Member.builder()
+            .num(1)
+            .name("hamza")
+            .familyName("essouli")
+            .identityDocument(IdentityDocumentType.CIN)
+            .identityNumber("HH28712")
+            .accessionDate(LocalDate.now())
+            .nationality("MA")
+            .build();
         CompetitionMember id = CompetitionMember.builder()
                 .memberNum(1)
                 .competitionCode("Saf-12-12-23")
@@ -150,15 +164,68 @@ public class RankingServiceImplTest {
         verify(rankingRepository).findByCompetitionCode("code");
     }
 
-    // //@Test
-    // public void underTestMethodSouldReturnTheRankingsSortedWhenSuccsess() {
-    //     var memberOne = Member.builder().num(1).build();
-    //     var memberTwo = Member.builder().num(2).build();
-    //     //var hanting_one = this. 
+    //@Test
+    public void testSetUpCompetitionRankingsSuccessScenario() {
+        String competitionCode = "Saf-12-12-23";
+        CompetitionDto competitionDto = new CompetitionDto();
+        competitionDto.setCode(competitionCode);
+        competitionDto.setDate(LocalDate.now());
+        competitionDto.setAmount(120.00);
+        competitionDto.setStartTime(LocalDateTime.now());
 
-    //     //given(competitionService.findByID("code")).willReturn(competitionDto);
-    //     //given(rankingRepository.findByCompetitionCode("code")).willReturn(Arrays.asList(ranking));
+        Ranking ranking1 = new Ranking();
+        ranking1.setScore(50);
+        ranking1.setCompetition(competition);
+        ranking1.setMember(member);
+        
+        Ranking ranking2 = new Ranking();
+        ranking2.setScore(30);
+        ranking2.setCompetition(competition);
+        ranking2.setMember(member);
 
-    // }
+        LevelDto levelDto = LevelDto.builder()
+            .code(1)
+            .description("description")
+            .points(50)
+            .build();
+        FishDtoResponse fishDtoResponse = FishDtoResponse.builder()
+            .averageWeight(600.00)
+            .name("shren")
+            .level(levelDto)
+            .build();
+        MemberDto memberDto = MemberDto.builder()
+            .num(1)
+            .name("hamza")
+            .familyName("essouli")
+            .identityDocument(IdentityDocumentType.CIN)
+            .identityNumber("HH28712")
+            .accessionDate(LocalDate.now())
+            .nationality("MA")
+            .build();
+        SingleHuntDto singleHuntDto = SingleHuntDto.builder()
+            .id(1)
+            .fish(fishDtoResponse)
+            .numberOfFish(2)
+            .member(memberDto)
+            .competition(competitionDto)
+            .build();
 
+            SingleHuntDto singleHuntDto1 = SingleHuntDto.builder()
+            .id(2)
+            .fish(fishDtoResponse)
+            .numberOfFish(2)
+            .member(memberDto)
+            .competition(competitionDto)
+            .build();
+        
+        given(competitionService.findByID(competitionCode)).willReturn(competitionDto);
+        given(rankingRepository.findByCompetitionCode(competitionCode)).willReturn(Arrays.asList(ranking1, ranking2));
+        given(huntingService.findHuntByCompetitionAndMember(competitionCode, ranking1.getMember().getNum())).willReturn(List.of(singleHuntDto, singleHuntDto1));
+        List<RankingDto> result = underTest.SetUpCompetitionRankings(competitionCode);
+
+        verify(competitionService).findByID(competitionCode);
+        verify(rankingRepository).findByCompetitionCode(competitionCode);
+
+        assertThat(result).isNotNull();
+    }
 }
