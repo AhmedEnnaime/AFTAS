@@ -9,12 +9,14 @@ import {
   selector: 'rankings-table',
   templateUrl: './rankings-table.component.html',
 })
-export class RankingsTableComponent {
+export class RankingsTableComponent implements OnInit {
   @Input() rankings?: Observable<Ranking[]>;
   @Input() competitionStartTime?: Date;
   @Input() competitionEndTime?: Date;
 
   @Output() deleteRanking: EventEmitter<CompetitionMember> = new EventEmitter();
+
+  sortedRankings: Ranking[] = [];
 
   isRankNull() {
     let bool = false;
@@ -27,20 +29,6 @@ export class RankingsTableComponent {
     return bool;
   }
 
-  // isCompetitionCurrent() {
-  //   let now = new Date();
-  //   let start = new Date(this.competitionStartTime ?? '');
-  //   let end = new Date(this.competitionEndTime ?? '');
-
-  //   start.setMinutes(start.getMinutes() + start.getTimezoneOffset());
-  //   end.setMinutes(end.getMinutes() + end.getTimezoneOffset());
-
-  //   if (now >= start && now <= end) {
-  //     return true;
-  //   } else {
-  //     return false;
-  //   }
-  // }
   isCompetitionOngoing() {
     let now = new Date().getTime();
     let start = new Date(this.competitionStartTime ?? '').getTime();
@@ -55,5 +43,17 @@ export class RankingsTableComponent {
 
   onDelete(id: CompetitionMember) {
     this.deleteRanking.emit(id);
+  }
+
+  ngOnInit(): void {
+    this.rankings?.subscribe((data) => {
+      this.sortedRankings = data.slice().sort((a, b) => {
+        const rankA: number | null =
+          a.rank !== null ? (a.rank as number) : null;
+        const rankB: number | null =
+          b.rank !== null ? (b.rank as number) : null;
+        return (rankA || 0) - (rankB || 0);
+      });
+    });
   }
 }

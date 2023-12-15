@@ -78,8 +78,6 @@ export class RankingsComponent implements OnInit {
   isRankingExist() {
     let bool = false;
     this.rankings?.subscribe((rankings) => {
-      console.log(rankings);
-
       if (rankings.length == 0 || rankings[0]!.rank != null) bool = true;
     });
     return bool;

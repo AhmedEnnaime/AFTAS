@@ -34,33 +34,36 @@ public class HuntingServiceImpl implements HuntingService {
 
     @Override
     public SingleHuntDto createHunt(HuntingDto hunting){
-        Hunting huntingInstance = new Hunting();
-        if(!huntingRepository.existsHuntingByFishNameAndMemberNumAndCompetitionCode(
+        Hunting huntingInstance;
+        if(huntingRepository.existsHuntingByFishNameAndMemberNumAndCompetitionCode(
                 hunting.getFish_name(),
                 hunting.getMember_num(),
                 hunting.getCompetition_code()
-        ))
+        )){
+            huntingInstance = huntingRepository.findHuntingByFishNameAndMemberNumAndCompetitionCode(hunting.getFish_name(), hunting.getMember_num(), hunting.getCompetition_code());
+            huntingInstance.setNumberOfFish( huntingInstance.getNumberOfFish() + hunting.getNumberOfFish() );
+        } else {
             huntingInstance = Hunting.builder().numberOfFish(hunting.getNumberOfFish())
                                                .fish(fishRepository.findById(hunting.getFish_name()).get())
                                                .competition(competitionRepository.findById(hunting.getCompetition_code()).get())
                                                .member(memberRepository.findById(hunting.getMember_num()).get())
                                                .build();
-            if(LocalDateTime.now(ZoneId.of("Africa/Casablanca")).isAfter(huntingInstance.getCompetition().getEndTime())
-                || LocalDateTime.now(ZoneId.of("Africa/Casablanca")).isEqual(huntingInstance.getCompetition().getEndTime()) ||
-                huntingInstance.getCompetition().getRankings().get(0).getRank() != null
+        }
+        validateHunt(huntingInstance);
+        return modelMapper.map(huntingRepository.save(huntingInstance), SingleHuntDto.class);
+    }
+
+    private void validateHunt(Hunting hunting) {
+        if(LocalDateTime.now(ZoneId.of("Africa/Casablanca")).isBefore(hunting.getCompetition().getStartTime()))
+                throw new RuntimeException("Competition did not start  yet.");
+            if(LocalDateTime.now(ZoneId.of("Africa/Casablanca")).isAfter(hunting.getCompetition().getEndTime())
+                || LocalDateTime.now(ZoneId.of("Africa/Casablanca")).isEqual(hunting.getCompetition().getEndTime())
             )
                 throw new RuntimeException("Competition is already closed.");
-        else {
-            huntingInstance = huntingRepository.findHuntingByFishNameAndMemberNumAndCompetitionCode(
-                    hunting.getFish_name(),
-                    hunting.getMember_num(),
-                    hunting.getCompetition_code()
-            );
-            huntingInstance.setNumberOfFish(
-                    hunting.getNumberOfFish() + huntingInstance.getNumberOfFish()
-            );
-        }
-        return modelMapper.map(huntingRepository.save(huntingInstance), SingleHuntDto.class);
+            if(hunting.getCompetition().getRankings().isEmpty())
+                throw new RuntimeException("Competition have no rankings.");
+            if(hunting.getCompetition().getRankings().get(0).getRank() != null)
+                throw new RuntimeException("Competition rankings already counted.");
     }
 
     @Override
