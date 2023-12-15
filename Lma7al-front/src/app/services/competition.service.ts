@@ -27,7 +27,6 @@ export class CompetitionService {
       }
 
       findCompetition(competitionCode: String): Observable<Competition> {
-        console.log("service: " + competitionCode);
         return this.http
           .get<Competition>(this.baseUrl + `/${competitionCode}`, this.httpOptions)
           .pipe(catchError((error) => this.configService.handleError(error)));

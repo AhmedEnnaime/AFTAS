@@ -4,25 +4,25 @@
           <div class="w-full max-w-sm overflow-hidden bg-white rounded-lg shadow-lg none:bg-gray-800">
             <img class="object-cover object-center w-full h-56" src="https://maghreb.simplonline.co/_next/image?url=https%3A%2F%2Fsimplonline-v3-prod.s3.eu-west-3.amazonaws.com%2Fmedia%2Fimage%2Fjpg%2Fchasse-sous-marine-sous-eau-950002-169315-657215df5fd58614044589.jpg&w=1280&q=75" alt="avatar">
             <div class="px-6 py-4">
-                <h2 class="text-xl font-semibold text-gray-800 none:text-white">{{ competition.code }}</h2>
+                <h2 class="text-xl font-semibold text-gray-800 none:text-white">{{ competition?.code }}</h2>
 
                 <div class="flex items-center mt-4 text-gray-700 none:text-gray-200">
                   <fa-icon  class="text-xl right-3 top-2 text-blue-900" [icon]="locationIcon"></fa-icon>
-                  <h2 class="px-2 text-sm">{{competition.location}}</h2>
+                  <h2 class="px-2 text-sm">{{competition?.location}}</h2>
                 </div>
 
                 <div class="flex items-center mt-4 text-gray-700 none:text-gray-200">
                     <fa-icon  class="text-xl right-3 top-2 text-blue-900" [icon]="dateIcon"></fa-icon>
-                    <h2 class="px-2 text-sm">{{competition.date}}</h2>
+                    <h2 class="px-2 text-sm">{{competition?.date}}</h2>
                 </div>
 
                 <div class="flex items-center mt-4 text-gray-700 none:text-gray-200">
                     <fa-icon  class="text-xl right-3 top-2 text-blue-900" [icon]="timeIcon"></fa-icon>
-                    <h2 class="px-2 text-sm">{{competition.startTime | date:'shortTime' }} -> {{competition.endTime | date:'shortTime'}}</h2>
+                    <h2 class="px-2 text-sm">{{competition?.startTime | date:'shortTime' }} -> {{competition?.endTime | date:'shortTime'}}</h2>
                 </div>
             </div>
           </div>
-          <button [disabled]="!isRankingsExists()" (click)="setUpCompetitionRankings()"  class="flex w-full items-center justify-center  px-5 py-2 text-sm tracking-wide text-white transition-colors duration-200 bg-blue-500 disabled:opacity-40 rounded-lg shrink-0  gap-x-2 hover:bg-blue-600">
+          <button [disabled]="isRankingExist() || !isCompetitionDatePassed()" (click)="setUpCompetitionRankings()"  class="flex w-full items-center justify-center  px-5 py-2 text-sm tracking-wide text-white transition-colors duration-200 bg-blue-500 disabled:opacity-40 rounded-lg shrink-0  gap-x-2 hover:bg-blue-600">
             <fa-icon class="text-white" [icon]="checkIcon" ></fa-icon>
 
             <span>Finish</span>
@@ -67,7 +67,7 @@
 
           <div class="flex flex-col mt-6">
                 <div class="overflow-hidden border border-gray-200 none:border-gray-700 md:rounded-lg">
-                  <rankings-table [competitionDate]="competition.date" (deleteRanking)="deleteRanking($event)" [rankings]="rankings" ></rankings-table>
+                  <rankings-table [competitionStartTime]="competition?.startTime" [competitionEndTime]="competition?.endTime" (deleteRanking)="deleteRanking($event)" [rankings]="rankings" ></rankings-table>
                 </div>
               </div>
         </div>

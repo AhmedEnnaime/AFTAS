@@ -9,15 +9,15 @@
         Family Name
       </th>
 
-      <th *ngIf="isRankNull()" scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 none:text-gray-400">
+      <th *ngIf="! isRankNull()" scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 none:text-gray-400">
         Score
       </th>
 
-      <th *ngIf="isRankNull()" scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 none:text-gray-400">
+      <th *ngIf="! isRankNull()" scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 none:text-gray-400">
         Rank
       </th>
 
-      <th  *ngIf="!isRankNull()" scope="col" class="px-12 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500 none:text-gray-400">
+      <th *ngIf="isRankNull() && isCompetitionOngoing()" scope="col" class="px-12 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500 none:text-gray-400">
         Actions
       </th>
 
@@ -51,7 +51,7 @@
 
       <td class="flex items-center justify-center px-8 py-2">
         <div class="flex gap-x-2">
-          <app-hunting *ngIf="isCompetitionOngoing()" [memberNum]="ranking.id.memberNum.toString()" />
+          <app-hunting *ngIf="isCompetitionOngoing() && isRankNull()" [memberNum]="ranking.id.memberNum.toString()" />
           <popup
           *ngIf="ranking.rank == null"
           title="Deleting a member from an competition"

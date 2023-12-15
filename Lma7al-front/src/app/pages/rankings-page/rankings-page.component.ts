@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -7,8 +6,6 @@ import { Competition } from 'src/app/model/interfaces/competition.model';
 import { Ranking } from 'src/app/model/interfaces/ranking.model';
 import { selectCompetition as selectCompetitionAction } from 'src/app/store/competition/actions/competition-page.actions';
 import { selectSelectedCompetition } from 'src/app/store/competition/competition.selectors';
-
-import * as rankingPageActoins from '../../store/ranking/actions/ranking-page.actions'
 
 
 @Component({

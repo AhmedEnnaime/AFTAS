@@ -39,7 +39,7 @@ services:
     expose:
       - "4200"
     environment:
-      - MOD=prod
+      - MOD=dev
     volumes:
       - ./Lma7al-front:/app/lma7al-front
       - /app/lma7al-front/node_modules

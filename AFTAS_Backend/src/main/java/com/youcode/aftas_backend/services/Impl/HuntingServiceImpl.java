@@ -45,8 +45,8 @@ public class HuntingServiceImpl implements HuntingService {
                                                .competition(competitionRepository.findById(hunting.getCompetition_code()).get())
                                                .member(memberRepository.findById(hunting.getMember_num()).get())
                                                .build();
-            if(LocalDateTime.now(ZoneId.of("Africa/casablanca")).isAfter(huntingInstance.getCompetition().getEndTime())
-                || LocalDateTime.now(ZoneId.of("Africa/casablanca")).isEqual(huntingInstance.getCompetition().getEndTime()) ||
+            if(LocalDateTime.now(ZoneId.of("Africa/Casablanca")).isAfter(huntingInstance.getCompetition().getEndTime())
+                || LocalDateTime.now(ZoneId.of("Africa/Casablanca")).isEqual(huntingInstance.getCompetition().getEndTime()) ||
                 huntingInstance.getCompetition().getRankings().get(0).getRank() != null
             )
                 throw new RuntimeException("Competition is already closed.");

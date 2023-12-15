@@ -25,7 +25,7 @@ import {DatePipe} from "@angular/common";
   templateUrl: './rankings.component.html',
 })
 export class RankingsComponent implements OnInit {
-  competition!: Competition;
+  competition?: Competition;
   competitionCode!: String;
   rankings?: Observable<Ranking[]>;
   memberNum: FormControl;
@@ -42,34 +42,6 @@ export class RankingsComponent implements OnInit {
     this.memberNum = this.fb.control('');
   }
 
-  isRankingsExists() {
-    let bool = false;
-    this.rankings?.subscribe( rankings =>
-      (rankings.length == 0 || new Date(this.competition.date) > new Date() ) ?
-      bool = false
-      : bool = true
-    );    
-    return bool;
-  }
-
-  isCompetitionDatePassed(): boolean {
-    if (this.competition && this.competition.date) {
-      const competitionDate = new Date(this.competition.date);
-
-      if (!isNaN(competitionDate.getTime())) {
-        const currentDate = new Date();
-        const formattedCompetitionDate = this.datePipe.transform(competitionDate, 'yyyy-MM-dd');
-        const formattedCurrentDate = this.datePipe.transform(currentDate, 'yyyy-MM-dd');
-
-        if (formattedCompetitionDate !== null && formattedCurrentDate !== null) {
-          return formattedCompetitionDate <= formattedCurrentDate;
-        }
-      }
-    }
-    return false;
-  }
-
-
   ngOnInit(): void {
     this.store.dispatch(findCompetition({competitionCode: this.competitionCode}));
     this.store.dispatch(rankingPageActoins.loadCompetitionRankings({competitionCode: this.competitionCode}));
@@ -78,6 +50,23 @@ export class RankingsComponent implements OnInit {
     this.store.dispatch(memberPageActions.enter());
     this.members = this.store.select(selectMembers);
   }
+
+  isRankingExist() {
+    let bool = false;
+    this.rankings?.subscribe(rankings => {
+      if(rankings[0]!.rank != null) 
+        bool = true
+    }
+    );
+    return bool;
+  }
+
+  isCompetitionDatePassed(): boolean {
+    if(new Date().getTime() > new Date(this.competition?.endTime ?? "").getTime())
+      return true;
+    return false;
+  }
+
 
   addRanking() {
     const ranking: Ranking = {
