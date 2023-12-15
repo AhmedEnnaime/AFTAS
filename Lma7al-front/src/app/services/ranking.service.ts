@@ -43,9 +43,7 @@ export class RankingService {
       .pipe(catchError((error) => this.configService.handleError(error)));
   }
 
-  deleteRanking(
-    identifier: CompetitionMember
-  ): Observable<{
+  deleteRanking(identifier: CompetitionMember): Observable<{
     message: String;
     deletedElementIdentifier: CompetitionMember;
   }> {
@@ -62,8 +60,6 @@ export class RankingService {
   }
 
   addRanking(ranking: Ranking): Observable<Ranking> {
-    console.log('service: ' + ranking.id.competitionCode);
-
     return this.http
       .post<Ranking>(this.baseUrl, ranking, this.httpOptions)
       .pipe(catchError((error) => this.configService.handleError(error)));
