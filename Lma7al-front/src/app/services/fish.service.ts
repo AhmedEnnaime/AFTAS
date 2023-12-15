@@ -1,14 +1,14 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError } from 'rxjs';
-import {ConfigService} from "../config/config.service";
-import {Fish} from "../model/interfaces/fish";
+import { ConfigService } from '../config/config.service';
+import { Fish } from '../model/interfaces/fish';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FishService {
-  private baseUrl: string = 'http://localhost:9090/api';
+  private baseUrl: string = 'http://localhost:8082/api';
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -25,9 +25,14 @@ export class FishService {
       .pipe(catchError((error) => this.configService.handleError(error)));
   }
 
-  deleteFish(name: string | undefined): Observable<{message: String, deletedElementIdentifier: string}> {
+  deleteFish(
+    name: string | undefined
+  ): Observable<{ message: String; deletedElementIdentifier: string }> {
     return this.http
-      .delete<{message: string, deletedElementIdentifier: string}>(this.baseUrl + '/fishes/' + name, this.httpOptions)
+      .delete<{ message: string; deletedElementIdentifier: string }>(
+        this.baseUrl + '/fishes/' + name,
+        this.httpOptions
+      )
       .pipe(catchError((error) => this.configService.handleError(error)));
   }
 

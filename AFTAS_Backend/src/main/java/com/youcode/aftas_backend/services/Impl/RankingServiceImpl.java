@@ -36,13 +36,10 @@ public class RankingServiceImpl implements RankingService {
     @Override
     public RankingDto save(RankingDto rankingDto) {
         var competition = competitionService.findByID(rankingDto.getId().getCompetitionCode());
-        if(competition.getDate().isEqual((LocalDate.now(ZoneId.of("Africa/Casablanca")))) || 
-            competition.getDate().isBefore(LocalDate.now(ZoneId.of("Africa/Casablanca")))
-        ) 
+        if(competition.getDate().isEqual((LocalDate.now(ZoneId.of("Africa/Casablanca")))) || competition.getDate().isBefore(LocalDate.now(ZoneId.of("Africa/Casablanca")))) 
             throw new RuntimeException("The competition is already closed.");
         if(competition.getNumberOfParticipants() <= rankingRepository.countByCompetitionCode(competition.getCode()))
             throw new RuntimeException("The cometition is full.");
-        
         rankingDto.setCompetition(competition);
         rankingDto.setMember(memberService.findByID(rankingDto.getId().getMemberNum()));
         Ranking rankingEntity = modelMapper.map(rankingDto, Ranking.class);

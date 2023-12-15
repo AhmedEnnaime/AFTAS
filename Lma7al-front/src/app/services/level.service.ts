@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Observable, catchError } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import {ConfigService} from "../config/config.service";
-import {Level} from "../model/interfaces/level";
+import { ConfigService } from '../config/config.service';
+import { Level } from '../model/interfaces/level';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LevelService {
-  private baseUrl: string = 'http://localhost:9090/api';
+  private baseUrl: string = 'http://localhost:8082/api';
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -25,9 +25,14 @@ export class LevelService {
       .pipe(catchError((error) => this.configService.handleError(error)));
   }
 
-  deleteLevel(id: number | undefined): Observable<{message: String, deletedElementIdentifier: number}> {
+  deleteLevel(
+    id: number | undefined
+  ): Observable<{ message: String; deletedElementIdentifier: number }> {
     return this.http
-      .delete<{message: string, deletedElementIdentifier: number}>(this.baseUrl + '/levels/' + id, this.httpOptions)
+      .delete<{ message: string; deletedElementIdentifier: number }>(
+        this.baseUrl + '/levels/' + id,
+        this.httpOptions
+      )
       .pipe(catchError((error) => this.configService.handleError(error)));
   }
 
