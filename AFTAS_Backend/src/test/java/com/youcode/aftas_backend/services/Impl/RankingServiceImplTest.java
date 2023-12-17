@@ -27,9 +27,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
+import static org.mockito.ArgumentMatchers.anyList;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
@@ -164,7 +167,7 @@ public class RankingServiceImplTest {
         verify(rankingRepository).findByCompetitionCode("code");
     }
 
-    //@Test
+    @Test
     public void testSetUpCompetitionRankingsSuccessScenario() {
         String competitionCode = "Saf-12-12-23";
         CompetitionDto competitionDto = new CompetitionDto();
@@ -172,16 +175,37 @@ public class RankingServiceImplTest {
         competitionDto.setDate(LocalDate.now());
         competitionDto.setAmount(120.00);
         competitionDto.setStartTime(LocalDateTime.now());
+        MemberDto memberDto = MemberDto.builder()
+            .num(1)
+            .name("hamza")
+            .familyName("essouli")
+            .identityDocument(IdentityDocumentType.CIN)
+            .identityNumber("HH28712")
+            .accessionDate(LocalDate.now())
+            .nationality("MA")
+            .build();
 
         Ranking ranking1 = new Ranking();
-        ranking1.setScore(50);
+        ranking1.setScore(30);
         ranking1.setCompetition(competition);
         ranking1.setMember(member);
         
         Ranking ranking2 = new Ranking();
-        ranking2.setScore(30);
+        ranking2.setScore(200);
         ranking2.setCompetition(competition);
         ranking2.setMember(member);
+
+        RankingDto rankingDto1 = new RankingDto();
+        rankingDto1.setScore(30);
+        rankingDto1.setRank(2);
+        rankingDto1.setCompetition(competitionDto);
+        rankingDto1.setMember(memberDto);
+
+        RankingDto rankingDto2 = new RankingDto();
+        rankingDto2.setScore(200);
+        rankingDto2.setRank(1);
+        rankingDto2.setCompetition(competitionDto);
+        rankingDto2.setMember(memberDto);
 
         LevelDto levelDto = LevelDto.builder()
             .code(1)
@@ -193,15 +217,7 @@ public class RankingServiceImplTest {
             .name("shren")
             .level(levelDto)
             .build();
-        MemberDto memberDto = MemberDto.builder()
-            .num(1)
-            .name("hamza")
-            .familyName("essouli")
-            .identityDocument(IdentityDocumentType.CIN)
-            .identityNumber("HH28712")
-            .accessionDate(LocalDate.now())
-            .nationality("MA")
-            .build();
+        
         SingleHuntDto singleHuntDto = SingleHuntDto.builder()
             .id(1)
             .fish(fishDtoResponse)
@@ -217,15 +233,23 @@ public class RankingServiceImplTest {
             .member(memberDto)
             .competition(competitionDto)
             .build();
+        var rankingList = new ArrayList<Ranking>();
+        rankingList.add(ranking2);
+        rankingList.add(ranking1);
+        var rankingDtoList = new ArrayList<RankingDto>();
+        rankingDtoList.add(rankingDto2);
+        rankingDtoList.add(rankingDto1);
         
         given(competitionService.findByID(competitionCode)).willReturn(competitionDto);
         given(rankingRepository.findByCompetitionCode(competitionCode)).willReturn(Arrays.asList(ranking1, ranking2));
         given(huntingService.findHuntByCompetitionAndMember(competitionCode, ranking1.getMember().getNum())).willReturn(List.of(singleHuntDto, singleHuntDto1));
+        given(rankingRepository.saveAll(anyList())).willReturn(Collections.emptyList());
+        given(modelMapper.map(anyList(), eq(RankingDto[].class))).willReturn(Arrays.asList(rankingDto1, rankingDto2).toArray(new RankingDto[0]));
+
         List<RankingDto> result = underTest.SetUpCompetitionRankings(competitionCode);
 
         verify(competitionService).findByID(competitionCode);
         verify(rankingRepository).findByCompetitionCode(competitionCode);
-
         assertThat(result).isNotNull();
     }
 }
