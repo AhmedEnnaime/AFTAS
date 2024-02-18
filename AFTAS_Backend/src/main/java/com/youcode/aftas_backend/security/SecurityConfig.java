@@ -18,7 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.youcode.aftas_backend.services.Impl.UserDetailsServiceImpl;
+import com.youcode.aftas_backend.services.Impl.UserServiceImpl;
 
 import lombok.AllArgsConstructor;
 
@@ -34,7 +34,7 @@ public class SecurityConfig {
 
     @Bean
     public UserDetailsService userDetailsService(){
-        return new UserDetailsServiceImpl();
+        return new UserServiceImpl();
     }
 
     private void sharedSecurityConfiguration(HttpSecurity httpSecurity) throws Exception {
