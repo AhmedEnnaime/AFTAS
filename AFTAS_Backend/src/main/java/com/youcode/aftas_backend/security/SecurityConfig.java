@@ -1,6 +1,5 @@
 package com.youcode.aftas_backend.security;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -53,6 +52,27 @@ public class SecurityConfig {
                     .hasRole("ADMIN");
         }).addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
+        return http.build();
+    }
+
+    @Bean
+    public SecurityFilterChain apiSecurityFilterChain(HttpSecurity http) throws Exception {
+        sharedSecurityConfiguration(http);
+        http.securityMatcher("api/**").authorizeHttpRequests(auth -> {
+            auth.anyRequest()
+                    .authenticated();
+        }).addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+
+        return http.build();
+    }
+
+    @Bean
+    public SecurityFilterChain authSecurityFilterChain(HttpSecurity http) throws Exception {
+        sharedSecurityConfiguration(http);
+        http.securityMatcher("auth/**").authorizeHttpRequests(auth -> {
+            auth.anyRequest()
+                    .permitAll();
+        });
         return http.build();
     }
 
