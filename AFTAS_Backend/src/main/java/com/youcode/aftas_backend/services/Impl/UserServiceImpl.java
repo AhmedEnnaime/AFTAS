@@ -46,13 +46,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void activate(UserDTO userDTO) {
+    public Boolean activate(UserDTO userDTO) {
         User user = findByUsername(userDTO.getUsername());
         if (user == null)
             throw new ResourceNotFoundException("User with id " + userDTO.getId() + " not found");
         if (user.isEnabled())
             throw new AlreadyActiveException("This account is already active");
         userRepository.enableAccount(user.getUsername());
+        return true;
     }
 
     @Override

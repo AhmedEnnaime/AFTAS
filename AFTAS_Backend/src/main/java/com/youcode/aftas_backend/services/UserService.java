@@ -9,6 +9,6 @@ import com.youcode.aftas_backend.models.enums.ROLE;
 public interface UserService extends UserDetailsService {
     User findByUsername(String username);
     UserDTO register(UserDTO userDTO);
-    void activate(UserDTO userDTO);
+    Boolean activate(UserDTO userDTO);
     Boolean upgrade(UserDTO userDTO, ROLE role);
 }
