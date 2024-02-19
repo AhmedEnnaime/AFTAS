@@ -1,8 +1,8 @@
 package com.youcode.aftas_backend.models.dto.user;
-
-import java.util.Set;
+import java.time.LocalDate;
 
 import com.youcode.aftas_backend.models.dto.role.RoleDTO;
+import com.youcode.aftas_backend.models.enums.IdentityDocumentType;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,9 +14,15 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 public class UserDTO {
-    
-    private Long id;
+    private Integer id;
     private String username;
     private String password;
-    private Set<RoleDTO> roles;
+    private RoleDTO role;
+    private String name;
+    private String familyName;
+    private LocalDate accessionDate;
+    private boolean isEnabled;
+    private String nationality;
+    private IdentityDocumentType identityDocument;
+    private String identityNumber;
 }

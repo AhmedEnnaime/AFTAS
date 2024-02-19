@@ -63,18 +63,22 @@ public class User implements UserDetails {
 
     @CreationTimestamp
     @Temporal(value = TemporalType.DATE)
+    @Getter
     private LocalDate accessionDate;
 
     @NotEmpty(message = "Member nationality is required")
+    @Getter
     private String nationality;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
+    @Getter
     private IdentityDocumentType identityDocument;
 
     @NotEmpty(message = "Member identity number is required.")
     @Size(min = 3, max = 255, message = "member identity number should be between 3 and 255 character.")
     @Column(unique = true)
+    @Getter
     private String identityNumber;
 
     @Column(columnDefinition = "BOOLEAN DEFAULT FALSE")
