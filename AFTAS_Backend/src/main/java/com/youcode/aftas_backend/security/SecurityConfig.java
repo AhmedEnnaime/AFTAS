@@ -17,11 +17,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.youcode.aftas_backend.services.Impl.UserServiceImpl;
+import com.youcode.aftas_backend.models.enums.ROLE;
 
 import lombok.AllArgsConstructor;
 
 import static org.springframework.security.config.Customizer.withDefaults;
+
 
 @Configuration
 @EnableWebSecurity
@@ -29,19 +30,16 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @AllArgsConstructor
 public class SecurityConfig {
 
-    JWTAuthFilter jwtAuthFilter;
+    private final JWTAuthFilter jwtAuthFilter;
+    private final UserDetailsService userDetailsService;
 
-    @Bean
-    public UserDetailsService userDetailsService(){
-        return new UserServiceImpl();
-    }
 
     private void sharedSecurityConfiguration(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf(AbstractHttpConfigurer::disable)
-                .cors(withDefaults())
-                .sessionManagement(httpSecuritySessionManagementConfigurer -> {
-                    httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-                });
+                    .cors(withDefaults())
+                    .sessionManagement(httpSecuritySessionManagementConfigurer -> {
+                        httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                    });
     }
 
     @Bean
@@ -49,7 +47,7 @@ public class SecurityConfig {
         sharedSecurityConfiguration(http);
         http.securityMatcher("admin/**").authorizeHttpRequests(auth -> {
             auth.anyRequest()
-                    .hasRole("ADMIN");
+                .hasRole(ROLE.MANAGER.name());
         }).addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
@@ -60,7 +58,7 @@ public class SecurityConfig {
         sharedSecurityConfiguration(http);
         http.securityMatcher("api/**").authorizeHttpRequests(auth -> {
             auth.anyRequest()
-                    .authenticated();
+                .authenticated();
         }).addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
@@ -71,7 +69,7 @@ public class SecurityConfig {
         sharedSecurityConfiguration(http);
         http.securityMatcher("auth/**").authorizeHttpRequests(auth -> {
             auth.anyRequest()
-                    .permitAll();
+                .permitAll();
         });
         return http.build();
     }
@@ -84,7 +82,7 @@ public class SecurityConfig {
     @Bean
     public AuthenticationProvider authenticationProvider(){
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-        authenticationProvider.setUserDetailsService(userDetailsService());
+        authenticationProvider.setUserDetailsService(userDetailsService);
         authenticationProvider.setPasswordEncoder(passwordEncoder());
         return authenticationProvider;
 

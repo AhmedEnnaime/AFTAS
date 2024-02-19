@@ -21,7 +21,7 @@ import lombok.Setter;
 
 public class MemberDto {
     
-    private Integer num;
+    private Integer id;
     private String name;
     private String familyName;
     private LocalDate accessionDate;

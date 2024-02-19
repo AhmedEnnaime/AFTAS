@@ -1,6 +1,7 @@
 package com.youcode.aftas_backend.security;
 
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -17,7 +18,9 @@ import io.jsonwebtoken.SignatureAlgorithm;
 
 @Component
 public class JWTService {
-    public static final String SECRET = "357638792F423F4428472B4B6250655368566D597133743677397A2443264629";
+
+    @Value("${my.jwt.secret}")
+    public static String SECRET;
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);

@@ -20,9 +20,9 @@ import java.io.IOException;
 @AllArgsConstructor
 public class JWTAuthFilter extends OncePerRequestFilter {
 
-    private JWTService jwtService;
+    private final JWTService jwtService;
 
-    UserServiceImpl userServiceImpl;
+    private final UserServiceImpl userServiceImpl;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {

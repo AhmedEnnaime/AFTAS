@@ -99,7 +99,7 @@ public class RankingServiceImpl implements RankingService {
         rankings.forEach(
                     ranking -> {
                         ranking.setScore(
-                            huntingService.findHuntByCompetitionAndMember(competitionCode, ranking.getMember().getNum())
+                            huntingService.findHuntByCompetitionAndMember(competitionCode, ranking.getMember().getId())
                             .stream()
                             .mapToInt(hunt -> hunt.getNumberOfFish() * hunt.getFish().getLevel().getPoints() )
                             .sum()
