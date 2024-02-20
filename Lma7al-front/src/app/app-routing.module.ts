@@ -6,6 +6,8 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { CompetitionsPageComponent } from './pages/competitions-page/competitions-page.component';
 import { RankingsPageComponent } from './pages/rankings-page/rankings-page.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
+import { LoginComponent } from './pages/auth/login/login.component';
+import { SignupComponent } from './pages/auth/signup/signup.component';
 
 const routes: Routes = [
   {
@@ -14,6 +16,14 @@ const routes: Routes = [
     children: [{ path: '', component: HomePageComponent , data : {
       roles: []
     }}],
+  },
+  {
+    path: 'signin',
+    component: LoginComponent,
+  },
+  {
+    path: 'signup',
+    component: SignupComponent
   },
   {
     path: 'competitions',
