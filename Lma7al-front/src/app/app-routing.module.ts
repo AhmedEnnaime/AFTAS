@@ -20,10 +20,16 @@ const routes: Routes = [
   {
     path: 'signin',
     component: LoginComponent,
+    data: {
+      showAuth: true
+    }
   },
   {
     path: 'signup',
-    component: SignupComponent
+    component: SignupComponent,
+    data: {
+      showAuth: true
+    }
   },
   {
     path: 'competitions',
