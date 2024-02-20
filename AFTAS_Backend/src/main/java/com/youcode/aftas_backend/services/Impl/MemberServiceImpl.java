@@ -49,7 +49,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public MemberDto update(Integer identifier, MemberDto memberDto) {
-        memberDto.setNum(identifier);
+        memberDto.setId(identifier);
         return this.save(memberDto);
     }
 
