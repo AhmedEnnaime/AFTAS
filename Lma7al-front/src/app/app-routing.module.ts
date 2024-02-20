@@ -11,28 +11,38 @@ const routes: Routes = [
   {
     path: '',
     component: MainLayoutComponent,
-    children: [{ path: '', component: HomePageComponent }],
+    children: [{ path: '', component: HomePageComponent , data : {
+      roles: []
+    }}],
   },
   {
     path: 'competitions',
     component: MainLayoutComponent,
-    children: [{ path: '', component: CompetitionsPageComponent }],
+    children: [{ path: '', component: CompetitionsPageComponent, data : {
+      roles: []
+    }}],
   },
   {
     path: 'competitions/:id',
     component: MainLayoutComponent,
-    children: [{ path: '', component: RankingsPageComponent }],
+    children: [{ path: '', component: RankingsPageComponent, data : {
+      roles: []
+    }}],
   },
   {
     path: 'members',
     component: MainLayoutComponent,
-    children: [{ path: '', component: DashboardComponent }],
+    children: [{ path: '', component: DashboardComponent, data : {
+      roles: []
+    }}],
   },
   {
     path: '**',
     pathMatch: 'full',
     component: MainLayoutComponent,
-    children: [{ path: '', component: NotFoundComponent }],
+    children: [{ path: '', component: NotFoundComponent, data : {
+      roles: []
+    }}],
   },
 ];
 
