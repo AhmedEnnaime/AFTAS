@@ -10,6 +10,7 @@ import { Signin } from '../model/interfaces/Signin.model';
 export class AuthService {
 
   private baseUrl: string = 'http://localhost:8082/api/auth';
+  private fakeUrl: string = "http://localhost:3000"
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -28,6 +29,10 @@ export class AuthService {
       password
     }, this.httpOptions).
     pipe(catchError((error) => this.configService.handleError(error)));
+  }
+
+  signinFake():Observable<any>{
+    return this.http.get<any>(`${this.fakeUrl}/login`).pipe(catchError((error) => this.configService.handleError(error)));
   }
 
   //signup

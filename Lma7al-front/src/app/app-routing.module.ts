@@ -8,13 +8,14 @@ import { RankingsPageComponent } from './pages/rankings-page/rankings-page.compo
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { LoginComponent } from './pages/auth/login/login.component';
 import { SignupComponent } from './pages/auth/signup/signup.component';
+import { authGuard } from './auth/auth.guard';
 
 const routes: Routes = [
   {
     path: '',
     component: MainLayoutComponent,
     children: [{ path: '', component: HomePageComponent , data : {
-      roles: []
+      roles: ["JURY"]
     }}],
   },
   {
@@ -48,8 +49,12 @@ const routes: Routes = [
   {
     path: 'members',
     component: MainLayoutComponent,
+    canActivate: [authGuard],
+    data: {
+      roles: ["ADMIN"]
+    },
     children: [{ path: '', component: DashboardComponent, data : {
-      roles: []
+      roles: ["ADMIN"]
     }}],
   },
   {
