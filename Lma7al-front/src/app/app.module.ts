@@ -37,6 +37,8 @@ import { HuntingComponent } from './components/hunting/hunting.component';
 import { DatePipe } from '@angular/common';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { AuthorizationInterceptor } from './authorization.interceptor';
+import { LoginComponent } from './pages/auth/login/login.component';
+import { SignupComponent } from './pages/auth/signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +57,8 @@ import { AuthorizationInterceptor } from './authorization.interceptor';
     RankingsComponent,
     RankingsTableComponent,
     HomePageComponent,
+    LoginComponent,
+    SignupComponent,
   ],
   imports: [
     BrowserModule,

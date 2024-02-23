@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -6,7 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
-  menuItems: any[] = [
+  constructor(private route:ActivatedRoute){
+
+  }
+  menuItems: any[] = []
+  menuItems1: any[] = [
     {
       text: 'Home',
       url: '/',
@@ -23,13 +28,40 @@ export class HeaderComponent implements OnInit {
       notificationCount: 0,
     },
   ];
-
+  menuItems2: any[] = [
+    {
+      text: 'Signin',
+      url: '/signin',
+      notificationCount: 0,
+    },
+    {
+      text: 'Signup',
+      url: '/signup',
+      notificationCount: 4,
+    },
+  ]
   ngOnInit(): void {
-    this.menuItems = this.menuItems.map((item: any) => {
-      return {
-        ...item,
-        isActive: window.location.pathname === item.url,
-      };
+    let showAuth;
+    this.route.data.subscribe(response => {
+      showAuth = response['showAuth'];
     });
+    if(showAuth === true){
+      this.menuItems2 = this.menuItems2.map((item: any) => {
+        console.log(item);
+        return {
+          ...item,
+          isActive: window.location.pathname === item.url,
+        };
+      });
+      this.menuItems = this.menuItems2;
+    }else if(showAuth === undefined){
+      this.menuItems1 = this.menuItems1.map((item: any) => {
+        return {
+          ...item,
+          isActive: window.location.pathname === item.url,
+        };
+      });
+      this.menuItems = this.menuItems1;
+    }
   }
 }

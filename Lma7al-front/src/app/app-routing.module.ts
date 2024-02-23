@@ -6,33 +6,59 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { CompetitionsPageComponent } from './pages/competitions-page/competitions-page.component';
 import { RankingsPageComponent } from './pages/rankings-page/rankings-page.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
+import { LoginComponent } from './pages/auth/login/login.component';
+import { SignupComponent } from './pages/auth/signup/signup.component';
 
 const routes: Routes = [
   {
     path: '',
     component: MainLayoutComponent,
-    children: [{ path: '', component: HomePageComponent }],
+    children: [{ path: '', component: HomePageComponent , data : {
+      roles: []
+    }}],
+  },
+  {
+    path: 'signin',
+    component: LoginComponent,
+    data: {
+      showAuth: true
+    }
+  },
+  {
+    path: 'signup',
+    component: SignupComponent,
+    data: {
+      showAuth: true
+    }
   },
   {
     path: 'competitions',
     component: MainLayoutComponent,
-    children: [{ path: '', component: CompetitionsPageComponent }],
+    children: [{ path: '', component: CompetitionsPageComponent, data : {
+      roles: []
+    }}],
   },
   {
     path: 'competitions/:id',
     component: MainLayoutComponent,
-    children: [{ path: '', component: RankingsPageComponent }],
+    children: [{ path: '', component: RankingsPageComponent, data : {
+      roles: []
+    }}],
   },
   {
     path: 'members',
     component: MainLayoutComponent,
-    children: [{ path: '', component: DashboardComponent }],
+    children: [{ path: '', component: DashboardComponent, data : {
+      roles: []
+    }}],
   },
   {
     path: '**',
     pathMatch: 'full',
     component: MainLayoutComponent,
-    children: [{ path: '', component: NotFoundComponent }],
+    children: [{ path: '', component: NotFoundComponent, data : {
+      roles: []
+    }}],
   },
 ];
 
