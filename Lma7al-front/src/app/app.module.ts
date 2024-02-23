@@ -8,7 +8,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { MemberStateModule } from './store/member/member.state.module';
 import { MemberEffect } from './store/member/member.effect';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { LevelEffect } from './store/level/level.effect';
 import { LevelStateModule } from './store/level/level.state.module';
 import { FishEffect } from './store/fish/fish.effect';
@@ -36,6 +36,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HuntingComponent } from './components/hunting/hunting.component';
 import { DatePipe } from '@angular/common';
 import { HomePageComponent } from './pages/home-page/home-page.component';
+import { AuthorizationInterceptor } from './authorization.interceptor';
+import { LoginComponent } from './pages/auth/login/login.component';
+import { SignupComponent } from './pages/auth/signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +57,8 @@ import { HomePageComponent } from './pages/home-page/home-page.component';
     RankingsComponent,
     RankingsTableComponent,
     HomePageComponent,
+    LoginComponent,
+    SignupComponent,
   ],
   imports: [
     BrowserModule,
@@ -79,7 +84,11 @@ import { HomePageComponent } from './pages/home-page/home-page.component';
     FontAwesomeModule,
     ReactiveFormsModule,
   ],
-  providers: [DatePipe],
+  providers: [DatePipe, {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthorizationInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

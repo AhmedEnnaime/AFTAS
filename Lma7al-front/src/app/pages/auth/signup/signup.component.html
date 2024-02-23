@@ -1,0 +1,55 @@
+<main>
+  <app-header></app-header>
+  <div class="w-screen flex justify-center items-center pt-10">
+    <form class="flex flex-col justify-center items-center gap-5 border border-5 p-5 rounded-md shadow-lg" [formGroup]="fg" (ngSubmit)="onSubmit()">
+      <div class="flex flex-col gap-2">
+        <label for="username" class="font-smibold text-[18px]">Username</label>
+        <input type="username" formControlName="username" id="username" class="border p-2 rounded-md w-[300px]"/>
+      </div>
+      <div class="flex flex-col gap-2">
+        <label for="name" class="font-smibold text-[18px]">Name</label>
+        <input type="text" formControlName="name" id="name" class="border p-2 rounded-md w-[300px]"/>
+      </div>
+      <div class="flex flex-col gap-2">
+        <label for="familyName" class="font-smibold text-[18px]">Family name</label>
+        <input type="text" formControlName="familyName" id="familyName" class="border p-2 rounded-md w-[300px]"/>
+      </div>
+      <div class="flex flex-col gap-2">
+        <label for="nationality" class="font-smibold text-[18px]">nationality</label>
+        <input type="text" formControlName="nationality" id="nationality" class="border p-2 rounded-md w-[300px]"/>
+      </div>
+      <div class="flex flex-col gap-2">
+        <label for="password" class="font-smibold text-[18px]">Password</label>
+        <input type="password" formControlName="password" id="password" class="border p-2 rounded-md w-[300px]"/>
+      </div>
+      <div class="flex flex-col gap-2">
+        <label for="role" class="font-smibold text-[18px]">Role</label>
+        <select formControlName="role" class="border p-2 rounded-md w-[300px]">
+          <option value="JURY">Jury</option>
+          <option value="MEMBER">Member</option>
+        </select>
+      </div>
+      <div class="flex flex-col gap-2">
+        <label for="accessionDate" class="font-smibold text-[18px]">Accession Date</label>
+        <input type="datetime-local" formControlName="accessionDate" id="accessionDate" class="border p-2 rounded-md w-[300px]"/>
+      </div>
+      <div class="flex flex-col gap-2">
+        <label for="nationality" class="font-smibold text-[18px]">Nationality</label>
+        <input type="text" formControlName="nationality" id="nationality" class="border p-2 rounded-md w-[300px]"/>
+      </div>
+      <div class="flex flex-col gap-2">
+        <label for="identityDoc" class="font-smibold text-[18px]">Identity Doc</label>
+        <select formControlName="identityDoc" class="border p-2 rounded-md w-[300px]">
+          <option value="CIN">CIN</option>
+          <option value="CARTE_RESIDENCE">Residence Perimt</option>
+          <option value="PASSPORT">Passport</option>
+        </select>
+      </div>
+      <div class="flex flex-col gap-2">
+        <label for="identityNumber" class="font-smibold text-[18px]">Identity Number</label>
+        <input type="text" formControlName="identityNumber" id="identityNumber" class="border p-2 rounded-md w-[300px]"/>
+      </div>
+      <button class="bg-blue-500 p-3 rounded-md font-bold text-white">Signup</button>
+    </form>
+  </div>
+</main>

@@ -18,6 +18,8 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -35,6 +37,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Table(name = "users")
 @Entity
 public class User implements UserDetails {
@@ -63,18 +66,22 @@ public class User implements UserDetails {
 
     @CreationTimestamp
     @Temporal(value = TemporalType.DATE)
+    @Getter
     private LocalDate accessionDate;
 
     @NotEmpty(message = "Member nationality is required")
+    @Getter
     private String nationality;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
+    @Getter
     private IdentityDocumentType identityDocument;
 
     @NotEmpty(message = "Member identity number is required.")
     @Size(min = 3, max = 255, message = "member identity number should be between 3 and 255 character.")
     @Column(unique = true)
+    @Getter
     private String identityNumber;
 
     @Column(columnDefinition = "BOOLEAN DEFAULT FALSE")

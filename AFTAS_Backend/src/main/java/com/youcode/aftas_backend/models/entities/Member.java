@@ -14,7 +14,6 @@ import lombok.Setter;
 @NoArgsConstructor
 
 @Entity
-@Table(name= "members")
 public class Member extends User {
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)

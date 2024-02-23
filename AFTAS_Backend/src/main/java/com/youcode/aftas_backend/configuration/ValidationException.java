@@ -1,5 +1,6 @@
 package com.youcode.aftas_backend.configuration;
 
+import com.youcode.aftas_backend.exceptions.AlreadyActiveException;
 import com.youcode.aftas_backend.exceptions.PointsValidationException;
 import com.youcode.aftas_backend.exceptions.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -47,6 +48,14 @@ public class ValidationException {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(PointsValidationException.class)
     public Map<String, String> handlePointsValidationException(PointsValidationException ex) {
+        Map<String, String> errors = new HashMap<>();
+        errors.put("error", ex.getMessage());
+        return errors;
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(AlreadyActiveException.class)
+    public Map<String, String> handleAccountAlreadyActiveException(AlreadyActiveException ex) {
         Map<String, String> errors = new HashMap<>();
         errors.put("error", ex.getMessage());
         return errors;
