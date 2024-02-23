@@ -4,5 +4,5 @@ public enum ROLE {
     
     MANAGER,
     JURY,
-    Member;
+    MEMBER;
 }

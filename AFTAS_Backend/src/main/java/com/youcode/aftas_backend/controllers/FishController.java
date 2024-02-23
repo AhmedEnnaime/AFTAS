@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +25,7 @@ public class FishController {
     private final FishService fishService;
 
     @PostMapping
+    @PreAuthorize("hasAnyAuthority('JURY', 'MANAGER')")
     public ResponseEntity<FishDto> createFish(@Valid @RequestBody FishDto fishDto) {
         FishDto createdFish = fishService.save(fishDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdFish);
@@ -48,6 +50,7 @@ public class FishController {
     }
 
     @DeleteMapping("/{name}")
+    @PreAuthorize("hasAnyAuthority('JURY', 'MANAGER')")
     public ResponseEntity<Map<String, String>> deleteFish(@PathVariable String name) {
         fishService.delete(name);
         Map<String, String> response = new HashMap<>();

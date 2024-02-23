@@ -1,7 +1,9 @@
 package com.youcode.aftas_backend.services.Impl;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.youcode.aftas_backend.exceptions.AlreadyActiveException;
@@ -13,16 +15,16 @@ import com.youcode.aftas_backend.repositories.UserRepository;
 import com.youcode.aftas_backend.services.UserService;
 
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
 @AllArgsConstructor
-@NoArgsConstructor
 @Slf4j
 public class UserServiceImpl implements UserService {
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final ModelMapper mapper;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -41,8 +43,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO register(UserDTO userDTO) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'register'");
+        userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+        return mapper.map(
+                userRepository.save(
+                    mapper.map(userDTO, User.class)
+                ),
+                UserDTO.class
+        );
     }
 
     @Override
