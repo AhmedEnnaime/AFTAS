@@ -25,16 +25,10 @@ public class UserController {
 
     private final UserService userService;
 
-    @PostMapping("/register")
-    public ResponseEntity<UserDTO> register(@Valid @RequestBody UserDTO userDTO) {
-        return ResponseEntity.ok(userService.register(userDTO)); 
-    }
-    
-
-    @PostMapping("/activate")
+    @PostMapping("/activate/{username}")
     @PreAuthorize("hasAnyAuthority('MANAGER')")
-    public ResponseEntity<Boolean> activateAccount(@Valid @RequestBody UserDTO userDTO) {
-        return ResponseEntity.ok(userService.activate(userDTO));
+    public ResponseEntity<Boolean> activateAccount(@PathVariable String username) {
+        return ResponseEntity.ok(userService.activate(username));
     }
 
     @PostMapping("/upgrade/{role}")
@@ -42,7 +36,5 @@ public class UserController {
     public ResponseEntity<Boolean> upgradeAccount(@Valid @RequestBody UserDTO userDTO, @PathVariable ROLE role) {
         return ResponseEntity.ok(userService.upgrade(userDTO, role));
     }
-
-
     
 }

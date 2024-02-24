@@ -2,6 +2,7 @@ package com.youcode.aftas_backend.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -44,34 +45,44 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        sharedSecurityConfiguration(http);
-        http.securityMatcher("admin/**").authorizeHttpRequests(auth -> {
-            auth.anyRequest()
-                .hasRole(ROLE.MANAGER.name());
-        }).addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
-
-        return http.build();
-    }
-
-    @Bean
-    public SecurityFilterChain apiSecurityFilterChain(HttpSecurity http) throws Exception {
-        sharedSecurityConfiguration(http);
-        http.securityMatcher("api/**").authorizeHttpRequests(auth -> {
-            auth.anyRequest()
-                .authenticated();
-        }).addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
-
-        return http.build();
-    }
-
-    @Bean
     public SecurityFilterChain authSecurityFilterChain(HttpSecurity http) throws Exception {
         sharedSecurityConfiguration(http);
         http.securityMatcher("auth/**").authorizeHttpRequests(auth -> {
             auth.anyRequest()
                 .permitAll();
         });
+        return http.build();
+    }
+
+    @Bean
+    public SecurityFilterChain memberSecurityFilterChain(HttpSecurity http) throws Exception {
+        sharedSecurityConfiguration(http);
+        http.securityMatcher("competitions/**").authorizeHttpRequests(auth -> {
+            auth.anyRequest()
+                .hasAnyRole(ROLE.MANAGER.name(), ROLE.JURY.name(), ROLE.MEMBER.name());
+        }).addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+
+        return http.build();
+    }
+
+    @Bean
+    public SecurityFilterChain jurySecurityFilterChain(HttpSecurity http) throws Exception {
+        sharedSecurityConfiguration(http);
+        http.securityMatcher("fishes/**", "hunting/**").authorizeHttpRequests(auth -> {
+            auth.anyRequest()
+                .hasAnyRole(ROLE.MANAGER.name(), ROLE.JURY.name());
+        }).addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+
+        return http.build();
+    }
+
+    @Bean
+    public SecurityFilterChain managerSecurityFilterChain(HttpSecurity http) throws Exception {
+        sharedSecurityConfiguration(http);
+        http.securityMatcher("members/**", "levels/**", "rankings/**", "users/**").authorizeHttpRequests(auth -> {
+            auth.anyRequest()
+                .hasAnyRole(ROLE.MANAGER.name());
+        }).addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 

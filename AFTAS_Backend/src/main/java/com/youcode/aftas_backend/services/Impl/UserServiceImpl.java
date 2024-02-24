@@ -1,6 +1,7 @@
 package com.youcode.aftas_backend.services.Impl;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -31,6 +32,9 @@ public class UserServiceImpl implements UserService {
 
         log.debug("Entering in loadUserByUsername Method...");
         User user = findByUsername(username);
+        if (!user.isEnabled()) {
+            throw new DisabledException("User account is not enabled");
+        }
         log.info("User Authenticated Successfully..!!!");
         return user;
     }
@@ -44,6 +48,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDTO register(UserDTO userDTO) {
         userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+        userDTO.setRole(ROLE.MEMBER);
         return mapper.map(
                 userRepository.save(
                     mapper.map(userDTO, User.class)
@@ -53,10 +58,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Boolean activate(UserDTO userDTO) {
-        User user = findByUsername(userDTO.getUsername());
+    public Boolean activate(String username) {
+        User user = findByUsername(username);
         if (user == null)
-            throw new ResourceNotFoundException("User with id " + userDTO.getId() + " not found");
+            throw new ResourceNotFoundException("User with username " + username + " not found");
         if (user.isEnabled())
             throw new AlreadyActiveException("This account is already active");
         userRepository.enableAccount(user.getUsername());

@@ -10,4 +10,6 @@ public class AftasBackendApplication {
         SpringApplication.run(AftasBackendApplication.class, args);
     }
 
+    
+
 }
