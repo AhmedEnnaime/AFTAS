@@ -35,12 +35,12 @@ public class HuntingServiceImpl implements HuntingService {
     @Override
     public SingleHuntDto createHunt(HuntingDto hunting){
         Hunting huntingInstance;
-        if(huntingRepository.existsHuntingByFishNameAndMemberNumAndCompetitionCode(
+        if(huntingRepository.existsHuntingByFishNameAndMemberIdAndCompetitionCode(
                 hunting.getFish_name(),
                 hunting.getMember_num(),
                 hunting.getCompetition_code()
         )){
-            huntingInstance = huntingRepository.findHuntingByFishNameAndMemberNumAndCompetitionCode(hunting.getFish_name(), hunting.getMember_num(), hunting.getCompetition_code());
+            huntingInstance = huntingRepository.findHuntingByFishNameAndMemberIdAndCompetitionCode(hunting.getFish_name(), hunting.getMember_num(), hunting.getCompetition_code());
             huntingInstance.setNumberOfFish( huntingInstance.getNumberOfFish() + hunting.getNumberOfFish() );
         } else {
             huntingInstance = Hunting.builder().numberOfFish(hunting.getNumberOfFish())
@@ -108,6 +108,6 @@ public class HuntingServiceImpl implements HuntingService {
 
     @Override
     public List<SingleHuntDto> findHuntByCompetitionAndMember(String code, int num){
-        return Arrays.asList(modelMapper.map(huntingRepository.findHuntingByCompetitionCodeAndMemberNum(code, num), SingleHuntDto[].class));
+        return Arrays.asList(modelMapper.map(huntingRepository.findHuntingByCompetitionCodeAndMemberId(code, num), SingleHuntDto[].class));
     }
 }

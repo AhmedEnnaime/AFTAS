@@ -1,3 +1,4 @@
 .idea/
+target/
 .AFTAS_Backend/target
 .docker-compose.yml
