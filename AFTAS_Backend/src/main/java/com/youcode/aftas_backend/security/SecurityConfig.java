@@ -81,7 +81,7 @@ public class SecurityConfig {
         sharedSecurityConfiguration(http);
         http.securityMatcher("members/**", "levels/**", "rankings/**", "users/**").authorizeHttpRequests(auth -> {
             auth.anyRequest()
-                .hasAnyRole(ROLE.MANAGER.name());
+                .hasRole(ROLE.MANAGER.name());
         }).addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
