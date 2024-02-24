@@ -51,7 +51,7 @@ const routes: Routes = [
     component: MainLayoutComponent,
     canActivate: [authGuard],
     data: {
-      roles: ["ADMIN"]
+      roles: ["JURY"]
     },
     children: [{ path: '', component: DashboardComponent, data : {
       roles: ["ADMIN"]

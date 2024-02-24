@@ -31,6 +31,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -41,7 +42,6 @@ public class User implements UserDetails {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter
     private Integer id;
 
     @Column(unique = true, nullable = false)
@@ -49,7 +49,6 @@ public class User implements UserDetails {
 
     private String password;
 
-    @Column(columnDefinition = "VARCHAR(255) DEFAULT 'MEMBER'")
     @Enumerated(EnumType.STRING)
     private ROLE role = ROLE.MEMBER;
 

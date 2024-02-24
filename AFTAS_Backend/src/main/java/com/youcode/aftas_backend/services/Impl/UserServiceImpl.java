@@ -49,10 +49,12 @@ public class UserServiceImpl implements UserService {
     public UserDTO register(UserDTO userDTO) {
         userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         userDTO.setRole(ROLE.MEMBER);
+        var saveUser = userRepository.save(
+            mapper.map(userDTO, User.class)
+        );
+        System.out.println(saveUser.getName());
         return mapper.map(
-                userRepository.save(
-                    mapper.map(userDTO, User.class)
-                ),
+                saveUser,
                 UserDTO.class
         );
     }
