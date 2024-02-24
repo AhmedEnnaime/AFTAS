@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.youcode.aftas_backend.exceptions.AlreadyActiveException;
 import com.youcode.aftas_backend.exceptions.ResourceNotFoundException;
@@ -65,6 +66,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public Boolean activate(String username) {
         User user = findByUsername(username);
         if (user == null)
@@ -76,6 +78,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public Boolean upgrade(UserDTO userDTO, ROLE role) {
         User user = findByUsername(userDTO.getUsername());
         if (user == null)

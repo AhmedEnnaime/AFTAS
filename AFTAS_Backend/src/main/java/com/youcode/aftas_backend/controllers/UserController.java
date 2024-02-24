@@ -26,7 +26,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/activate/{username}")
-    //@PreAuthorize("hasAnyAuthority('MANAGER')")
+    @PreAuthorize("hasAnyAuthority('MANAGER')")
     public ResponseEntity<Boolean> activateAccount(@PathVariable String username) {
         return ResponseEntity.ok(userService.activate(username));
     }
