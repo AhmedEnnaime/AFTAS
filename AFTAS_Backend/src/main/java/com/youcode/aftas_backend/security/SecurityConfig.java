@@ -2,6 +2,7 @@ package com.youcode.aftas_backend.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -43,6 +44,7 @@ public class SecurityConfig {
     }
 
     @Bean
+    @Order(1)
     public SecurityFilterChain authSecurityFilterChain(HttpSecurity http) throws Exception {
         sharedSecurityConfiguration(http);
         http.securityMatcher("auth/**").authorizeHttpRequests(auth -> {
@@ -53,6 +55,7 @@ public class SecurityConfig {
     }
 
     @Bean
+    @Order(2)
     public SecurityFilterChain memberSecurityFilterChain(HttpSecurity http) throws Exception {
         sharedSecurityConfiguration(http);
         http.securityMatcher("competitions/**").authorizeHttpRequests(auth -> {
@@ -64,6 +67,7 @@ public class SecurityConfig {
     }
 
     @Bean
+    @Order(3)
     public SecurityFilterChain jurySecurityFilterChain(HttpSecurity http) throws Exception {
         sharedSecurityConfiguration(http);
         http.securityMatcher("fishes/**", "hunting/**").authorizeHttpRequests(auth -> {
@@ -75,6 +79,7 @@ public class SecurityConfig {
     }
 
     @Bean
+    @Order(4)
     public SecurityFilterChain managerSecurityFilterChain(HttpSecurity http) throws Exception {
         sharedSecurityConfiguration(http);
         http.securityMatcher("members/**", "levels/**", "rankings/**", "users/**").authorizeHttpRequests(auth -> {

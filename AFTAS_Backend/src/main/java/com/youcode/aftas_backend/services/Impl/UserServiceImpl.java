@@ -1,8 +1,11 @@
 package com.youcode.aftas_backend.services.Impl;
 
+import java.util.Collections;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -42,7 +45,11 @@ public class UserServiceImpl implements UserService {
             throw new DisabledException("User account is not enabled");
         }
         log.info("User Authenticated Successfully..!!!");
-        return user;
+        return new org.springframework.security.core.userdetails.User(
+            user.getUsername(),
+            user.getPassword(),
+            Collections.singletonList(new SimpleGrantedAuthority(user.getRole().name()))
+        );
     }
 
     @Override
@@ -93,8 +100,7 @@ public class UserServiceImpl implements UserService {
     public AuthResponseDTO login(AuthRequestDTO login) {
         var user = loadUserByUsername(login.getUsername());
         if(passwordEncoder.matches(login.getPassword(), user.getPassword())){
-            System.out.println("jwt test");
-            String token = jwtService.GenerateToken(user.getUsername());
+            String token = jwtService.GenerateToken(user);
             System.out.println(token);
             return AuthResponseDTO.builder().accessToken(token).build();
         }
