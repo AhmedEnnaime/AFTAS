@@ -9,8 +9,7 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
 
-my:
-  jwt:
-    secret: 357638792F423F4428472B4B6250655368566D597133743677397A2443264629
+jwt:
+  secret: 100aa60b3972fe7bc2aa2f7358d7b6d052e86e9bafa85c9fa335e203b7281846

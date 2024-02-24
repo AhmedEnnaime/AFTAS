@@ -2,6 +2,7 @@ package com.youcode.aftas_backend.services.Impl;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.security.authentication.DisabledException;
+import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -13,6 +14,9 @@ import com.youcode.aftas_backend.models.dto.user.UserDTO;
 import com.youcode.aftas_backend.models.entities.User;
 import com.youcode.aftas_backend.models.enums.ROLE;
 import com.youcode.aftas_backend.repositories.UserRepository;
+import com.youcode.aftas_backend.security.JWTService;
+import com.youcode.aftas_backend.security.dto.AuthRequestDTO;
+import com.youcode.aftas_backend.security.dto.AuthResponseDTO;
 import com.youcode.aftas_backend.services.UserService;
 
 import lombok.AllArgsConstructor;
@@ -26,6 +30,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final ModelMapper mapper;
     private final PasswordEncoder passwordEncoder;
+    private final JWTService jwtService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -79,6 +84,18 @@ public class UserServiceImpl implements UserService {
             throw new AlreadyActiveException("This account is not active");
         userRepository.upgradeUserRole(user.getUsername(), role);
         return true;
+    }
+
+    @Override
+    public AuthResponseDTO login(AuthRequestDTO login) {
+        var user = loadUserByUsername(login.getUsername());
+        if(passwordEncoder.matches(login.getPassword(), user.getPassword())){
+            System.out.println("jwt test");
+            String token = jwtService.GenerateToken(user.getUsername());
+            System.out.println(token);
+            return AuthResponseDTO.builder().accessToken(token).build();
+        }
+        throw new InsufficientAuthenticationException("unauthorized");
     }
     
 }

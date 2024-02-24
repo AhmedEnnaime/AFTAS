@@ -39,15 +39,16 @@ public class AuthController {
    
     @PostMapping("/login")
     public ResponseEntity<AuthResponseDTO> login(@Valid @RequestBody AuthRequestDTO authRequestDTO) {
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequestDTO.getUsername(), authRequestDTO.getPassword()));
+        //Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequestDTO.getUsername(), authRequestDTO.getPassword()));
         
-        if (authentication.isAuthenticated()) {
-            String accessToken = jwtService.GenerateToken(authRequestDTO.getUsername());
-            AuthResponseDTO authResponseDTO = AuthResponseDTO.builder().accessToken(accessToken).build();
-            return ResponseEntity.ok(authResponseDTO);
-        } else {
-            throw new UsernameNotFoundException("Invalid user request..!!");
-        }
+        // if (authentication.isAuthenticated()) {
+        //     String accessToken = jwtService.GenerateToken(authRequestDTO.getUsername());
+        //     AuthResponseDTO authResponseDTO = AuthResponseDTO.builder().accessToken(accessToken).build();
+        //     return ResponseEntity.ok(authResponseDTO);
+        // } else {
+        //     throw new UsernameNotFoundException("Invalid user request..!!");
+        // }
+        return ResponseEntity.ok(userService.login(authRequestDTO));
     }
     
 }
