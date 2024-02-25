@@ -10,6 +10,7 @@ import { Role } from '../model/enums/Role.enum';
 })
 export class MemberService {
   private baseUrl: string = 'http://localhost:8082/api/members';
+  private baseUrl2: string = 'http://localhost:8082/api/users';
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -28,10 +29,11 @@ export class MemberService {
 
   enableAccount(
     username: String
-  ): Observable<{ message: string; EnabledAccount: String }> {
+  ): Observable<{ message: string; EnabledAccount: string }> {
+    console.log('enableAccount called with username:', username);
     return this.http
-      .get<{ message: string; EnabledAccount: String }>(
-        `http://localhost:8082/api/users/activate/${username}`,
+      .post<{ message: string; EnabledAccount: string }>(
+        this.baseUrl2 + '/' + username,
         this.httpOptions
       )
       .pipe(catchError((error) => this.configService.handleError(error)));
@@ -42,7 +44,7 @@ export class MemberService {
     username: String
   ): Observable<{ message: string; AccountRole: String }> {
     return this.http
-      .get<{ message: string; AccountRole: String }>(
+      .post<{ message: string; AccountRole: String }>(
         `http://localhost:8082/api/users/upgrade/${username}/${role}`,
         this.httpOptions
       )

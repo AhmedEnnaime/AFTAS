@@ -48,10 +48,10 @@
         Enable Account
       </th>
 
-      <!-- <th scope="col"
+      <th *ngIf="authenticatedUserRole == 'MANAGER'" scope="col"
         class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 none:text-gray-400">
         Upgrade Account
-      </th> -->
+      </th>
 
     </tr>
   </thead>
@@ -113,11 +113,16 @@
         </div>
       </td>
 
-      <!-- <td class="flex items-center px-12 py-4 text-sm font-medium whitespace-nowrap">
-        <div class="inline px-3 py-1 text-sm font-normal rounded-full gap-x-2 none:bg-gray-800">
-          <btn text="Upgrade Role"></btn>
+      <td *ngIf="member.enabled && authenticatedUserRole == 'MANAGER'"
+        class="flex items-center px-12 py-4 text-sm font-medium whitespace-nowrap">
+        <div [formGroup]="fg" (ngSubmit)="upgradeAccount()"
+          class="inline px-3 py-1 text-sm font-normal rounded-full gap-x-2 none:bg-gray-800">
+          <select formControlName="role">
+            <option>JURY</option>
+            <option>MANAGER</option>
+          </select>
         </div>
-      </td> -->
+      </td>
     </tr>
   </tbody>
 </table>

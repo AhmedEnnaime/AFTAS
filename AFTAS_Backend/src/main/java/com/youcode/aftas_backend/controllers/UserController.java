@@ -30,7 +30,7 @@ public class UserController {
         userService.activate(username);
         Map<String, String> response = new HashMap<>();
         response.put("message", "Account enabled successfully.");
-        response.put("Enabled Account", username);
+        response.put("EnabledAccount", username);
         return ResponseEntity.ok(response);
     }
 

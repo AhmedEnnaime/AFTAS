@@ -3,6 +3,7 @@ import { Member } from '../../../model/interfaces/member.model';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
 import { MemberService } from 'src/app/services/member.service';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-members-table',
@@ -18,7 +19,13 @@ export class MembersTableComponent {
 
   authenticatedUserRole = this.authService.getRole();
 
+  fg: FormGroup = new FormGroup({
+    role: new FormControl(''),
+  });
+
   enableAccount(username: String | undefined) {
     this.memberService.enableAccount(username as String);
   }
+
+  upgradeAccount() {}
 }
