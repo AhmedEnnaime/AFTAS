@@ -33,7 +33,7 @@ export class MemberService {
     console.log('enableAccount called with username:', username);
     return this.http
       .post<{ message: string; EnabledAccount: string }>(
-        this.baseUrl2 + '/' + username,
+        this.baseUrl2 + '/activate/' + username,
         this.httpOptions
       )
       .pipe(catchError((error) => this.configService.handleError(error)));

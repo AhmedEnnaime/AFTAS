@@ -24,7 +24,15 @@ export class MembersTableComponent {
   });
 
   enableAccount(username: String | undefined) {
-    this.memberService.enableAccount(username as String);
+    this.memberService.enableAccount(username as String).subscribe(response => {
+      // this.members?.forEach(members => {
+      //   members.map(member => {
+      //     if(member.username == username)
+      //       member.enabled = true;
+      //     return member;
+      //   })
+      // })
+    });
   }
 
   upgradeAccount() {}
