@@ -104,7 +104,7 @@ public class UserServiceImpl implements UserService {
             String username = user.getUsername();
             User userData = userRepository.findByUsername(username).get();
             Integer userId = userData.getId();
-            return AuthResponseDTO.builder().accessToken(token).userId(userId).username(username).build();
+            return AuthResponseDTO.builder().accessToken(token).userId(userId).username(username).role(userData.getRole().name()).build();
         }
         throw new InsufficientAuthenticationException("unauthorized");
     }

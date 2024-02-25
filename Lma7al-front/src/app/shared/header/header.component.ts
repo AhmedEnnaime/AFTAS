@@ -27,6 +27,11 @@ export class HeaderComponent implements OnInit {
       url: '/competitions',
       notificationCount: 0,
     },
+    {
+      text: 'Signin',
+      url: '/signin',
+      notificationCount: 0,
+    },
   ];
   menuItems2: any[] = [
     {

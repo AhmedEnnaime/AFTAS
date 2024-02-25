@@ -39,6 +39,8 @@ import { HomePageComponent } from './pages/home-page/home-page.component';
 import { AuthorizationInterceptor } from './authorization.interceptor';
 import { LoginComponent } from './pages/auth/login/login.component';
 import { SignupComponent } from './pages/auth/signup/signup.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarModule} from "@angular/material/snack-bar";
 
 @NgModule({
   declarations: [
@@ -62,6 +64,7 @@ import { SignupComponent } from './pages/auth/signup/signup.component';
   ],
   imports: [
     BrowserModule,
+    MatSnackBarModule,
     AppRoutingModule,
     StoreModule.forRoot({}, {}),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
@@ -83,11 +86,14 @@ import { SignupComponent } from './pages/auth/signup/signup.component';
     SahredModule,
     FontAwesomeModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
   ],
   providers: [DatePipe, {
     provide: HTTP_INTERCEPTORS,
     useClass: AuthorizationInterceptor,
     multi: true
+  }, {
+    provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 1300}
   }],
   bootstrap: [AppComponent],
 })

@@ -16,7 +16,7 @@ export class ConfigService {
       );
     }
     return throwError(
-      () => new Error('Something bad happened; please try again later.')
+      () => new Error(error.error.error)
     );
   }
 }
