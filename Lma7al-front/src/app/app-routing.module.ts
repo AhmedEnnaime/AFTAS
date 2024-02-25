@@ -14,56 +14,86 @@ const routes: Routes = [
   {
     path: '',
     component: MainLayoutComponent,
-    children: [{ path: '', component: HomePageComponent , data : {
-      roles: ["JURY"]
-    }}],
+    children: [
+      {
+        path: '',
+        component: HomePageComponent,
+        data: {
+          roles: ['MANAGER', 'JURY', 'MEMBER'],
+        },
+      },
+    ],
   },
   {
     path: 'signin',
     component: LoginComponent,
     data: {
-      showAuth: true
-    }
+      showAuth: true,
+    },
   },
   {
     path: 'signup',
     component: SignupComponent,
     data: {
-      showAuth: true
-    }
+      showAuth: true,
+    },
   },
   {
     path: 'competitions',
     component: MainLayoutComponent,
-    children: [{ path: '', component: CompetitionsPageComponent, data : {
-      roles: []
-    }}],
+    children: [
+      {
+        path: '',
+        component: CompetitionsPageComponent,
+        data: {
+          roles: ['MEMBER', 'MANAGER', 'JURY'],
+        },
+      },
+    ],
   },
   {
     path: 'competitions/:id',
     component: MainLayoutComponent,
-    children: [{ path: '', component: RankingsPageComponent, data : {
-      roles: []
-    }}],
+    children: [
+      {
+        path: '',
+        component: RankingsPageComponent,
+        data: {
+          roles: ['MANAGER', 'JURY'],
+        },
+      },
+    ],
   },
   {
     path: 'members',
     component: MainLayoutComponent,
     canActivate: [authGuard],
     data: {
-      roles: ["JURY"]
+      roles: ['JURY', 'MANAGER'],
     },
-    children: [{ path: '', component: DashboardComponent, data : {
-      roles: ["ADMIN"]
-    }}],
+    children: [
+      {
+        path: '',
+        component: DashboardComponent,
+        data: {
+          roles: ['MANAGER'],
+        },
+      },
+    ],
   },
   {
     path: '**',
     pathMatch: 'full',
     component: MainLayoutComponent,
-    children: [{ path: '', component: NotFoundComponent, data : {
-      roles: []
-    }}],
+    children: [
+      {
+        path: '',
+        component: NotFoundComponent,
+        data: {
+          roles: [],
+        },
+      },
+    ],
   },
 ];
 

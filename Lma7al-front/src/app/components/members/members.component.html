@@ -1,67 +1,51 @@
 <section class="container px-4 mx-auto">
 
   <div class="mt-6 md:flex md:items-center md:justify-between">
-    <div class="inline-flex text-2xl overflow-hidden divide-x none:bg-gray-900 rtl:flex-row-reverse none:border-gray-700 none:divide-gray-700">
+    <div
+      class="inline-flex text-2xl overflow-hidden divide-x none:bg-gray-900 rtl:flex-row-reverse none:border-gray-700 none:divide-gray-700">
       Members
     </div>
 
     <div class="relative flex items-center mt-4 md:mt-0">
-            <span class="absolute">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mx-3 text-gray-400 none:text-gray-600">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                </svg>
-            </span>
+      <span class="absolute">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+          class="w-5 h-5 mx-3 text-gray-400 none:text-gray-600">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+        </svg>
+      </span>
 
-      <input type="text" value="" (input)="searchForMember($event.target)" placeholder="Search" class="block w-full py-1.5 pr-5 text-gray-700 bg-white border border-gray-200 rounded-lg md:w-80 placeholder-gray-400/70 pl-11 rtl:pr-11 rtl:pl-5 none:bg-gray-900 none:text-gray-300 none:border-gray-600 focus:border-blue-400 none:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40">
+      <input type="text" value="" (input)="searchForMember($event.target)" placeholder="Search"
+        class="block w-full py-1.5 pr-5 text-gray-700 bg-white border border-gray-200 rounded-lg md:w-80 placeholder-gray-400/70 pl-11 rtl:pr-11 rtl:pl-5 none:bg-gray-900 none:text-gray-300 none:border-gray-600 focus:border-blue-400 none:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40">
     </div>
 
-    <popup title="Add member" description="add member by fillin the fields bellow." submitText="Add" (submit)="addMember()">
-      <button btn class="flex items-center justify-center w-1/2 px-5 py-2 text-sm tracking-wide text-white transition-colors duration-200 bg-blue-500 rounded-lg shrink-0 sm:w-auto gap-x-2 hover:bg-blue-600">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-
-        <span>Add member</span>
-      </button>
+    <popup title="Add member" description="add member by fillin the fields bellow." submitText="Add"
+      (submit)="addMember()">
 
       <form form-body [formGroup]="memberForm" class="grid grid-cols-1 sm:grid-cols-2 gap-x-3 gap-y-6">
-        <text-input
-          [control]="memberForm.get('name')"
-          placeholder="Enter member name"
-        />
-        <text-input
-          [control]="memberForm.get('familyName')"
-          placeholder="Enter member family name"
-        />
-        <text-input
-          [control]="memberForm.get('nationality')"
-          placeholder="Nationality"
-          class="col-span-2"
-        />
+        <text-input [control]="memberForm.get('name')" placeholder="Enter member name" />
+        <text-input [control]="memberForm.get('familyName')" placeholder="Enter member family name" />
+        <text-input [control]="memberForm.get('nationality')" placeholder="Nationality" class="col-span-2" />
         <div>
           <label class="block text-left text-sm text-gray-500 none:text-gray-300 font-bold">Identity Document</label>
           <div class="relative">
-            <select
-              formControlName="identityDocument"
-              class="block w-full mt-2 rounded-lg border border-gray-300 none:border-gray-700 bg-white none:bg-gray-900 px-5 py-2.5 text-gray-700 none:text-gray-300 focus:border-red-400 focus:outline-none focus:ring focus:ring-red-300 focus:ring-opacity-40 transition-all duration-200"
-            >
+            <select formControlName="identityDocument"
+              class="block w-full mt-2 rounded-lg border border-gray-300 none:border-gray-700 bg-white none:bg-gray-900 px-5 py-2.5 text-gray-700 none:text-gray-300 focus:border-red-400 focus:outline-none focus:ring focus:ring-red-300 focus:ring-opacity-40 transition-all duration-200">
               <option value="" disabled selected>Select Identity Document</option>
               <option value="PASSPORT">PASSPORT</option>
               <option value="CIN">CIN</option>
               <option value="CART_RESIDENCE">CART_RESIDENCE</option>
             </select>
             <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
-              <svg class="h-5 w-5 text-gray-500 none:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <svg class="h-5 w-5 text-gray-500 none:text-gray-300" fill="none" stroke="currentColor"
+                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
               </svg>
             </div>
           </div>
         </div>
-        <text-input
-          label="Identity Number"
-          [control]="memberForm.get('identityNumber')"
-          placeholder="Enter identity  number"
-        />
+        <text-input label="Identity Number" [control]="memberForm.get('identityNumber')"
+          placeholder="Enter identity  number" />
       </form>
     </popup>
 
