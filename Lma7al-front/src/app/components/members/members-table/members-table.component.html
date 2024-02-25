@@ -115,13 +115,14 @@
 
       <td *ngIf="member.enabled && authenticatedUserRole == 'MANAGER'"
         class="flex items-center px-12 py-4 text-sm font-medium whitespace-nowrap">
-        <form [formGroup]="fg" (ngSubmit)="upgradeAccount()"
-          class="inline px-3 py-1 text-sm font-normal rounded-full gap-x-2 none:bg-gray-800">
+        <form [formGroup]="fg" (ngSubmit)="upgradeAccount(member.username)"
+          class="flex px-3 py-1 text-sm font-normal rounded-full gap-x-2 none:bg-gray-800">
           <select class="border p-2 rounded-md w-[100px]" formControlName="role">
             <option value="{{ member.role }}" disabled selected>{{ member.role }}</option>
             <option value="JURY">JURY</option>
             <option value="MANAGER">MANAGER</option>
           </select>
+          <btn text="Upgrade Account"></btn>
         </form>
       </td>
     </tr>

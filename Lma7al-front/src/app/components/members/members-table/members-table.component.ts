@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
 import { MemberService } from 'src/app/services/member.service';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-members-table',
@@ -14,7 +15,8 @@ export class MembersTableComponent {
 
   constructor(
     private authService: AuthService,
-    private memberService: MemberService
+    private memberService: MemberService,
+    private router: Router
   ) {}
 
   authenticatedUserRole = this.authService.getRole();
@@ -24,16 +26,20 @@ export class MembersTableComponent {
   });
 
   enableAccount(username: String | undefined) {
-    this.memberService.enableAccount(username as String).subscribe(response => {
-      // this.members?.forEach(members => {
-      //   members.map(member => {
-      //     if(member.username == username)
-      //       member.enabled = true;
-      //     return member;
-      //   })
-      // })
-    });
+    this.memberService
+      .enableAccount(username as String)
+      .subscribe((response) => {
+        console.log(response);
+        this.router.navigate(['/members']);
+      });
   }
 
-  upgradeAccount() {}
+  upgradeAccount(username: String | undefined) {
+    this.memberService
+      .upgradeRole(this.fg.getRawValue().role, username as String)
+      .subscribe((response) => {
+        console.log(response);
+        this.router.navigate(['/members']);
+      });
+  }
 }
