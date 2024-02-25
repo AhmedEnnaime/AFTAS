@@ -35,6 +35,15 @@ export class AuthService {
     pipe(catchError((error) => this.configService.handleError(error)));
   }
 
+  //logout
+
+  logout(){
+    localStorage.removeItem("role");
+    localStorage.removeItem("username");
+    localStorage.removeItem("id");
+    localStorage.removeItem("token");
+  }
+
   //credentiels getter
 
   getRole():string|null{
