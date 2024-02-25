@@ -86,10 +86,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public Boolean upgrade(UserDTO userDTO, ROLE role) {
-        User user = findByUsername(userDTO.getUsername());
+    public Boolean upgrade(String username, ROLE role) {
+        User user = findByUsername(username);
         if (user == null)
-            throw new ResourceNotFoundException("User with id " + userDTO.getId() + " not found");
+            throw new ResourceNotFoundException("User with username " + username + " not found");
         if (!user.isEnabled())
             throw new AlreadyActiveException("This account is not active");
         userRepository.upgradeUserRole(user.getUsername(), role);
@@ -101,8 +101,10 @@ public class UserServiceImpl implements UserService {
         var user = loadUserByUsername(login.getUsername());
         if(passwordEncoder.matches(login.getPassword(), user.getPassword())){
             String token = jwtService.GenerateToken(user);
-            System.out.println(token);
-            return AuthResponseDTO.builder().accessToken(token).build();
+            String username = user.getUsername();
+            User userData = userRepository.findByUsername(username).get();
+            Integer userId = userData.getId();
+            return AuthResponseDTO.builder().accessToken(token).userId(userId).username(username).build();
         }
         throw new InsufficientAuthenticationException("unauthorized");
     }

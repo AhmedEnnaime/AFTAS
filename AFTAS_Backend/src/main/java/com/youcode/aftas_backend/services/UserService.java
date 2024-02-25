@@ -12,6 +12,6 @@ public interface UserService extends UserDetailsService {
     User findByUsername(String username);
     UserDTO register(UserDTO userDTO);
     Boolean activate(String username);
-    Boolean upgrade(UserDTO userDTO, ROLE role);
+    Boolean upgrade(String username, ROLE role);
     AuthResponseDTO login(AuthRequestDTO login);
 }

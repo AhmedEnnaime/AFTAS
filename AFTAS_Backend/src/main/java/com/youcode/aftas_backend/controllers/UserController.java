@@ -31,10 +31,10 @@ public class UserController {
         return ResponseEntity.ok(userService.activate(username));
     }
 
-    @PostMapping("/upgrade/{role}")
+    @PostMapping("/upgrade/{username}/{role}")
     @PreAuthorize("hasAnyAuthority('MANAGER')")
-    public ResponseEntity<Boolean> upgradeAccount(@Valid @RequestBody UserDTO userDTO, @PathVariable ROLE role) {
-        return ResponseEntity.ok(userService.upgrade(userDTO, role));
+    public ResponseEntity<Boolean> upgradeAccount(@PathVariable String username, @PathVariable ROLE role) {
+        return ResponseEntity.ok(userService.upgrade(username, role));
     }
     
 }
