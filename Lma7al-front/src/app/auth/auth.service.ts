@@ -30,7 +30,7 @@ export class AuthService {
   //signup
 
   signup(signup:any):Observable<any>{
-    return this.http.post<any>(`${this.baseUrl}/signup`,
+    return this.http.post<any>(`${this.baseUrl}/register`,
     signup, this.httpOptions).
     pipe(catchError((error) => this.configService.handleError(error)));
   }

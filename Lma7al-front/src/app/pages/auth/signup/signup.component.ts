@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
 
@@ -12,7 +13,8 @@ export class SignupComponent {
 
   constructor(
     private authService:AuthService,
-    private router:Router
+    private router:Router,
+    private snackBar: MatSnackBar
     ){}
 
   fg:FormGroup = new FormGroup({
@@ -34,6 +36,11 @@ export class SignupComponent {
   onSubmit(){
     this.authService.signup(this.fg.getRawValue()).subscribe(response => {
       this.router.navigate(["/signin"]);
+    }, (error)=>{
+      this.snackBar.open(error, "", {
+        horizontalPosition: 'right',
+        verticalPosition: 'bottom'
+      });
     });
   }
 
