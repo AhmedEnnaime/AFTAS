@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -7,9 +8,9 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
-  constructor(private route:ActivatedRoute){
-
+  constructor(private route:ActivatedRoute, private authService:AuthService){
   }
+
   menuItems: any[] = []
   menuItems1: any[] = [
     {
@@ -25,11 +26,6 @@ export class HeaderComponent implements OnInit {
     {
       text: 'Competitions',
       url: '/competitions',
-      notificationCount: 0,
-    },
-    {
-      text: 'Signin',
-      url: '/signin',
       notificationCount: 0,
     },
   ];
@@ -50,6 +46,12 @@ export class HeaderComponent implements OnInit {
     this.route.data.subscribe(response => {
       showAuth = response['showAuth'];
     });
+    if(this.authService.getToken() == undefined)
+      this.menuItems1.push({
+        text: 'Signin',
+        url: '/signin',
+        notificationCount: 0,
+      });
     if(showAuth === true){
       this.menuItems2 = this.menuItems2.map((item: any) => {
         console.log(item);

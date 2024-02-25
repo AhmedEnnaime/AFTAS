@@ -20,6 +20,7 @@ export class AuthorizationInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     const excluded_routes:string[] = ['signin', 'login'];
+    console.log("inside the interceptor");
     if(excluded_routes.some((route:string) => this.router.url.includes(route)))
       return next.handle(request);
     const modifiedRequest = request.clone({
@@ -27,6 +28,6 @@ export class AuthorizationInterceptor implements HttpInterceptor {
         "Authorization": `Bearer ${this.authService.getToken()}`
       }),
     });
-    return next.handle(request);
+    return next.handle(modifiedRequest);
   }
 }
