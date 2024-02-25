@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { ConfigService } from '../config/config.service';
 import { Observable, catchError } from 'rxjs';
 import { Member } from '../model/interfaces/member.model';
+import { Role } from '../model/enums/Role.enum';
 
 @Injectable({
   providedIn: 'root',
@@ -22,6 +23,29 @@ export class MemberService {
   getMembers(): Observable<Member[]> {
     return this.http
       .get<Member[]>(this.baseUrl, this.httpOptions)
+      .pipe(catchError((error) => this.configService.handleError(error)));
+  }
+
+  enableAccount(
+    username: String
+  ): Observable<{ message: string; EnabledAccount: String }> {
+    return this.http
+      .get<{ message: string; EnabledAccount: String }>(
+        `http://localhost:8082/api/users/activate/${username}`,
+        this.httpOptions
+      )
+      .pipe(catchError((error) => this.configService.handleError(error)));
+  }
+
+  upgradeRole(
+    role: Role,
+    username: String
+  ): Observable<{ message: string; AccountRole: String }> {
+    return this.http
+      .get<{ message: string; AccountRole: String }>(
+        `http://localhost:8082/api/users/upgrade/${username}/${role}`,
+        this.httpOptions
+      )
       .pipe(catchError((error) => this.configService.handleError(error)));
   }
 

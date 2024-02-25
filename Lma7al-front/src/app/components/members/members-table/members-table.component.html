@@ -1,69 +1,123 @@
 <table class="min-w-full divide-y divide-gray-200 none:divide-gray-700">
   <thead class="bg-gray-50 none:bg-gray-800">
-  <tr>
-    <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 none:text-gray-400">
-      Name
-    </th>
+    <tr>
 
-    <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 none:text-gray-400">
-      Family Name
-    </th>
+      <th scope="col"
+        class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 none:text-gray-400">
+        Username
+      </th>
 
-    <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 none:text-gray-400">
-      Accession Date
-    </th>
 
-    <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 none:text-gray-400">
-      nationality
-    </th>
+      <th scope="col"
+        class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 none:text-gray-400">
+        Name
+      </th>
 
-    <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 none:text-gray-400">
-      Identity Document
-    </th>
+      <th scope="col"
+        class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 none:text-gray-400">
+        Family Name
+      </th>
 
-    <th scope="col" class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 none:text-gray-400">
-      Identity Number
-    </th>
+      <th scope="col"
+        class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 none:text-gray-400">
+        Accession Date
+      </th>
 
-  </tr>
+      <th scope="col"
+        class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 none:text-gray-400">
+        nationality
+      </th>
+
+      <th scope="col"
+        class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 none:text-gray-400">
+        Identity Document
+      </th>
+
+      <th scope="col"
+        class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 none:text-gray-400">
+        Identity Number
+      </th>
+
+      <th scope="col"
+        class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 none:text-gray-400">
+        Role
+      </th>
+
+      <th *ngIf="authenticatedUserRole == 'MANAGER'" scope="col"
+        class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 none:text-gray-400">
+        Enable Account
+      </th>
+
+      <!-- <th scope="col"
+        class="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 none:text-gray-400">
+        Upgrade Account
+      </th> -->
+
+    </tr>
   </thead>
   <tbody class="bg-white divide-y divide-gray-200 none:divide-gray-700 none:bg-gray-900">
-  <tr *ngFor="let member of members | async">
-    <td class="px-12 py-4 text-sm font-medium whitespace-nowrap">
-      <div class="inline px-3 py-1 text-sm font-normal rounded-full gap-x-2 none:bg-gray-800">
-        {{member?.name}}
-      </div>
-    </td>
+    <tr *ngFor="let member of members | async">
 
-    <td class="px-12 py-4 text-sm font-medium whitespace-nowrap">
-      <div class="inline px-3 py-1 text-sm font-normal rounded-full gap-x-2 none:bg-gray-800">
-        {{member?.familyName}}
-      </div>
-    </td>
+      <td class="px-12 py-4 text-sm font-medium whitespace-nowrap">
+        <div class="inline px-3 py-1 text-sm font-normal rounded-full gap-x-2 none:bg-gray-800">
+          {{member?.username}}
+        </div>
+      </td>
 
-    <td class="px-12 py-4 text-sm font-medium whitespace-nowrap">
-      <div class="inline px-3 py-1 text-sm font-normal rounded-full gap-x-2 none:bg-gray-800">
-        {{member?.accessionDate}}
-      </div>
-    </td>
+      <td class="px-12 py-4 text-sm font-medium whitespace-nowrap">
+        <div class="inline px-3 py-1 text-sm font-normal rounded-full gap-x-2 none:bg-gray-800">
+          {{member?.name}}
+        </div>
+      </td>
 
-    <td class="px-12 py-4 text-sm font-medium whitespace-nowrap">
-      <div class="inline px-3 py-1 text-sm font-normal rounded-full gap-x-2 none:bg-gray-800">
-        {{member?.nationality}}
-      </div>
-    </td>
+      <td class="px-12 py-4 text-sm font-medium whitespace-nowrap">
+        <div class="inline px-3 py-1 text-sm font-normal rounded-full gap-x-2 none:bg-gray-800">
+          {{member?.familyName}}
+        </div>
+      </td>
 
-    <td class="px-12 py-4 text-sm font-medium whitespace-nowrap">
-      <div class="inline px-3 py-1 text-sm font-normal rounded-full gap-x-2 none:bg-gray-800">
-        {{member?.identityDocument}}
-      </div>
-    </td>
+      <td class="px-12 py-4 text-sm font-medium whitespace-nowrap">
+        <div class="inline px-3 py-1 text-sm font-normal rounded-full gap-x-2 none:bg-gray-800">
+          {{member?.accessionDate}}
+        </div>
+      </td>
 
-    <td class="px-12 py-4 text-sm font-medium whitespace-nowrap">
-      <div class="inline px-3 py-1 text-sm font-normal rounded-full gap-x-2 none:bg-gray-800">
-        {{member?.identityNumber}}
-      </div>
-    </td>
-  </tr>
+      <td class="px-12 py-4 text-sm font-medium whitespace-nowrap">
+        <div class="inline px-3 py-1 text-sm font-normal rounded-full gap-x-2 none:bg-gray-800">
+          {{member?.nationality}}
+        </div>
+      </td>
+
+      <td class="px-12 py-4 text-sm font-medium whitespace-nowrap">
+        <div class="inline px-3 py-1 text-sm font-normal rounded-full gap-x-2 none:bg-gray-800">
+          {{member?.identityDocument}}
+        </div>
+      </td>
+
+      <td class="px-12 py-4 text-sm font-medium whitespace-nowrap">
+        <div class="inline px-3 py-1 text-sm font-normal rounded-full gap-x-2 none:bg-gray-800">
+          {{member?.identityNumber}}
+        </div>
+      </td>
+
+      <td class="px-12 py-4 text-sm font-medium whitespace-nowrap">
+        <div class="inline px-3 py-1 text-sm font-normal rounded-full gap-x-2 none:bg-gray-800">
+          {{member?.role}}
+        </div>
+      </td>
+
+      <td *ngIf="!member.enabled && authenticatedUserRole == 'MANAGER'"
+        class="flex items-center px-12 py-4 text-sm font-medium whitespace-nowrap">
+        <div class="inline px-3 py-1 text-sm font-normal rounded-full gap-x-2 none:bg-gray-800">
+          <btn (btnClick)="enableAccount(member?.username)" text="Enable Account"></btn>
+        </div>
+      </td>
+
+      <!-- <td class="flex items-center px-12 py-4 text-sm font-medium whitespace-nowrap">
+        <div class="inline px-3 py-1 text-sm font-normal rounded-full gap-x-2 none:bg-gray-800">
+          <btn text="Upgrade Role"></btn>
+        </div>
+      </td> -->
+    </tr>
   </tbody>
 </table>
