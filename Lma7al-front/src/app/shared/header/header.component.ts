@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
@@ -8,7 +8,11 @@ import { AuthService } from 'src/app/auth/auth.service';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
-  constructor(private route:ActivatedRoute, private authService:AuthService){
+  constructor(
+    private route:ActivatedRoute,
+    private authService:AuthService,
+    private router:Router
+    ){
   }
 
   menuItems: any[] = []
@@ -28,6 +32,11 @@ export class HeaderComponent implements OnInit {
       url: '/competitions',
       notificationCount: 0,
     },
+    {
+      text: 'Logout',
+      url: '',
+      notificationCount: 1
+    }
   ];
   menuItems2: any[] = [
     {
@@ -40,7 +49,14 @@ export class HeaderComponent implements OnInit {
       url: '/signup',
       notificationCount: 4,
     },
-  ]
+  ];
+
+  authenticated = this.authService.getToken();
+
+  onLogout(){
+    this.authService.logout();
+    this.router.navigate(["/signin"]);
+  }
   ngOnInit(): void {
     let showAuth;
     this.route.data.subscribe(response => {

@@ -18,6 +18,7 @@ const routes: Routes = [
       {
         path: '',
         component: HomePageComponent,
+        canActivate: [authGuard],
         data: {
           roles: ['MANAGER', 'JURY', 'MEMBER'],
         },
@@ -44,6 +45,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
+        canActivate: [authGuard],
         component: CompetitionsPageComponent,
         data: {
           roles: ['MEMBER', 'MANAGER', 'JURY'],
@@ -57,6 +59,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
+        canActivate: [authGuard],
         component: RankingsPageComponent,
         data: {
           roles: ['MANAGER', 'JURY'],
@@ -74,6 +77,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
+        canActivate: [authGuard],
         component: DashboardComponent,
         data: {
           roles: ['MANAGER'],
