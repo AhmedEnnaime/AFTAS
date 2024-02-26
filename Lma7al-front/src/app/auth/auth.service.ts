@@ -5,10 +5,9 @@ import { Observable, catchError } from 'rxjs';
 import { Signin } from '../model/interfaces/Signin.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-
   private baseUrl: string = 'http://localhost:8082/api/auth';
 
   httpOptions = {
@@ -22,61 +21,62 @@ export class AuthService {
 
   //signin
 
-  signin(login:any):Observable<Signin>{
-    return this.http.post<Signin>(`${this.baseUrl}/login`, login, this.httpOptions).
-    pipe(catchError((error) => this.configService.handleError(error)));
+  signin(login: any): Observable<any> {
+    return this.http
+      .post<any>(`${this.baseUrl}/login`, login, this.httpOptions)
+      .pipe(catchError((error) => this.configService.handleError(error)));
   }
 
   //signup
 
-  signup(signup:any):Observable<any>{
-    return this.http.post<any>(`${this.baseUrl}/register`,
-    signup, this.httpOptions).
-    pipe(catchError((error) => this.configService.handleError(error)));
+  signup(signup: any): Observable<any> {
+    return this.http
+      .post<any>(`${this.baseUrl}/register`, signup, this.httpOptions)
+      .pipe(catchError((error) => this.configService.handleError(error)));
   }
 
   //logout
 
-  logout(){
-    localStorage.removeItem("role");
-    localStorage.removeItem("username");
-    localStorage.removeItem("id");
-    localStorage.removeItem("token");
+  logout() {
+    localStorage.removeItem('role');
+    localStorage.removeItem('username');
+    localStorage.removeItem('id');
+    localStorage.removeItem('token');
   }
 
   //credentiels getter
 
-  getRole():string|null{
-    return localStorage.getItem("role");
+  getRole(): string | null {
+    return localStorage.getItem('role');
   }
 
-  getUsername():string|null{
-    return localStorage.getItem("username");
+  getUsername(): string | null {
+    return localStorage.getItem('username');
   }
 
-  getId():string|null{
-    return localStorage.getItem("id");
+  getId(): string | null {
+    return localStorage.getItem('id');
   }
 
-  getToken():string|null{
-    return localStorage.getItem("token");
+  getToken(): string | null {
+    return localStorage.getItem('token');
   }
 
   //credentiels setter
 
-  setRole(role:string):void{
-    localStorage.setItem("role", role);
+  setRole(role: string): void {
+    localStorage.setItem('role', role);
   }
 
-  setUsername(username: string):void{
-    localStorage.setItem("username", username);
+  setUsername(username: string): void {
+    localStorage.setItem('username', username);
   }
 
-  setId(id:string):void{
-    localStorage.setItem("id", id);
+  setId(id: string): void {
+    localStorage.setItem('id', id);
   }
 
-  setToken(token:string):void{
-    localStorage.setItem("token", token);
+  setToken(token: string): void {
+    localStorage.setItem('token', token);
   }
 }

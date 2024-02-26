@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService {
         var saveUser = userRepository.save(
             mapper.map(userDTO, User.class)
         );
-        System.out.println(saveUser.getName());
+        // userRepository.updateDType();
         return mapper.map(
                 saveUser,
                 UserDTO.class
